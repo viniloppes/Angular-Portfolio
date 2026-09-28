@@ -1,60 +1,58 @@
-
-import { Component, inject, signal } from '@angular/core';
-import { DataView } from 'primeng/dataview';
 import { ButtonModule } from 'primeng/button';
-import { Tag } from 'primeng/tag';
-import { CardModule } from 'primeng/card';
-import { CommonModule } from '@angular/common';
-import { Project, projects } from './projects';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { CaseGallery } from '../../components/case-gallery/case-gallery';
+import { PortfolioApiService } from '../../core/portfolio-api.service';
+import { PortfolioCase } from '../../core/portfolio-case';
 
-interface Product {
-  id: '1000',
-  code: 'f230fh0g3',
-  name: 'Bamboo Watch',
-  description: 'Product Description',
-  image: 'bamboo-watch.jpg',
-  price: 65,
-  category: 'Accessories',
-  quantity: 24,
-  inventoryStatus: 'INSTOCK' | 'LOWSTOCK' | 'OUTOFSTOCK',
-  rating: 5
-}
 @Component({
   selector: 'app-projects-page',
-  imports: [DataView, ButtonModule, Tag, CommonModule, CardModule],
+  imports: [ButtonModule, CommonModule, CaseGallery],
+  host: { class: 'block' },
   templateUrl: './projects-page.html',
-  styleUrl: './projects-page.css',
 })
-export class ProjectsPage {
+export class ProjectsPage implements OnInit {
+  private readonly api = inject(PortfolioApiService);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  products = signal<any>([]);
-  projects: Project[] = [];
+  readonly cases = signal<PortfolioCase[]>([]);
+  readonly loading = signal(true);
+  readonly errorMessage = signal('');
+  readonly activeCategory = signal('Todos');
 
+  readonly categories = computed(() => [
+    'Todos',
+    ...new Set(
+      this.cases()
+        .map((item) => item.category)
+        .filter(Boolean),
+    ),
+  ]);
+  readonly visibleCases = computed(() =>
+    this.activeCategory() === 'Todos'
+      ? this.cases()
+      : this.cases().filter((item) => item.category === this.activeCategory()),
+  );
 
-  ngOnInit() {
-    // this.projects.set([...projects])
-    this.projects = projects;
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) void this.loadCases();
   }
 
-  getSeverity(product: Product) {
-    switch (product.inventoryStatus) {
-      case 'INSTOCK':
-        return 'success';
+  async loadCases(): Promise<void> {
+    this.loading.set(true);
+    this.errorMessage.set('');
 
-      case 'LOWSTOCK':
-        return 'warn';
-
-      case 'OUTOFSTOCK':
-        return 'danger';
-
-      default:
-        return null;
+    try {
+      this.cases.set(await this.api.getPublicCases());
+      if (!this.categories().includes(this.activeCategory())) this.activeCategory.set('Todos');
+    } catch {
+      this.errorMessage.set('O catálogo não respondeu. Tente novamente em alguns instantes.');
+    } finally {
+      this.loading.set(false);
     }
   }
-  openUrl(url: string) {
-    console.log(url);
 
-    window.open(url, '_blank');
+  setCategory(category: string): void {
+    this.activeCategory.set(category);
   }
 }
-

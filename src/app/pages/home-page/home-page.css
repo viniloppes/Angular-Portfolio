@@ -1,9 +1,0 @@
-:host ::ng-deep {
-    .p-scrollpanel {
-        &.custombar {
-            .p-scrollpanel-bar {
-                background-color: var(--p-scrollpanel-bar-background);
-            }
-        }
-    }
-}

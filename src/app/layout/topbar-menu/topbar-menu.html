@@ -1,32 +1,34 @@
-<div class="flex flex-wrap  justify-center md:justify-between container mx-auto">
-    <div class="basis-3/3 md:basis-1/3 flex align-center justify-center ">
-        <p class="text-lg font-semibold my-auto">Vinicius Lopes de Azevedo</p>
-
-    </div>
-    <div class="basis-2/3">
-        <nav class="flex justify-center md:justify-end  space-x-1 mt-2 text-xs sm:text-sm md:text-base ">
-            <a routerLink="/home"
-                class="font-bold rounded-lg px-3 py-2 text-white-700 hover:bg-gray-100 hover:text-gray-900">
-                Home
-            </a><span class="my-auto">/</span>
-            <a routerLink="/projects"
-                class="font-bold rounded-lg px-3 py-2 text-white-700 hover:bg-gray-100 hover:text-gray-900">
-                Projects
-            </a><span class="my-auto">/</span>
-            <a routerLink="/articles"
-                class="font-bold rounded-lg px-3 py-2 text-white-700 hover:bg-gray-100 hover:text-gray-900">
-                Articles
-            </a><span class="my-auto">/</span>
-            <a routerLink="/contact"
-                class="font-bold rounded-lg px-3 py-2 text-white-700 hover:bg-gray-100 hover:text-gray-900">
-                Contact
-            </a>
-            <button pButton (click)="toggleDarkMode()" class="p-button-outlined p-button-xs m-1"
-                [severity]="isDark ? 'contrast' : 'secondary'">
-                <i [class]="isDark ? 'pi pi-sun' : 'pi pi-moon'"></i>
-            </button>
-            <!-- <p-button label="Toggle Dark Mode" (onClick)="toggleDarkMode()" /> -->
-
-        </nav>
-    </div>
-</div>
+<header
+  class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 border-b border-line px-6 py-5 sm:px-10"
+>
+  <a
+    class="inline-flex min-h-11 items-center gap-3 text-copy no-underline"
+    routerLink="/home"
+    aria-label="Crazy Lab, início"
+  >
+    <span class="text-sm font-semibold tracking-wide text-accent">CL</span>
+    <span class="font-medium">Crazy Lab</span>
+  </a>
+  <nav class="flex items-center gap-6 text-sm" aria-label="Navegação principal">
+    <a
+      class="inline-flex min-h-11 items-center text-muted no-underline hover:text-accent"
+      routerLink="/projects"
+      routerLinkActive="!text-accent"
+      ariaCurrentWhenActive="page"
+      >Projetos</a
+    >
+    <a
+      class="inline-flex min-h-11 items-center text-muted no-underline hover:text-accent"
+      routerLink="/home"
+      fragment="sobre"
+      >Sobre</a
+    >
+    <a
+      class="inline-flex min-h-11 items-center text-muted no-underline hover:text-accent"
+      routerLink="/contact"
+      routerLinkActive="!text-accent"
+      ariaCurrentWhenActive="page"
+      >Contato</a
+    >
+  </nav>
+</header>

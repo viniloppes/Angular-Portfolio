@@ -1,207 +1,87 @@
-/* You can add global styles to this file, and also import other style files */
-
+@layer theme, base, primeng, components, utilities;
 @import 'tailwindcss';
-@import "tailwindcss-primeui";
-@import "primeicons/primeicons.css";
+@import 'tailwindcss-primeui';
+@import 'primeicons/primeicons.css';
 
 @custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
-/* /dark mode configuration */
 
-/* ─── Global Dark Mode Defaults ─────────────────────────────────────────── */
-/* Garante background e texto padrão para todo o app conforme o modo atual   */
+@theme inline {
+  --color-page: var(--paper);
+  --color-panel: var(--card);
+  --color-copy: var(--ink);
+  --color-muted: var(--muted-ink);
+  --color-accent: var(--violet-deep);
+  --color-line: var(--border);
+}
 
-/* @theme {
-  --p-button-primary-background:
-} */
+:root {
+  color-scheme: dark;
+  --violet: #ae78ff;
+  --violet-light: #241934;
+  --violet-deep: #c8a5ff;
+  --star: #b7dfff;
+  --paper: #0d0a19;
+  --card: #1b152b;
+  --ink: #f5f0ff;
+  --muted-ink: #c4b8d3;
+  --border: #564b6d;
+  --on-accent: #1b0d31;
+  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
+  --font-body: 'Space Grotesk', Arial, sans-serif;
+}
 
-html,
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
+
 body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 16px;
+  margin: 0;
   min-height: 100vh;
-  background-color: #ffffff;
-  color: #1a1a1a;
-  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Cinza escuro suave ao invés de preto puro */
-html.my-app-dark,
-html.my-app-dark body {
-  background-color: #1e1e1e;
-  color: #e5e5e5;
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-/* Bordas que usam border-black ficam visíveis no dark mode */
-html.my-app-dark .border-black {
-  border-color: #444444 !important;
+button,
+a {
+  touch-action: manipulation;
 }
 
-/* Cards / containers com fundo branco explícito no dark mode */
-html.my-app-dark .card {
-  background-color: #2a2a2a;
-  color: #e5e5e5;
+:focus-visible {
+  outline: 3px solid var(--violet-deep);
+  outline-offset: 3px;
 }
 
-
-.topbar-items {
-  display: flex;
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  gap: 0.5rem;
-  align-items: center;
+::selection {
+  background: var(--violet);
+  color: var(--on-accent);
 }
 
-.topbar-items li {
-  position: relative;
-}
-
-.topbar-items .topbar-item {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  border: 1px solid var(--border-color);
-  width: 2rem;
-  height: 2rem;
-  transition: outline-color 0.2s, border-color 0.2s;
-  border-radius: 6px;
-  margin: 0;
-  padding: 0;
-  outline-color: transparent;
-  background-color: var(--card-background);
-  cursor: pointer;
-}
-
-.topbar-items .topbar-item:focus-visible {
-  /* Substituindo o include focus-visible pelo padrão do navegador ou variável */
-  outline: 2px solid var(--primary-color);
-  outline-offset: 2px;
-}
-
-.topbar-items .topbar-item:hover {
-  border-color: var(--primary-color);
-}
-
-.topbar-items .topbar-item i,
-.topbar-items .topbar-item span {
-  color: var(--text-color);
-}
-
-.topbar-items .config-item {
-  background-color: var(--primary-color);
-}
-
-.topbar-items .config-item i {
-  color: var(--primary-contrast-color);
-}
-
-.topbar-items .config-panel {
-  position: absolute;
-  top: calc(100% + 2px);
-  inset-inline-end: 0;
-  width: 18rem;
-  padding: 0.75rem;
-  background-color: var(--overlay-background);
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  transform-origin: top;
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-}
-
-.topbar-items .config-panel .config-panel-content {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.topbar-items .config-panel .config-panel-label {
-  font-size: 0.875rem;
-  color: var(--text-secondary-color);
-  font-weight: 600;
-  line-height: 1;
-}
-
-.topbar-items .config-panel .config-panel-colors>div {
-  justify-content: flex-start;
-  padding-top: 0.5rem;
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-}
-
-.topbar-items .config-panel .config-panel-colors>div button {
-  border: none;
-  width: 1.25rem;
-  height: 1.25rem;
-  border-radius: 50%;
-  padding: 0;
-  cursor: pointer;
-  outline-color: transparent;
-  outline-width: 2px;
-  outline-style: solid;
-  outline-offset: 1px;
-}
-
-.topbar-items .config-panel .config-panel-colors>div button.active-color {
-  outline-color: var(--primary-color);
-}
-
-.topbar-items .config-panel .config-panel-settings {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.topbar-items .version-item {
-  width: auto;
-  padding: 0.5rem;
-}
-
-.topbar-items .version-item .version-text {
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.topbar-items .version-item .version-icon {
-  margin-left: 0.25rem;
-  color: var(--text-secondary-color);
-}
-
-.topbar-items .versions-panel {
-  padding: 0.25rem;
-  background-color: var(--overlay-background);
-  position: absolute;
-  right: 0;
-  top: calc(100% + 2px);
-  border-radius: 6px;
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  transform-origin: center top;
-}
-
-.topbar-items .versions-panel ul {
-  padding: 0;
-  margin: 0;
-  list-style-type: none;
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.topbar-items .versions-panel ul li {
-  margin: 2px;
-}
-
-.topbar-items .versions-panel ul a {
-  display: inline-flex;
-  padding: 0.5rem 0.75rem;
-  border-radius: 6px;
-  width: 100%;
-  overflow: hidden;
-  color: var(--text-color);
-  white-space: nowrap;
-}
-
-.topbar-items .versions-panel ul a:hover {
-  background-color: var(--hover-background);
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
 }

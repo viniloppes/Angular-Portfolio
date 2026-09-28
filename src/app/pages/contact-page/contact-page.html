@@ -1,1 +1,22 @@
-<p>contact-page works!</p>
+<main class="mx-auto min-h-[65vh] max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
+  <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Contato</h1>
+  <p class="mt-5 text-muted">Vinícius Lopes</p>
+  <div class="mt-8 flex flex-wrap gap-4">
+    <a
+      pButton
+      [outlined]="true"
+      href="https://www.linkedin.com/in/viniloppes/"
+      target="_blank"
+      rel="noopener noreferrer"
+      ><i class="pi pi-linkedin" aria-hidden="true"></i><span pButtonLabel>LinkedIn</span></a
+    >
+    <a
+      pButton
+      [text]="true"
+      href="https://github.com/viniloppes"
+      target="_blank"
+      rel="noopener noreferrer"
+      ><i class="pi pi-github" aria-hidden="true"></i><span pButtonLabel>GitHub</span></a
+    >
+  </div>
+</main>

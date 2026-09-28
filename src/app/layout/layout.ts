@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet } from '@angular/router';
 import { TopbarMenu } from './topbar-menu/topbar-menu';
 
 @Component({
   selector: 'app-layout',
-  imports: [RouterOutlet, TopbarMenu],
+  imports: [RouterLink, RouterOutlet, TopbarMenu],
+  host: { class: 'block' },
   templateUrl: './layout.html',
-  styleUrl: './layout.css',
 })
-export class Layout { }
+export class Layout {}

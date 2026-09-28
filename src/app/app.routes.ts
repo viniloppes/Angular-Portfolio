@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { adminGuard } from './core/admin.guard';
 import { Layout } from './layout/layout';
 import { HomePage } from './pages/home-page/home-page';
 import { ProjectsPage } from './pages/projects-page/projects-page';
@@ -6,34 +7,18 @@ import { ArticlesPage } from './pages/articles-page/articles-page';
 import { ContactPage } from './pages/contact-page/contact-page';
 
 export const routes: Routes = [
-    {
-        path: '',
-        redirectTo: 'home',
-        pathMatch: 'full'
-    },
-    {
-        path: '',
-        component: Layout,
-        children: [
-
-            {
-                path: 'home',
-                component: HomePage,
-                pathMatch: 'full'
-            },
-            {
-                path: 'projects',
-                component: ProjectsPage
-            },
-            {
-                path: 'articles',
-                component: ArticlesPage
-            },
-            {
-                path: 'contact',
-                component: ContactPage
-            }
-
-        ]
-    },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'admin', loadComponent: () => import('./pages/admin-login/admin-login').then((m) => m.AdminLoginPage), title: 'Entrar · Crazy Lab' },
+  { path: 'admin/cases', loadComponent: () => import('./pages/admin-cases/admin-cases').then((m) => m.AdminCasesPage), canActivate: [adminGuard], title: 'Cases · Crazy Lab' },
+  {
+    path: '',
+    component: Layout,
+    children: [
+      { path: 'home', component: HomePage, pathMatch: 'full', title: 'Crazy Lab · Vinícius Lopes' },
+      { path: 'projects', component: ProjectsPage, title: 'Projetos · Crazy Lab' },
+      { path: 'articles', component: ArticlesPage, title: 'Artigos · Crazy Lab' },
+      { path: 'contact', component: ContactPage, title: 'Contato · Crazy Lab' },
+    ],
+  },
+  { path: '**', redirectTo: 'home' },
 ];

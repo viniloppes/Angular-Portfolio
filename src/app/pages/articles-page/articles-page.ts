@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-articles-page',
-  imports: [],
+  imports: [RouterLink],
+  host: { class: 'block' },
   templateUrl: './articles-page.html',
-  styleUrl: './articles-page.css',
 })
 export class ArticlesPage {}

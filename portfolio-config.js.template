@@ -1,0 +1,5 @@
+window.__PORTFOLIO_CONFIG__ = {
+  apiBaseUrl: "${API_BASE_URL}",
+  supabaseUrl: "${SUPABASE_URL}",
+  supabaseAnonKey: "${SUPABASE_ANON_KEY}"
+};

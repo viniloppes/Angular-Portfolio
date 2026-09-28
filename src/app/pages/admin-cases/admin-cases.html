@@ -1,0 +1,174 @@
+<main class="admin-workspace">
+  <aside class="admin-sidebar">
+    <a class="admin-sidebar__brand" routerLink="/home" aria-label="Voltar ao portfólio">
+      <span class="admin-mark" aria-hidden="true">CL</span>
+      <span><strong>CRAZY LAB</strong><small>POR VINÍCIUS LOPES</small></span>
+    </a>
+
+    <nav class="admin-sidebar__nav" aria-label="Administração">
+      <span class="admin-sidebar__label">CONTEÚDO</span>
+      <a class="is-current" routerLink="/admin/cases" aria-current="page"><span aria-hidden="true">▤</span> Cases <span class="sidebar-count">{{ caseCount }}</span></a>
+    </nav>
+
+    <div class="admin-sidebar__footer">
+      <a routerLink="/home"><span aria-hidden="true">↗</span> Ver portfólio</a>
+      <button type="button" (click)="signOut()"><span aria-hidden="true">↪</span> Sair</button>
+    </div>
+  </aside>
+
+  <section class="admin-main" aria-labelledby="admin-cases-title">
+    <header class="admin-main__header">
+      <div>
+        <p class="admin-kicker">PAINEL / CONTEÚDO</p>
+        <h1 id="admin-cases-title">Cases</h1>
+        <p class="admin-main__intro">Organize os projetos que contam a sua história.</p>
+      </div>
+      <button class="admin-primary" type="button" (click)="openCreate()"><span aria-hidden="true">+</span> Novo case</button>
+    </header>
+
+    @if (statusMessage()) {
+      <p class="admin-status" role="status" aria-live="polite">{{ statusMessage() }}</p>
+    }
+
+    @if (loadError()) {
+      <div class="admin-alert" role="alert">
+        <span>{{ loadError() }}</span>
+        <button type="button" (click)="loadCases()">Tentar novamente</button>
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="admin-list-loading" aria-label="Carregando cases" aria-busy="true">
+        @for (item of [1, 2, 3]; track item) { <div class="admin-row-skeleton"></div> }
+      </div>
+    } @else if (!loadError() && cases().length === 0) {
+      <section class="admin-empty">
+        <span class="admin-empty__stamp" aria-hidden="true">00</span>
+        <p class="admin-kicker">SUA PRÓXIMA HISTÓRIA</p>
+        <h2>Seu portfólio começa com um case.</h2>
+        <p>Adicione uma imagem, conte o contexto e escolha como as pessoas podem explorar o projeto.</p>
+        <button class="admin-primary" type="button" (click)="openCreate()">Criar primeiro case <span aria-hidden="true">↗</span></button>
+      </section>
+    } @else if (cases().length > 0) {
+      <div class="admin-list-heading">
+        <span>{{ caseCount }} {{ cases().length === 1 ? 'CASE PUBLICADO' : 'CASES PUBLICADOS' }}</span>
+        <span>ORDENADOS PARA A VITRINE</span>
+      </div>
+      <section class="admin-case-list" aria-label="Cases cadastrados">
+        @for (item of cases(); track item.id) {
+          <article class="admin-case-row">
+            <img class="admin-case-row__image" [src]="imageUrl(item.thumbnailUrl)" [alt]="'Capa: ' + item.name" width="144" height="108" loading="lazy">
+            <div class="admin-case-row__details">
+              <span class="admin-case-row__category">{{ item.category }}</span>
+              <h2>{{ item.name }}</h2>
+              <p>Posição {{ item.sortOrder.toString().padStart(2, '0') }}@if (item.gameUrl) { <span> · Jogo incorporado</span> }@else if (item.youtubeUrl) { <span> · Vídeo</span> }</p>
+            </div>
+            <div class="admin-case-row__actions">
+              <button class="admin-icon-action" type="button" (click)="openEdit(item)" [attr.aria-label]="'Editar ' + item.name">Editar</button>
+              <button class="admin-icon-action admin-icon-action--danger" type="button" (click)="deleteCase(item)" [disabled]="deletingId() === item.id" [attr.aria-label]="'Excluir ' + item.name">
+                {{ deletingId() === item.id ? 'Excluindo…' : 'Excluir' }}
+              </button>
+            </div>
+          </article>
+        }
+      </section>
+    }
+
+    <footer class="admin-main__footer">
+      <span>As alterações aparecem no portfólio assim que forem salvas.</span>
+      <span>CRAZY LAB / ADMIN</span>
+    </footer>
+  </section>
+
+  <dialog #editorDialog class="case-editor-dialog" (click)="handleEditorClick($event)" (close)="onEditorClosed()" aria-labelledby="editor-title">
+    <form class="admin-form" [formGroup]="form" (ngSubmit)="saveCase()" novalidate>
+      <header class="case-editor__header">
+        <div>
+          <p class="admin-kicker">{{ editorMode === 'edit' ? 'EDITAR CASE' : 'NOVO PROJETO' }}</p>
+          <h2 id="editor-title">{{ editorMode === 'edit' ? 'Ajuste os detalhes.' : 'Conte essa história.' }}</h2>
+        </div>
+        <button type="button" class="editor-close" (click)="closeEditor()" aria-label="Fechar formulário">×</button>
+      </header>
+
+      <div class="case-editor__body">
+        <div class="editor-fields">
+          <div class="form-field">
+            <label for="case-name">Nome do case <span aria-hidden="true">*</span></label>
+            <input id="case-name" type="text" formControlName="name" maxlength="160" autocomplete="off" placeholder="Ex.: Ativação interativa para marca" [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched" aria-describedby="case-name-error">
+            @if (form.controls.name.invalid && form.controls.name.touched) { <span id="case-name-error" class="field-error">Informe um nome de até 160 caracteres.</span> }
+          </div>
+
+          <div class="form-field">
+            <label for="case-description">Descrição <span aria-hidden="true">*</span></label>
+            <textarea id="case-description" formControlName="description" rows="5" maxlength="10000" placeholder="Qual era o contexto, a ideia e o que as pessoas podiam fazer?" [attr.aria-invalid]="form.controls.description.invalid && form.controls.description.touched" aria-describedby="case-description-error"></textarea>
+            <div class="field-meta"><span>Conte o que torna esta experiência especial.</span><span>{{ form.controls.description.value.length }}/10000</span></div>
+            @if (form.controls.description.invalid && form.controls.description.touched) { <span id="case-description-error" class="field-error">Informe uma descrição de até 10000 caracteres.</span> }
+          </div>
+
+          <div class="form-field">
+            <label for="case-category">Categoria <span aria-hidden="true">*</span></label>
+            <input id="case-category" type="text" formControlName="category" maxlength="80" placeholder="Evento, jogo, aplicação..." [attr.aria-invalid]="form.controls.category.invalid && form.controls.category.touched" aria-describedby="case-category-error">
+            @if (form.controls.category.invalid && form.controls.category.touched) { <span id="case-category-error" class="field-error">Informe uma categoria.</span> }
+          </div>
+
+          <div class="form-field">
+            <label for="case-youtube">Vídeo do YouTube <span class="optional-label">OPCIONAL</span></label>
+            <input id="case-youtube" type="url" formControlName="youtubeUrl" placeholder="https://youtu.be/..." [attr.aria-invalid]="form.controls.youtubeUrl.invalid && form.controls.youtubeUrl.touched" aria-describedby="case-youtube-help case-youtube-error">
+            <span id="case-youtube-help" class="field-hint">Aceita links youtube.com e youtu.be.</span>
+            @if (form.controls.youtubeUrl.invalid && form.controls.youtubeUrl.touched) { <span id="case-youtube-error" class="field-error">Informe um link válido do YouTube com HTTPS.</span> }
+          </div>
+
+          <div class="form-field">
+            <label for="case-game">Jogo para incorporar <span class="optional-label">OPCIONAL</span></label>
+            <input id="case-game" type="url" formControlName="gameUrl" placeholder="https://seu-jogo.github.io/..." [attr.aria-invalid]="form.controls.gameUrl.invalid && form.controls.gameUrl.touched" aria-describedby="case-game-help case-game-error">
+            <span id="case-game-help" class="field-hint">Use a URL pública HTTPS do jogo de navegador.</span>
+            @if (form.controls.gameUrl.invalid && form.controls.gameUrl.touched) { <span id="case-game-error" class="field-error">Informe uma URL HTTPS válida.</span> }
+          </div>
+
+          <div class="form-field">
+            <label for="case-project">Link externo do projeto <span class="optional-label">OPCIONAL</span></label>
+            <input id="case-project" type="url" formControlName="projectUrl" placeholder="https://..." [attr.aria-invalid]="form.controls.projectUrl.invalid && form.controls.projectUrl.touched" aria-describedby="case-project-help case-project-error">
+            <span id="case-project-help" class="field-hint">Site, demonstração ou repositório; será aberto em outra aba.</span>
+            @if (form.controls.projectUrl.invalid && form.controls.projectUrl.touched) { <span id="case-project-error" class="field-error">Informe uma URL HTTPS válida.</span> }
+          </div>
+
+          <div class="form-field editor-order">
+            <label for="case-order">Ordem na vitrine</label>
+            <input id="case-order" type="number" min="1" max="9999" formControlName="sortOrder" [attr.aria-invalid]="form.controls.sortOrder.invalid && form.controls.sortOrder.touched" aria-describedby="case-order-help">
+            <span id="case-order-help" class="field-hint">Números menores aparecem primeiro.</span>
+          </div>
+        </div>
+
+        <aside class="editor-upload">
+          <span class="editor-upload__label">IMAGEM DE CAPA <span aria-hidden="true">*</span></span>
+          <div class="upload-preview">
+            @if (thumbnailPreview) {
+              <img [src]="thumbnailPreview" alt="Prévia da imagem de capa">
+            } @else {
+              <div class="upload-placeholder"><span aria-hidden="true">+</span><strong>Escolha uma imagem</strong><small>JPG, PNG, WebP ou GIF · até 10 MB</small></div>
+            }
+          </div>
+          <label class="upload-button" for="case-thumbnail">
+            {{ selectedThumbnail ? 'Trocar imagem' : 'Selecionar imagem' }}
+            <input #thumbnailInput id="case-thumbnail" class="file-input" type="file" accept=".jpg,.jpeg,.png,.webp,.gif,image/jpeg,image/png,image/webp,image/gif" (change)="chooseThumbnail($event)" aria-describedby="case-thumbnail-help case-thumbnail-error">
+          </label>
+          <span id="case-thumbnail-help" class="field-hint">Uma capa horizontal ajuda a apresentar o projeto na grade.</span>
+          @if (thumbnailError) { <span id="case-thumbnail-error" class="field-error" role="alert">{{ thumbnailError }}</span> }
+          @if (editingCase && !selectedThumbnail) { <span class="field-hint">A imagem atual será mantida se não escolher outra.</span> }
+        </aside>
+      </div>
+
+      @if (formError()) { <p class="form-message form-message--error" role="alert">{{ formError() }}</p> }
+
+      <footer class="case-editor__footer">
+        <button class="admin-secondary" type="button" (click)="closeEditor()">Cancelar</button>
+        <button class="admin-primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Salvando…' : editorMode === 'edit' ? 'Salvar alterações' : 'Publicar case' }}
+          @if (!saving()) { <span aria-hidden="true">↗</span> }
+        </button>
+      </footer>
+    </form>
+  </dialog>
+</main>
+
+

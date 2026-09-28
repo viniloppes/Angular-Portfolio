@@ -1,97 +1,39 @@
-<div class="space-y-2 text-center px-4">
-    <div class=" space-y-5 mt-3">
-        <p class="font-medium  text-5xl">Full Stack Developer</p>
-        <p class="text-sm font-semibold dark:text-gray-400">Software Engineer | Angular, .NET & C# | 6y Exp. | Full
-            Stack & Game Dev</p>
+<main class="mx-auto max-w-6xl px-6 sm:px-10">
+  <section class="border-b border-line py-16 sm:py-24" aria-labelledby="home-title">
+    <p class="mb-4 text-sm text-accent">Portfólio · Crazy Lab</p>
+    <h1 id="home-title" class="text-4xl font-semibold tracking-tight sm:text-6xl">
+      Vinícius Lopes
+    </h1>
+    <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+      Projetos e estudos em jogos digitais, desenvolvimento web e interação.
+    </p>
+  </section>
 
+  <section id="cases" class="py-12 sm:py-16" aria-labelledby="cases-title">
+    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+      <h2 id="cases-title" class="text-2xl font-semibold tracking-tight">Projetos selecionados</h2>
+      <a pButton [text]="true" size="small" routerLink="/projects"
+        ><span pButtonLabel>Ver todos</span><i class="pi pi-arrow-up-right" aria-hidden="true"></i
+      ></a>
     </div>
+    <app-case-gallery
+      [cases]="cases()"
+      [loading]="loading()"
+      [errorMessage]="errorMessage()"
+      [limit]="3"
+      (retry)="loadCases()"
+    />
+  </section>
 
-</div>
-<div class="container mx-auto px-4">
-    <!-- Grid principal: 1 coluna mobile, 3 colunas desktop -->
-    <div class="grid grid-cols-1 md:grid-cols-3 mt-5 border-t border-gray-300 dark:border-gray-600">
-
-        <!-- Coluna 01: Projects -->
-        <div class="flex flex-col border-b md:border-b-0 md:border-r border-gray-300 dark:border-gray-600 p-4">
-            <p class="font-bold">Projects</p>
-
-
-            <p-toast />
-            <!-- <div class="h-75 full overflow-y-auto"> -->
-
-            <p-scrollpanel [style]="{ width: '100%', height: '300px' }">
-                <ul class="m-0 list-none  rounded flex flex-col gap-2 w-full ">
-                    <li *ngFor="let user of users"
-                        class="p-2 hover:bg-emphasis rounded border border-transparent transition-all duration-200 flex items-center justify-content-between"
-                        [ngClass]="{ 'border-primary': selectedId === user.id }"
-                        (contextmenu)="onContextMenu($event, user)">
-                        <a [href]="user.href" target="_blank" class="w-full">
-                            <div class="flex flex-1 items-center gap-2">
-
-                                <span class="font-normal">{{ user.name }}</span>
-                            </div>
-
-                        </a>
-
-                    </li>
-                </ul>
-            </p-scrollpanel>
-            <!-- </div> -->
-
-        </div>
-
-        <!-- Coluna 02: Work Experience & OpenSource -->
-        <div class="flex flex-col border-b md:border-b-0 md:border-r border-gray-300 dark:border-gray-600">
-            <div class="md:p-4 py-4 border-b border-gray-300 dark:border-gray-600 flex-1">
-                <p class="font-bold">Work Experience</p>
-                <div class="mt-2">
-                    <p class="font-medium font-bold">2020 - 2026 - Full Stack Developer</p>
-                    <p class="font-normal">Full Stack Engineer with 5 years of experience delivering complex web and
-                        desktop
-                        solutions. Specialized in Angular and .NET ecosystems. Strong background in optimizing
-                        algorithms and performance.</p>
-                    <a class="text-blue-500" href="https://www.linkedin.com/in/viniloppes/" target="_blank">
-                        Visit my Profile
-                    </a>
-                </div>
-            </div>
-            <div class="md:p-4 py-4 flex-1">
-                <p class="font-bold">OpenSource Work</p>
-                <div>Contributed to 42 opensouce projets</div>
-                <a class="text-blue-500" href="https://github.com/viniloppes?tab=repositories" target="_blank">Visit my
-                    GitHub Profile</a>
-            </div>
-        </div>
-
-        <!-- Coluna 03: Education -->
-        <div class="flex flex-col md:p-4 py-4">
-            <p class="font-bold">Education</p>
-            <div class="mt-2">
-                <ul class="list-disc list-inside">
-                    <li>Computer Science | UNIP</li>
-                    <li>Digital Games | Belas Artes</li>
-                </ul>
-            </div>
-
-            <p class="font-bold text-sm mt-5">Courses I took</p>
-            <div class="mt-2">
-                <ul class="list-disc list-inside">
-                    <li>C# and Object-Oriented Programming</li>
-                    <li>Angular and ASP.NET Core Web API, Entity Framework</li>
-                    <li>JavaScript</li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-
-    <!-- Seção Inferior: Reviews -->
-    <div class="border-t border-gray-300 dark:border-gray-600 md:p-4 py-4">
-        <p class="font-bold mb-4">Reviews from my Teachers</p>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div class="border border-gray-300 dark:border-gray-600 rounded-3xl p-6">Review 1</div>
-            <div class="border border-gray-300 dark:border-gray-600 rounded-3xl p-6">Review 2</div>
-            <div class="border border-gray-300 dark:border-gray-600 rounded-3xl p-6">Review 3</div>
-        </div>
-    </div>
-</div>
+  <section
+    id="sobre"
+    class="grid gap-5 border-t border-line py-12 sm:grid-cols-3 sm:py-16"
+    aria-labelledby="about-title"
+  >
+    <h2 id="about-title" class="text-2xl font-semibold tracking-tight">Sobre</h2>
+    <p class="max-w-2xl leading-relaxed text-muted sm:col-span-2">
+      Sou Vinícius, desenvolvedor. Reúno aqui trabalhos, estudos e experimentos com código, jogos e
+      interfaces.
+    </p>
+  </section>
+</main>

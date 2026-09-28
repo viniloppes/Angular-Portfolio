@@ -1,100 +1,39 @@
-
-import { CommonModule } from '@angular/common';
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ScrollerModule } from 'primeng/scroller';
-import { ToastModule } from 'primeng/toast';
-import { ContextMenu } from 'primeng/contextmenu';
-import { Tag } from 'primeng/tag';
-import { MenuItem, MessageService } from 'primeng/api';
-import { DividerModule } from 'primeng/divider';
-import { ScrollPanelModule } from 'primeng/scrollpanel';
-interface Users {
-  id: number;
-  name: string;
-  image: string;
-  role: string;
-  href: string;
-}
-
+import { ButtonModule } from 'primeng/button';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { Component, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CaseGallery } from '../../components/case-gallery/case-gallery';
+import { PortfolioApiService } from '../../core/portfolio-api.service';
+import { PortfolioCase } from '../../core/portfolio-case';
 
 @Component({
   selector: 'app-home-page',
-  imports: [ScrollerModule, ToastModule, CommonModule, Tag, DividerModule, ScrollPanelModule],
+  imports: [ButtonModule, CommonModule, RouterLink, CaseGallery],
+  host: { class: 'block' },
   templateUrl: './home-page.html',
-  styleUrl: './home-page.css',
-  providers: [MessageService]
 })
 export class HomePage implements OnInit {
-  items: MenuItem[] | undefined;
+  private readonly api = inject(PortfolioApiService);
+  private readonly platformId = inject(PLATFORM_ID);
 
-  selectedId = 0;
-  @ViewChild('cm')
-  cm!: ContextMenu;
+  readonly cases = signal<PortfolioCase[]>([]);
+  readonly loading = signal(true);
+  readonly errorMessage = signal('');
 
-  selectedUser!: Users;
-
-  users: Users[] = [];
-
-  constructor(private messageService: MessageService) { }
-
-  ngOnInit() {
-    this.users = [
-      { id: 0, name: 'SPA Beauty Clinic', image: '', role: 'Admin', href: 'https://ednalopesestetica.com.br/inicio' },
-      { id: 1, name: 'SPA Beauty Clinic - Mothers Day', image: '', role: 'Admin', href: 'https://ednalopesestetica.com.br/diadasmaes' },
-      { id: 2, name: 'Flash Cards App', image: '', role: 'Admin', href: 'https://viniloppes.github.io/FlashcardsApp' },
-      { id: 3, name: 'Fruit Ninja', image: '', role: 'Admin', href: 'https://viniloppes.github.io/unity-fruit-ninja-web-build/' },
-      { id: 4, name: 'SPA Beauty Clinic - Post Partum', image: '', role: 'Admin', href: 'https://viniloppes.github.io/SPA_EDNA_LOPES_AB_SEM_DIASTASE/' },
-    ];
-
-    this.items = [
-      {
-        label: 'Roles',
-        icon: 'pi pi-users',
-        items: [
-          {
-            label: 'Admin',
-            command: () => {
-              this.selectedUser.role = 'Admin';
-            }
-          },
-          {
-            label: 'Member',
-            command: () => {
-              this.selectedUser.role = 'Member';
-            }
-          },
-          {
-            label: 'Guest',
-            command: () => {
-              this.selectedUser.role = 'Guest';
-            }
-          }
-        ]
-      },
-      {
-        label: 'Invite',
-        icon: 'pi pi-user-plus',
-        command: () => {
-          this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Invitation sent!', life: 3000 });
-        }
-      }
-    ];
+  ngOnInit(): void {
+    if (isPlatformBrowser(this.platformId)) void this.loadCases();
   }
 
-  getBadge(user) {
-    if (user.role === 'Member') return 'info';
-    else if (user.role === 'Guest') return 'warn';
-    else return null;
+  async loadCases(): Promise<void> {
+    this.loading.set(true);
+    this.errorMessage.set('');
+
+    try {
+      this.cases.set(await this.api.getPublicCases());
+    } catch {
+      this.errorMessage.set('O catálogo não respondeu. Tente novamente em alguns instantes.');
+    } finally {
+      this.loading.set(false);
+    }
   }
-
-  onContextMenu(event, user) {
-    this.selectedUser = user;
-    this.cm.show(event);
-  }
-
-  onHide() {
-    this.selectedUser = null;
-  }
-
-
 }

@@ -1,0 +1,202 @@
+<section aria-label="Projetos">
+  @if (loading) {
+    <div
+      class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      aria-label="Carregando projetos"
+      aria-busy="true"
+    >
+      @for (item of [1, 2, 3]; track item) {
+        <div class="grid gap-4">
+          <p-skeleton width="100%" height="14rem" />
+          <p-skeleton width="70%" height="1.25rem" />
+          <p-skeleton width="90%" height="1rem" />
+        </div>
+      }
+    </div>
+  } @else if (errorMessage) {
+    <div
+      class="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line p-6"
+      role="alert"
+    >
+      <p class="text-sm text-muted">Não foi possível carregar os projetos.</p>
+      <p-button
+        label="Tentar novamente"
+        icon="pi pi-refresh"
+        variant="text"
+        size="small"
+        (onClick)="retry.emit()"
+      />
+    </div>
+  } @else if (visibleCases.length === 0) {
+    <p class="py-8 text-muted">Nenhum projeto disponível.</p>
+  } @else {
+    <div class="grid items-stretch gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+      @for (item of visibleCases; track item.id) {
+        <button
+          class="group flex h-full min-w-0 cursor-pointer flex-col bg-transparent p-0 text-left text-copy"
+          type="button"
+          (click)="openCase(item)"
+          [attr.aria-label]="'Abrir projeto: ' + item.name"
+        >
+          <span
+            class="relative block aspect-[4/3] w-full shrink-0 overflow-hidden rounded-lg border border-line bg-panel"
+          >
+            <img
+              class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
+              [src]="imageUrl(item.thumbnailUrl)"
+              [alt]="'Capa de ' + item.name"
+              loading="lazy"
+              width="960"
+              height="720"
+            />
+            <span
+              class="absolute right-3 bottom-3 flex size-9 items-center justify-center rounded-full bg-page text-accent"
+              aria-hidden="true"
+              ><i class="pi pi-arrow-up-right"></i
+            ></span>
+          </span>
+          <span class="flex w-full flex-1 flex-col items-start gap-2 border-b border-line py-5">
+            <span class="text-xs font-medium uppercase tracking-wider text-accent">{{
+              item.category
+            }}</span>
+            <span class="text-lg leading-snug font-semibold">{{ item.name }}</span>
+            <span class="line-clamp-2 text-sm leading-relaxed text-muted">{{
+              item.description
+            }}</span>
+          </span>
+        </button>
+      }
+    </div>
+  }
+  <dialog
+    #caseDialog
+    class="case-dialog inset-0 m-auto"
+    (click)="handleDialogClick($event)"
+    (close)="clearSelection()"
+    aria-labelledby="case-modal-title"
+  >
+    @if (selectedCase; as item) {
+      <div class="case-dialog__header">
+        <span class="case-dialog__brand">CASE / {{ item.category }}</span>
+        <button
+          class="case-dialog__close"
+          type="button"
+          (click)="closeCase()"
+          aria-label="Fechar case"
+        >
+          <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" fill="none">
+            <path
+              d="m6 6 12 12M18 6 6 18"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>Fechar</span>
+        </button>
+      </div>
+
+      <div class="case-dialog__body">
+        <div class="case-dialog__media">
+          @if (videoUrl && gameUrl) {
+            <div
+              class="case-media-switch"
+              role="group"
+              aria-label="Escolha como explorar o projeto"
+            >
+              <button
+                type="button"
+                [class.is-active]="mediaMode === 'video'"
+                [attr.aria-pressed]="mediaMode === 'video'"
+                (click)="setMediaMode('video')"
+              >
+                Ver filme
+              </button>
+              <button
+                type="button"
+                [class.is-active]="mediaMode === 'game'"
+                [attr.aria-pressed]="mediaMode === 'game'"
+                (click)="setMediaMode('game')"
+              >
+                Jogar no navegador
+              </button>
+            </div>
+          }
+          <div class="case-media-frame">
+            @if (mediaMode === 'video' && videoUrl) {
+              <iframe
+                [src]="videoUrl"
+                [title]="'Vídeo do case ' + item.name"
+                loading="lazy"
+                allow="
+                  accelerometer;
+                  autoplay;
+                  clipboard-write;
+                  encrypted-media;
+                  gyroscope;
+                  picture-in-picture;
+                  web-share;
+                "
+                referrerpolicy="strict-origin-when-cross-origin"
+                allowfullscreen
+              ></iframe>
+            } @else if (mediaMode === 'game' && gameUrl) {
+              <iframe
+                [src]="gameUrl"
+                [title]="'Jogar ' + item.name"
+                loading="lazy"
+                allow="fullscreen; gamepad; pointer-lock"
+                sandbox="allow-scripts allow-same-origin allow-pointer-lock allow-forms allow-downloads"
+                allowfullscreen
+              ></iframe>
+            } @else {
+              <img
+                [src]="imageUrl(item.thumbnailUrl)"
+                [alt]="'Capa do case ' + item.name"
+                width="1200"
+                height="900"
+              />
+            }
+          </div>
+          @if (item.gameUrl && mediaMode === 'game') {
+            <p class="case-dialog__hint">
+              Alguns jogos podem bloquear a incorporação.
+              <a [href]="item.gameUrl" target="_blank" rel="noopener noreferrer"
+                >Abrir em uma nova aba <span aria-hidden="true">↗</span></a
+              >
+            </p>
+          }
+        </div>
+
+        <aside class="case-dialog__info">
+          <span class="case-dialog__eyebrow"
+            >PROJETO {{ item.sortOrder.toString().padStart(2, '0') }}</span
+          >
+          <h2 id="case-modal-title">{{ item.name }}</h2>
+          <p>{{ item.description }}</p>
+          <div class="case-dialog__actions">
+            @if (item.projectUrl) {
+              <a
+                class="case-action"
+                [href]="item.projectUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Visitar projeto <span aria-hidden="true">↗</span></a
+              >
+            }
+            @if (item.youtubeUrl && !videoUrl) {
+              <a
+                class="case-action"
+                [href]="item.youtubeUrl"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Assistir vídeo <span aria-hidden="true">↗</span></a
+              >
+            }
+          </div>
+          <span class="case-dialog__category">{{ item.category }}</span>
+        </aside>
+      </div>
+    }
+  </dialog>
+</section>
