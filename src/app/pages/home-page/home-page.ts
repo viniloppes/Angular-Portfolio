@@ -5,10 +5,11 @@ import { RouterLink } from '@angular/router';
 import { CaseGallery } from '../../components/case-gallery/case-gallery';
 import { PortfolioApiService } from '../../core/portfolio-api.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
 @Component({
   selector: 'app-home-page',
-  imports: [ButtonModule, CommonModule, RouterLink, CaseGallery],
+  imports: [ButtonModule, CommonModule, RouterLink, CaseGallery, ScrollRevealDirective],
   host: { class: 'block' },
   templateUrl: './home-page.html',
 })

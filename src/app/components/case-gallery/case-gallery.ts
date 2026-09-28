@@ -13,12 +13,13 @@ import {
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { PortfolioApiService } from '../../core/portfolio-api.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
 type MediaMode = 'image' | 'video' | 'game';
 
 @Component({
   selector: 'app-case-gallery',
-  imports: [CommonModule, ButtonModule, SkeletonModule],
+  imports: [CommonModule, ButtonModule, SkeletonModule, ScrollRevealDirective],
   templateUrl: './case-gallery.html',
   styleUrl: './case-gallery.css',
 })
