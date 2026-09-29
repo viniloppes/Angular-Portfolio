@@ -6,8 +6,8 @@
         pButton
         type="button"
         size="small"
-        [outlined]="activeCategory() === category"
-        [text]="activeCategory() !== category"
+        [class.p-button-outlined]="activeCategory() === category"
+        [class.p-button-text]="activeCategory() !== category"
         [attr.aria-pressed]="activeCategory() === category"
         (click)="setCategory(category)"
       >
