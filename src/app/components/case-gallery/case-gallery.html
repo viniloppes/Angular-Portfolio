@@ -1,12 +1,12 @@
 <section aria-label="Projetos">
   @if (loading) {
     <div
-      class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"
+      class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
       aria-label="Carregando projetos"
       aria-busy="true"
     >
       @for (item of [1, 2, 3]; track item) {
-        <div class="grid gap-4">
+        <div class="case-card case-card--loading">
           <p-skeleton width="100%" height="14rem" />
           <p-skeleton width="70%" height="1.25rem" />
           <p-skeleton width="90%" height="1rem" />
@@ -14,33 +14,31 @@
       }
     </div>
   } @else if (errorMessage) {
-    <div
-      class="flex flex-wrap items-center justify-between gap-4 rounded-lg border border-line p-6"
-      role="alert"
-    >
+    <div class="case-gallery__notice" role="alert">
       <p class="text-sm text-muted">Não foi possível carregar os projetos.</p>
       <p-button
         label="Tentar novamente"
         icon="pi pi-refresh"
         variant="text"
         size="small"
+        styleClass="min-h-11"
         (onClick)="retry.emit()"
       />
     </div>
   } @else if (visibleCases.length === 0) {
     <p class="py-8 text-muted">Nenhum projeto disponível.</p>
   } @else {
-    <div class="grid items-stretch gap-x-6 gap-y-10 md:grid-cols-2 lg:grid-cols-3">
+    <div class="grid items-stretch gap-x-5 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
       @for (item of visibleCases; track item.id) {
         <button
           appScrollReveal
-          class="group flex h-full min-w-0 cursor-pointer flex-col bg-transparent p-0 text-left text-copy"
+          class="case-card group flex h-full min-w-0 cursor-pointer flex-col p-0 text-left text-copy"
           type="button"
           (click)="openCase(item)"
           [attr.aria-label]="'Abrir projeto: ' + item.name"
         >
           <span
-            class="relative block aspect-[4/3] w-full shrink-0 overflow-hidden rounded-lg border border-line bg-panel"
+            class="case-card__media relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-panel"
           >
             <img
               class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"
@@ -56,18 +54,14 @@
               ><i class="pi pi-arrow-up-right"></i
             ></span>
           </span>
-          <span class="relative flex w-full flex-1 flex-col items-start gap-2 border-b border-line py-5">
-            <span class="text-xs font-medium uppercase tracking-wider text-accent">{{
+          <span class="case-card__content relative flex w-full flex-1 flex-col items-start gap-3">
+            <span class="case-card__category text-xs font-medium uppercase tracking-wider text-accent">{{
               item.category
             }}</span>
             <span class="text-lg leading-snug font-semibold">{{ item.name }}</span>
             <span class="line-clamp-2 text-sm leading-relaxed text-muted">{{
               item.description
             }}</span>
-            <span
-              class="absolute inset-x-0 bottom-[-1px] h-0.5 origin-left scale-x-0 bg-accent transition-transform duration-500 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100 motion-reduce:transition-none"
-              aria-hidden="true"
-            ></span>
           </span>
         </button>
       }

@@ -11,6 +11,7 @@
   --color-copy: var(--ink);
   --color-muted: var(--muted-ink);
   --color-accent: var(--violet-deep);
+  --color-accent-subtle: var(--violet-light);
   --color-line: var(--border);
 }
 
@@ -26,6 +27,10 @@
   --muted-ink: #c4b8d3;
   --border: #564b6d;
   --on-accent: #1b0d31;
+  --radius-control: 0.75rem;
+  --radius-card: 1rem;
+  --radius-dialog: 1.125rem;
+  --radius-pill: 9999px;
   --font-display: 'Archivo', 'Arial Narrow', sans-serif;
   --font-body: 'Space Grotesk', Arial, sans-serif;
 }
@@ -37,6 +42,7 @@
 html {
   background: var(--paper);
   color: var(--ink);
+  scrollbar-color: var(--border) var(--paper);
   scroll-behavior: smooth;
   scroll-padding-top: 1rem;
 }
@@ -50,16 +56,41 @@ body {
   min-height: 100vh;
 }
 
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+}
+
 button,
 input,
 textarea,
 select {
   font: inherit;
+  caret-color: var(--violet-deep);
 }
 
 button,
 a {
   touch-action: manipulation;
+}
+
+button,
+.p-button,
+input,
+textarea,
+select {
+  border-radius: var(--radius-control);
+}
+
+.category-filter-button {
+  border-radius: var(--radius-pill);
+}
+
+.admin-login { grid-template-columns: minmax(0, 1fr); }
+
+@media (max-width: 560px) {
+  .admin-login { padding-inline: 1rem; }
 }
 
 :focus-visible {

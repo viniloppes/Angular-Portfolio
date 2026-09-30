@@ -1,6 +1,56 @@
+.case-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+  transition: border-color 180ms ease;
+}
+
+.case-card:hover {
+  border-color: var(--violet);
+}
+
+.case-card__media {
+  border-bottom: 1px solid var(--border);
+}
+
+.case-card__content {
+  padding: 1rem 1.1rem 1.15rem;
+}
+
+.case-card__category {
+  background: var(--violet-light);
+  border-radius: var(--radius-pill);
+  padding: 0.25rem 0.65rem;
+}
+
+.case-card--loading {
+  display: grid;
+  gap: 0.9rem;
+  padding: 1rem;
+}
+
+.case-gallery__notice {
+  align-items: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  padding: 1.5rem;
+}
+
+.case-gallery__notice p {
+  color: var(--muted-ink);
+  font-size: 0.875rem;
+  margin: 0;
+}
+
 .case-dialog {
   background: var(--paper);
   border: 1px solid var(--border);
+  border-radius: var(--radius-dialog);
   color: var(--ink);
   max-height: calc(100dvh - 2rem);
   max-width: min(1120px, calc(100vw - 2rem));
@@ -66,8 +116,10 @@
 
 .case-media-switch {
   border: 1px solid var(--border);
+  border-radius: var(--radius-control);
   display: flex;
   margin-bottom: 0.8rem;
+  overflow: hidden;
 }
 
 .case-media-switch button {
@@ -83,6 +135,14 @@
   padding: 0.6rem;
 }
 
+.case-media-switch button:first-child {
+  border-radius: calc(var(--radius-control) - 1px) 0 0 calc(var(--radius-control) - 1px);
+}
+
+.case-media-switch button:last-child {
+  border-radius: 0 calc(var(--radius-control) - 1px) calc(var(--radius-control) - 1px) 0;
+}
+
 .case-media-switch button + button {
   border-left: 1px solid var(--border);
 }
@@ -95,6 +155,8 @@
   aspect-ratio: 16 / 9;
   background: #160f1a;
   border: 1px solid var(--border);
+  border-radius: var(--radius-control);
+  overflow: hidden;
   width: 100%;
 }
 
@@ -156,6 +218,7 @@
   justify-content: space-between;
   min-height: 48px;
   padding: 0.65rem 0.8rem;
+  border-radius: var(--radius-control);
   text-decoration: none;
 }
 .case-action:hover {
@@ -164,10 +227,11 @@
 
 @media (max-width: 620px) {
   .case-dialog {
-    max-height: 100dvh;
-    max-width: 100vw;
-    min-height: 100dvh;
-    width: 100vw;
+    max-height: calc(100dvh - 1rem);
+    max-width: calc(100vw - 1rem);
+    min-height: calc(100dvh - 1rem);
+    width: calc(100vw - 1rem);
+    border-radius: var(--radius-card);
   }
   .case-dialog__body {
     grid-template-columns: 1fr;
