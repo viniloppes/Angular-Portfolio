@@ -1,16 +1,55 @@
-<main class="mx-auto max-w-6xl px-6 sm:px-10">
-  <section class="border-b border-line py-16 sm:py-24" aria-labelledby="home-title">
-    <p class="mb-4 text-sm text-accent">Portfólio · Crazy Lab</p>
-    <h1 id="home-title" class="text-4xl font-semibold tracking-tight sm:text-6xl">
-      Vinícius Lopes
-    </h1>
-    <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
-      Projetos e estudos em jogos digitais, desenvolvimento web e interação.
-    </p>
+<main class="mx-auto max-w-6xl px-4 pb-8 sm:px-10">
+  <section class="bento pt-6 sm:pt-10" aria-labelledby="home-title">
+    <div class="tile tile--media tile--aurora flex flex-col justify-between gap-10 sm:col-span-2 lg:col-span-4 lg:row-span-2 lg:min-h-[22rem]">
+      <p class="flex items-center gap-2 text-sm font-medium text-accent">
+        <span class="pulse-dot" aria-hidden="true"></span>Portfólio · Crazy Lab
+      </p>
+      <div>
+        <h1 id="home-title" class="text-shimmer text-4xl font-semibold tracking-tight sm:text-6xl">
+          Vinícius Lopes
+        </h1>
+        <p class="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">
+          Desenvolvedor Full Stack, Angular e C#, com 5 anos de experiência em web, mobile, Windows e jogos.
+        </p>
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a pButton class="min-h-11" routerLink="/projects"
+            ><span pButtonLabel>Ver projetos</span
+            ><i class="pi pi-arrow-right" aria-hidden="true"></i
+          ></a>
+          <a pButton class="min-h-11" [text]="true" routerLink="/contact"
+            ><span pButtonLabel>Contato</span></a
+          >
+        </div>
+      </div>
+    </div>
+
+    <div class="tile flex flex-col gap-4 lg:col-span-2">
+      <h2 class="text-sm font-medium text-muted">Tecnologias</h2>
+      <ul class="m-0 flex list-none flex-wrap gap-2 p-0">
+        <li class="tile-chip">Angular</li>
+        <li class="tile-chip">C#</li>
+        <li class="tile-chip">JavaScript</li>
+        <li class="tile-chip">MySQL</li>
+        <li class="tile-chip">Unity</li>
+      </ul>
+    </div>
+
+    <a
+      class="tile group flex items-center justify-between gap-4 lg:col-span-2"
+      href="https://github.com/viniloppes"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <span class="flex items-center gap-3">
+        <i class="pi pi-github text-2xl text-accent" aria-hidden="true"></i>
+        <span class="font-medium">GitHub</span>
+      </span>
+      <i class="pi pi-arrow-up-right text-muted" aria-hidden="true"></i>
+    </a>
   </section>
 
   <section id="cases" class="py-12 sm:py-16" aria-labelledby="cases-title">
-    <div class="mb-8 flex flex-wrap items-center justify-between gap-4">
+    <div class="mb-6 flex flex-wrap items-center justify-between gap-4">
       <h2 id="cases-title" class="text-2xl font-semibold tracking-tight">Projetos selecionados</h2>
       <a pButton [text]="true" size="small" class="min-h-11" routerLink="/projects"
         ><span pButtonLabel>Ver todos</span><i class="pi pi-arrow-up-right" aria-hidden="true"></i
@@ -21,20 +60,18 @@
       [loading]="loading()"
       [errorMessage]="errorMessage()"
       [limit]="3"
+      [featured]="true"
       (retry)="loadCases()"
     />
   </section>
 
-  <section
-    appScrollReveal
-    id="sobre"
-    class="grid gap-5 border-t border-line py-12 sm:grid-cols-3 sm:py-16"
-    aria-labelledby="about-title"
-  >
-    <h2 id="about-title" class="text-2xl font-semibold tracking-tight">Sobre</h2>
-    <p class="max-w-2xl leading-relaxed text-muted sm:col-span-2">
-      Sou Vinícius, desenvolvedor. Reúno aqui trabalhos, estudos e experimentos com código, jogos e
-      interfaces.
-    </p>
+  <section appScrollReveal id="sobre" class="bento" aria-labelledby="about-title">
+    <div class="tile tile--media tile--pixels grid gap-4 sm:col-span-2 sm:grid-cols-3 lg:col-span-6">
+      <h2 id="about-title" class="text-2xl font-semibold tracking-tight">Sobre</h2>
+      <p class="max-w-2xl leading-relaxed text-muted sm:col-span-2">
+        Sou Vinícius, desenvolvedor. Reúno aqui trabalhos, estudos e experimentos com código, jogos
+        e interfaces.
+      </p>
+    </div>
   </section>
 </main>

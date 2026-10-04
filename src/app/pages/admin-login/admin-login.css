@@ -96,39 +96,6 @@
 
 .admin-login form { display: grid; gap: 1rem; min-width: 0; }
 
-.form-field { display: grid; gap: 0.45rem; }
-.form-field label { font-size: 0.82rem; font-weight: 700; }
-
-.admin-login input,
-.admin-form input,
-.admin-form textarea,
-.admin-form select {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: var(--radius-control);
-  color: var(--ink);
-  min-height: 48px;
-  padding: 0.75rem 0.85rem;
-  width: 100%;
-}
-
-.admin-login input::placeholder,
-.admin-form input::placeholder,
-.admin-form textarea::placeholder { color: var(--muted-ink); opacity: 1; }
-
-.admin-login input:focus,
-.admin-form input:focus,
-.admin-form textarea:focus,
-.admin-form select:focus {
-  border-color: var(--violet-deep);
-  box-shadow: 0 0 0 3px rgb(174 120 255 / 0.2);
-  outline: 2px solid var(--violet-deep);
-  outline-offset: 1px;
-}
-
-.admin-login input[aria-invalid='true'],
-.admin-form [aria-invalid='true'] { border-color: #ff9ba5; }
-
 .password-control { border-radius: var(--radius-control); display: grid; grid-template-columns: minmax(0, 1fr) auto; overflow: hidden; }
 .password-control input { min-width: 0; }
 .password-control input,
@@ -145,7 +112,6 @@
   padding-inline: 0.75rem;
 }
 
-.field-error { color: #ff9ba5; font-size: 0.78rem; }
 .form-message { font-size: 0.84rem; line-height: 1.5; margin: 0; }
 .form-message--error { color: #ff9ba5; }
 

@@ -291,6 +291,8 @@
 }
 
 .case-editor-dialog {
+  inset: 0;
+  margin: auto;
   background: var(--paper);
   border: 1px solid var(--border);
   border-radius: var(--radius-dialog);
@@ -328,14 +330,10 @@
 .editor-fields .form-field:nth-child(2),
 .editor-fields .form-field:nth-child(3),
 .editor-fields .form-field:nth-child(6) { grid-column: 1 / -1; }
-.admin-form .form-field label { color: var(--ink); font-size: 0.78rem; font-weight: 700; }
 .admin-form textarea { min-height: 116px; resize: vertical; }
-.admin-form textarea:focus { outline: 2px solid var(--violet-deep); }
 .optional-label { color: var(--muted-ink); font-size: 0.62rem; font-weight: 600; margin-left: 0.3rem; }
-.field-hint,.field-meta { color: var(--muted-ink); font-size: 0.72rem; line-height: 1.45; }
+.field-meta { color: var(--muted-ink); font-size: 0.72rem; line-height: 1.45; }
 .field-meta { display: flex; justify-content: space-between; }
-.field-error { color: #ff9ba5; font-size: 0.75rem; }
-.admin-form [aria-invalid='true'] { border-color: #ff9ba5; }
 
 .editor-upload { align-content: start; display: grid; gap: 0.7rem; }
 .editor-upload__label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; }

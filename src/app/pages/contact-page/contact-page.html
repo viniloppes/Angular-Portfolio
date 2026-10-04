@@ -1,24 +1,32 @@
-<main class="mx-auto min-h-[65vh] max-w-6xl px-6 py-16 sm:px-10 sm:py-24">
-  <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Contato</h1>
-  <p class="mt-5 text-muted">Vinícius Lopes</p>
-  <div class="mt-8 flex flex-wrap gap-4">
+<main class="mx-auto min-h-[65vh] max-w-6xl px-4 py-12 sm:px-10 sm:py-16">
+  <div class="bento">
+    <div class="tile tile--media tile--pixels flex flex-col justify-end gap-3 sm:col-span-2 lg:col-span-6 lg:min-h-56">
+      <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Contato</h1>
+      <p class="text-muted">Vinícius Lopes</p>
+    </div>
     <a
-      pButton
-      class="min-h-11"
-      [outlined]="true"
+      class="tile flex items-center justify-between gap-4 lg:col-span-3"
       href="https://www.linkedin.com/in/viniloppes/"
       target="_blank"
       rel="noopener noreferrer"
-      ><i class="pi pi-linkedin" aria-hidden="true"></i><span pButtonLabel>LinkedIn</span></a
     >
+      <span class="flex items-center gap-3">
+        <i class="pi pi-linkedin text-2xl text-accent" aria-hidden="true"></i>
+        <span class="font-medium">LinkedIn</span>
+      </span>
+      <i class="pi pi-arrow-up-right text-muted" aria-hidden="true"></i>
+    </a>
     <a
-      pButton
-      class="min-h-11"
-      [text]="true"
+      class="tile flex items-center justify-between gap-4 lg:col-span-3"
       href="https://github.com/viniloppes"
       target="_blank"
       rel="noopener noreferrer"
-      ><i class="pi pi-github" aria-hidden="true"></i><span pButtonLabel>GitHub</span></a
     >
+      <span class="flex items-center gap-3">
+        <i class="pi pi-github text-2xl text-accent" aria-hidden="true"></i>
+        <span class="font-medium">GitHub</span>
+      </span>
+      <i class="pi pi-arrow-up-right text-muted" aria-hidden="true"></i>
+    </a>
   </div>
 </main>

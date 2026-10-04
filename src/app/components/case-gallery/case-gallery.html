@@ -1,12 +1,12 @@
 <section aria-label="Projetos">
   @if (loading) {
     <div
-      class="grid gap-5 md:grid-cols-2 lg:grid-cols-3"
+      class="bento"
       aria-label="Carregando projetos"
       aria-busy="true"
     >
       @for (item of [1, 2, 3]; track item) {
-        <div class="case-card case-card--loading">
+        <div class="case-card case-card--loading lg:col-span-2">
           <p-skeleton width="100%" height="14rem" />
           <p-skeleton width="70%" height="1.25rem" />
           <p-skeleton width="90%" height="1rem" />
@@ -28,17 +28,23 @@
   } @else if (visibleCases.length === 0) {
     <p class="py-8 text-muted">Nenhum projeto disponível.</p>
   } @else {
-    <div class="grid items-stretch gap-x-5 gap-y-6 md:grid-cols-2 lg:grid-cols-3">
-      @for (item of visibleCases; track item.id) {
+    <div class="bento items-stretch">
+      @for (item of visibleCases; track item.id; let first = $first) {
         <button
           appScrollReveal
           class="case-card group flex h-full min-w-0 cursor-pointer flex-col p-0 text-left text-copy"
+          [class.sm:col-span-2]="featured && first"
+          [class.lg:col-span-4]="featured && first"
+          [class.lg:row-span-2]="featured && first"
+          [class.lg:col-span-2]="!(featured && first)"
           type="button"
           (click)="openCase(item)"
           [attr.aria-label]="'Abrir projeto: ' + item.name"
         >
           <span
             class="case-card__media relative block aspect-[4/3] w-full shrink-0 overflow-hidden bg-panel"
+            [class.lg:aspect-auto]="featured && first"
+            [class.lg:flex-1]="featured && first"
           >
             <img
               class="h-full w-full object-cover transition-transform duration-200 group-hover:scale-[1.02] motion-reduce:transform-none motion-reduce:transition-none"

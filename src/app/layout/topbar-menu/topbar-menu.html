@@ -1,34 +1,39 @@
-<header
-  class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 border-b border-line px-6 py-5 sm:px-10"
->
-  <a
-    class="inline-flex min-h-11 items-center gap-3 text-copy no-underline"
-    routerLink="/home"
-    aria-label="Crazy Lab, início"
+<header class="sticky top-3 z-20 mx-auto max-w-6xl px-4 pt-3 sm:px-10">
+  <div
+    class="flex items-center justify-between gap-2 rounded-full border border-[var(--border-soft)] bg-[rgb(27_21_43/0.78)] py-1.5 pr-1.5 pl-2 shadow-[var(--shadow-soft)] backdrop-blur-md"
   >
-    <span class="inline-flex size-9 items-center justify-center rounded-xl border border-line bg-panel text-sm font-semibold tracking-wide text-accent">CL</span>
-    <span class="font-medium">Crazy Lab</span>
-  </a>
-  <nav class="flex items-center gap-1 rounded-full border border-line bg-panel p-1 text-sm" aria-label="Navegação principal">
     <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
-      routerLink="/projects"
-      routerLinkActive="!text-accent bg-accent-subtle"
-      ariaCurrentWhenActive="page"
-      >Projetos</a
-    >
-    <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
+      class="inline-flex min-h-11 shrink-0 items-center gap-3 rounded-full text-copy no-underline sm:pr-3"
       routerLink="/home"
-      fragment="sobre"
-      >Sobre</a
+      aria-label="Crazy Lab, início"
     >
-    <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
-      routerLink="/contact"
-      routerLinkActive="!text-accent bg-accent-subtle"
-      ariaCurrentWhenActive="page"
-      >Contato</a
-    >
-  </nav>
+      <span
+        class="inline-flex size-9 items-center justify-center rounded-full bg-accent-subtle text-sm font-semibold tracking-wide text-accent"
+        >CL</span
+      >
+      <span class="hidden font-medium sm:inline">Crazy Lab</span>
+    </a>
+    <nav class="flex min-w-0 items-center gap-0.5 text-sm sm:gap-1" aria-label="Navegação principal">
+      <a
+        class="inline-flex min-h-11 items-center rounded-full px-3 text-muted sm:px-4 no-underline transition-colors duration-200 hover:text-copy"
+        routerLink="/projects"
+        routerLinkActive="!text-accent bg-accent-subtle"
+        ariaCurrentWhenActive="page"
+        >Projetos</a
+      >
+      <a
+        class="inline-flex min-h-11 items-center rounded-full px-3 text-muted sm:px-4 no-underline transition-colors duration-200 hover:text-copy"
+        routerLink="/home"
+        fragment="sobre"
+        >Sobre</a
+      >
+      <a
+        class="inline-flex min-h-11 items-center rounded-full px-3 text-muted sm:px-4 no-underline transition-colors duration-200 hover:text-copy"
+        routerLink="/contact"
+        routerLinkActive="!text-accent bg-accent-subtle"
+        ariaCurrentWhenActive="page"
+        >Contato</a
+      >
+    </nav>
+  </div>
 </header>

@@ -167,13 +167,13 @@
 
 ## Style Guidelines
 
-**Style:** Brutalism
+**Style:** Modern Soft UI (Soft UI Evolution) + Bento Box Grid — *supersedes the original Brutalism direction (2026-09-30).* The implemented palette is the dark violet theme in `src/styles.css`, not the pink palette above.
 
-**Keywords:** Raw, unpolished, stark, high contrast, plain text, default fonts, visible borders, asymmetric, anti-design
+**Keywords:** Modular tiles, asymmetric bento grid, layered surfaces, soft multi-layer shadows, translucent borders, 24px radii, pill navigation
 
-**Best For:** Design portfolios, artistic projects, counter-culture brands, editorial/media sites, tech blogs
+**Best For:** Design portfolios, product showcases, feature tiles
 
-**Key Effects:** No smooth transitions (instant), sharp corners (0px), bold typography (700+), visible grid, large blocks
+**Key Effects:** `.bento` 1→2→6 column grid (`--bento-gap`), `.tile` surface (`--shadow-soft`, `--radius-card: 1.5rem`), 200-300ms hover lift (translateY -2px, no scale), focus ring 3px, reduced-motion respected
 
 ### Page Pattern
 

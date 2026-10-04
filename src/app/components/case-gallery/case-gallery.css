@@ -1,17 +1,25 @@
 .case-card {
-  background: var(--card);
-  border: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--surface-raised), var(--card) 65%);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
   overflow: hidden;
-  transition: border-color 180ms ease;
+  transition:
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    transform 220ms ease;
 }
 
 .case-card:hover {
-  border-color: var(--violet);
+  border-color: rgb(174 120 255 / 0.45);
+  box-shadow: var(--shadow-soft-hover);
+  transform: translateY(-2px);
 }
 
 .case-card__media {
-  border-bottom: 1px solid var(--border);
+  margin: 0.5rem 0.5rem 0;
+  border-radius: calc(var(--radius-card) - 0.5rem);
+  width: calc(100% - 1rem);
 }
 
 .case-card__content {
@@ -32,7 +40,7 @@
 
 .case-gallery__notice {
   align-items: center;
-  border: 1px solid var(--border);
+  border: 1px solid var(--border-soft);
   border-radius: var(--radius-card);
   display: flex;
   flex-wrap: wrap;

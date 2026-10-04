@@ -28,6 +28,8 @@ export class CaseGallery {
   @Input() loading = false;
   @Input() errorMessage = '';
   @Input() limit?: number;
+  /** Bento layout: the first case becomes a large 2x2 tile beside smaller ones. */
+  @Input() featured = false;
   @Output() retry = new EventEmitter<void>();
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 

@@ -27,9 +27,18 @@
   --muted-ink: #c4b8d3;
   --border: #564b6d;
   --on-accent: #1b0d31;
-  --radius-control: 0.75rem;
-  --radius-card: 1rem;
-  --radius-dialog: 1.125rem;
+  --surface-raised: #241c38;
+  --border-soft: rgb(255 255 255 / 0.09);
+  --shadow-soft:
+    inset 0 1px 0 rgb(255 255 255 / 0.06), 0 1px 2px rgb(0 0 0 / 0.3),
+    0 16px 32px -16px rgb(0 0 0 / 0.55);
+  --shadow-soft-hover:
+    inset 0 1px 0 rgb(255 255 255 / 0.09), 0 2px 4px rgb(0 0 0 / 0.3),
+    0 24px 44px -16px rgb(0 0 0 / 0.65);
+  --bento-gap: 1rem;
+  --radius-control: 0.875rem;
+  --radius-card: 1.5rem;
+  --radius-dialog: 1.75rem;
   --radius-pill: 9999px;
   --font-display: 'Archivo', 'Arial Narrow', sans-serif;
   --font-body: 'Space Grotesk', Arial, sans-serif;
@@ -47,8 +56,31 @@ html {
   scroll-padding-top: 1rem;
 }
 
+/* Fixed ambient backdrop (AI-generated mesh-glow) that drifts slowly behind all pages */
+body::before {
+  animation: backdrop-drift 48s ease-in-out infinite alternate;
+  background: url('/images/mesh-glow.webp') center / cover no-repeat;
+  content: '';
+  inset: -6%;
+  opacity: 0.4;
+  pointer-events: none;
+  position: fixed;
+  will-change: transform;
+  z-index: -1;
+}
+
+body::after {
+  background: radial-gradient(ellipse at 50% 0%, transparent 30%, var(--paper) 100%);
+  content: '';
+  inset: 0;
+  opacity: 0.85;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
 body {
-  background: var(--paper);
+  background: transparent;
   color: var(--ink);
   font-family: var(--font-body);
   font-size: 16px;
@@ -81,6 +113,189 @@ input,
 textarea,
 select {
   border-radius: var(--radius-control);
+}
+
+/* Modern Soft UI + Bento: shared tile surface and grid */
+@layer components {
+  .bento {
+    display: grid;
+    gap: var(--bento-gap);
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  @media (min-width: 640px) {
+    .bento {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .bento {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+  }
+
+  .tile {
+    background: linear-gradient(160deg, var(--surface-raised), var(--card) 65%);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    min-width: 0;
+    padding: clamp(1.25rem, 2.5vw, 2rem);
+    transition:
+      box-shadow 220ms ease,
+      border-color 220ms ease,
+      transform 220ms ease;
+  }
+
+  a.tile,
+  button.tile {
+    color: inherit;
+    cursor: pointer;
+    text-decoration: none;
+  }
+
+  a.tile:hover,
+  button.tile:hover {
+    border-color: rgb(174 120 255 / 0.45);
+    box-shadow: var(--shadow-soft-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Tiles with an AI-generated image that slowly drifts behind the content */
+  .tile--media {
+    isolation: isolate;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .tile--media::before {
+    animation: media-drift 26s ease-in-out infinite alternate;
+    background: var(--tile-image) center / cover no-repeat;
+    content: '';
+    inset: -10%;
+    opacity: 0.9;
+    position: absolute;
+    will-change: transform;
+    z-index: -2;
+  }
+
+  /* Keeps text readable over the image */
+  .tile--media::after {
+    background: linear-gradient(105deg, rgb(13 10 25 / 0.82) 15%, rgb(13 10 25 / 0.15) 100%);
+    content: '';
+    inset: 0;
+    position: absolute;
+    z-index: -1;
+  }
+
+  .tile--aurora {
+    --tile-image: url('/images/hero-aurora.webp');
+  }
+
+  .tile--pixels {
+    --tile-image: url('/images/game-pixels.webp');
+  }
+
+  .tile--pixels::before {
+    background-position: center 82%;
+  }
+
+  /* Entrance: bento tiles rise in one after another (CSS only, SSR-safe) */
+  .bento > * {
+    animation: tile-in 620ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+  .bento > :nth-child(2) { animation-delay: 80ms; }
+  .bento > :nth-child(3) { animation-delay: 160ms; }
+  .bento > :nth-child(4) { animation-delay: 240ms; }
+  .bento > :nth-child(5) { animation-delay: 320ms; }
+  .bento > :nth-child(n + 6) { animation-delay: 400ms; }
+
+  .tile-chip {
+    animation: chip-float 5s ease-in-out infinite;
+  }
+  .tile-chip:nth-child(2) { animation-delay: -1.6s; }
+  .tile-chip:nth-child(3) { animation-delay: -3.2s; }
+  .tile-chip:nth-child(4) { animation-delay: -0.8s; }
+  .tile-chip:nth-child(5) { animation-delay: -2.4s; }
+
+  .text-shimmer {
+    animation: text-shimmer 7s linear infinite;
+    background: linear-gradient(100deg, var(--ink) 30%, var(--violet-deep) 50%, var(--star) 60%, var(--ink) 80%);
+    background-clip: text;
+    background-size: 250% 100%;
+    color: transparent;
+    -webkit-background-clip: text;
+  }
+
+  .pulse-dot {
+    animation: pulse-ring 2.4s ease-out infinite;
+    background: var(--violet-deep);
+    border-radius: var(--radius-pill);
+    display: inline-block;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+
+  /* Reusable form fields: any <input|textarea|select> inside .form-field (admin login + editor) */
+  .form-field {
+    display: grid;
+    gap: 0.45rem;
+    min-width: 0;
+  }
+
+  .form-field label {
+    font-size: 0.8125rem;
+    font-weight: 700;
+  }
+
+  .form-field :is(input, textarea, select) {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-control);
+    color: var(--ink);
+    min-height: 3rem;
+    padding: 0.75rem 0.85rem;
+    transition:
+      border-color 200ms ease,
+      box-shadow 200ms ease;
+    width: 100%;
+  }
+
+  .form-field :is(input, textarea)::placeholder {
+    color: var(--muted-ink);
+    opacity: 1;
+  }
+
+  .form-field :is(input, textarea, select):focus {
+    border-color: var(--violet-deep);
+    box-shadow: 0 0 0 3px rgb(174 120 255 / 0.2);
+  }
+
+  .form-field [aria-invalid='true'] {
+    border-color: #ff9ba5;
+  }
+
+  .field-hint {
+    color: var(--muted-ink);
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  .field-error {
+    color: #ff9ba5;
+    font-size: 0.78rem;
+  }
+
+  .tile-chip {
+    background: var(--violet-light);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-pill);
+    color: var(--violet-deep);
+    font-size: 0.8125rem;
+    font-weight: 500;
+    padding: 0.35rem 0.85rem;
+  }
 }
 
 .category-filter-button {
@@ -122,4 +337,34 @@ select {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+@keyframes backdrop-drift {
+  from { transform: translate3d(-2%, -1%, 0) scale(1); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.08); }
+}
+
+@keyframes media-drift {
+  from { transform: translate3d(-3%, -2%, 0) scale(1.02); }
+  to { transform: translate3d(3%, 2%, 0) scale(1.14); }
+}
+
+@keyframes tile-in {
+  from { opacity: 0; transform: translateY(1.25rem) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes chip-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+@keyframes text-shimmer {
+  from { background-position: 100% 0; }
+  to { background-position: -100% 0; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(200 165 255 / 0.6); }
+  80%, 100% { box-shadow: 0 0 0 0.6rem rgb(200 165 255 / 0); }
 }
