@@ -3,36 +3,50 @@
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
 
-@custom-variant dark (&:where(.my-app-dark, .my-app-dark *));
 
 @theme inline {
   --color-page: var(--paper);
   --color-panel: var(--card);
   --color-copy: var(--ink);
   --color-muted: var(--muted-ink);
-  --color-accent: var(--violet-deep);
-  --color-accent-subtle: var(--violet-light);
+  --color-accent: var(--accent-ink);
+  --color-accent-subtle: var(--accent-soft);
   --color-line: var(--border);
+  --color-amber-soft: var(--amber-100);
+  --color-amber-ink: var(--amber-900);
 }
 
 :root {
-  color-scheme: dark;
-  --violet: #ae78ff;
-  --violet-light: #241934;
-  --violet-deep: #c8a5ff;
-  --star: #b7dfff;
-  --paper: #0d0a19;
-  --card: #1b152b;
-  --ink: #f5f0ff;
-  --muted-ink: #c4b8d3;
-  --border: #564b6d;
-  --on-accent: #1b0d31;
+  color-scheme: light;
+  /* AmberLink: papel, tinta e âmbar (Figma i8tMqSiTvDdwRxfHRS5L6N) */
+  --amber-50: #fff6ec;
+  --amber-100: #ffe8cc;
+  --amber-200: #ffd199;
+  --amber-300: #ffb866;
+  --amber-400: #ff9f33;
+  --amber-500: #f58a07;
+  --amber-600: #d96f00;
+  --amber-700: #a85200;
+  --amber-800: #7a3a00;
+  --amber-900: #4a2300;
+  --hero-paper: #fdf6ee;
+  --accent-fill: var(--amber-500);
+  --accent-soft: var(--amber-100);
+  --accent-ink: var(--amber-700);
+  --paper: #fbf7f2;
+  --card: #ffffff;
+  --ink: #1f1712;
+  --muted-ink: #6e6259;
+  --border: #eadfd3;
+  --on-accent: #1f1712;
   --radius-control: 0.75rem;
-  --radius-card: 1rem;
-  --radius-dialog: 1.125rem;
+  --radius-card: 1.75rem;
+  --radius-dialog: 1.75rem;
   --radius-pill: 9999px;
-  --font-display: 'Archivo', 'Arial Narrow', sans-serif;
-  --font-body: 'Space Grotesk', Arial, sans-serif;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-body: 'Geist', Arial, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+  --gutter: clamp(1rem, 5vw, 4.5rem);
 }
 
 * {
@@ -60,6 +74,8 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.02em;
 }
 
 button,
@@ -67,7 +83,7 @@ input,
 textarea,
 select {
   font: inherit;
-  caret-color: var(--violet-deep);
+  caret-color: var(--accent-ink);
 }
 
 button,
@@ -75,12 +91,73 @@ a {
   touch-action: manipulation;
 }
 
-button,
-.p-button,
 input,
 textarea,
 select {
   border-radius: var(--radius-control);
+}
+
+/* Botões AmberLink: pill, ~56px de altura, label 17px (componente Button no Figma) */
+button.p-button,
+a.p-button,
+.p-button {
+  border-radius: var(--radius-pill);
+  font-size: 1.0625rem;
+  font-weight: 500;
+  gap: 0.75rem;
+  min-height: 3.5rem;
+  padding: 1.1875rem 1.75rem 1.1875rem 2rem;
+}
+
+.p-button.p-button-sm {
+  font-size: 0.9375rem;
+  min-height: 2.75rem;
+  padding: 0.625rem 1.25rem;
+}
+
+.p-button:not(:disabled):active {
+  transform: translateY(1px);
+}
+
+/* Variante vidro âmbar: sobre imagens e áreas âmbar */
+.p-button.amber-glass {
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(28px) saturate(140%);
+  background: linear-gradient(135deg, rgb(255 246 236 / 0.72), rgb(255 184 102 / 0.42));
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 16px 40px -12px rgb(217 111 0 / 0.28);
+  color: var(--amber-900);
+}
+
+.p-button.amber-glass:not(:disabled):hover {
+  background: linear-gradient(135deg, rgb(255 246 236 / 0.85), rgb(255 184 102 / 0.6));
+  border-color: #fff;
+  color: var(--amber-900);
+}
+
+.amber-glass-panel {
+  -webkit-backdrop-filter: blur(28px) saturate(140%);
+  backdrop-filter: blur(28px) saturate(140%);
+  background: linear-gradient(135deg, rgb(255 246 236 / 0.72), rgb(255 184 102 / 0.42));
+  border: 1px solid rgb(255 255 255 / 0.9);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 16px 40px -12px rgb(217 111 0 / 0.28);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .p-button.amber-glass,
+  .amber-glass-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--amber-100);
+  }
+}
+
+.label-mono {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .category-filter-button {
@@ -94,12 +171,12 @@ select {
 }
 
 :focus-visible {
-  outline: 3px solid var(--violet-deep);
+  outline: 3px solid var(--accent-ink);
   outline-offset: 3px;
 }
 
 ::selection {
-  background: var(--violet);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 
@@ -122,4 +199,18 @@ select {
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+.font-display {
+  font-family: var(--font-display);
+}
+
+.page-gutter {
+  padding-inline: var(--gutter);
+}
+
+/* Âmbar 500 não tem contraste para texto: botões de texto/contorno usam âmbar 700 */
+.p-button.p-button-text:not(.p-button-contrast),
+.p-button.p-button-outlined:not(.p-button-contrast) {
+  color: var(--amber-700);
 }

@@ -1,32 +1,29 @@
 <header
-  class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-8 gap-y-3 border-b border-line px-6 py-5 sm:px-10"
+  class="page-gutter flex min-h-[4.5rem] flex-wrap items-center justify-between gap-x-8 gap-y-3 bg-[var(--hero-paper)] py-3"
 >
-  <a
-    class="inline-flex min-h-11 items-center gap-3 text-copy no-underline"
-    routerLink="/home"
-    aria-label="Crazy Lab, início"
-  >
-    <span class="inline-flex size-9 items-center justify-center rounded-xl border border-line bg-panel text-sm font-semibold tracking-wide text-accent">CL</span>
-    <span class="font-medium">Crazy Lab</span>
+  <a class="inline-flex min-h-11 items-center gap-2.5 text-copy no-underline" routerLink="/home" aria-label="AmberLink, início">
+    <img class="size-7 rounded-full object-cover" src="/amberlink/amber-stone.webp" alt="" width="28" height="28" />
+    <span class="font-display text-[1.875rem] leading-none">AmberLink</span>
   </a>
-  <nav class="flex items-center gap-1 rounded-full border border-line bg-panel p-1 text-sm" aria-label="Navegação principal">
+  <nav class="flex items-center gap-1 text-[0.9375rem]" aria-label="Navegação principal">
     <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
+      class="inline-flex min-h-11 items-center rounded-full px-4 text-muted no-underline transition-colors hover:text-copy"
       routerLink="/projects"
-      routerLinkActive="!text-accent bg-accent-subtle"
+      routerLinkActive="!text-copy"
       ariaCurrentWhenActive="page"
       >Projetos</a
     >
     <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
-      routerLink="/home"
-      fragment="sobre"
-      >Sobre</a
+      class="inline-flex min-h-11 items-center rounded-full px-4 text-muted no-underline transition-colors hover:text-copy"
+      routerLink="/articles"
+      routerLinkActive="!text-copy"
+      ariaCurrentWhenActive="page"
+      >Artigos</a
     >
     <a
-      class="inline-flex min-h-11 items-center rounded-full px-3 text-muted no-underline transition-colors hover:text-accent"
+      class="ml-2 inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[var(--ink)] px-5 text-copy no-underline transition-colors hover:bg-amber-soft"
       routerLink="/contact"
-      routerLinkActive="!text-accent bg-accent-subtle"
+      routerLinkActive="bg-amber-soft"
       ariaCurrentWhenActive="page"
       >Contato</a
     >

@@ -7,7 +7,7 @@
 }
 
 .case-card:hover {
-  border-color: var(--violet);
+  border-color: var(--amber-300);
 }
 
 .case-card__media {
@@ -15,13 +15,13 @@
 }
 
 .case-card__content {
-  padding: 1rem 1.1rem 1.15rem;
+  padding: 1.5rem 1.75rem 1.75rem;
 }
 
 .case-card__category {
-  background: var(--violet-light);
+  background: var(--accent-soft);
   border-radius: var(--radius-pill);
-  padding: 0.25rem 0.65rem;
+  padding: 0.4rem 0.8rem;
 }
 
 .case-card--loading {
@@ -78,7 +78,7 @@
 
 .case-dialog__brand,
 .case-dialog__eyebrow {
-  color: var(--violet-deep);
+  color: var(--accent-ink);
   font-size: 0.68rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -100,7 +100,7 @@
 }
 
 .case-dialog__close:hover {
-  background: var(--violet-light);
+  background: var(--accent-soft);
   color: var(--ink);
 }
 
@@ -147,13 +147,13 @@
   border-left: 1px solid var(--border);
 }
 .case-media-switch button.is-active {
-  background: var(--violet);
+  background: var(--accent-fill);
   color: var(--on-accent);
 }
 
 .case-media-frame {
   aspect-ratio: 16 / 9;
-  background: #160f1a;
+  background: var(--amber-50);
   border: 1px solid var(--border);
   border-radius: var(--radius-control);
   overflow: hidden;
@@ -176,7 +176,7 @@
   margin: 0.65rem 0 0;
 }
 .case-dialog__hint a {
-  color: var(--violet-deep);
+  color: var(--accent-ink);
   font-weight: 700;
 }
 
@@ -222,7 +222,7 @@
   text-decoration: none;
 }
 .case-action:hover {
-  background: var(--violet-light);
+  background: var(--accent-soft);
 }
 
 @media (max-width: 620px) {
