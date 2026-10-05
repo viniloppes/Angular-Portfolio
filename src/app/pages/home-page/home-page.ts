@@ -6,10 +6,11 @@ import { CaseGallery } from '../../components/case-gallery/case-gallery';
 import { PortfolioApiService } from '../../core/portfolio-api.service';
 import { PortfolioCase } from '../../core/portfolio-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
+import { AmberScene } from '../../shared/amber-scene/amber-scene';
 
 @Component({
   selector: 'app-home-page',
-  imports: [ButtonModule, CommonModule, RouterLink, CaseGallery, ScrollRevealDirective],
+  imports: [ButtonModule, CommonModule, RouterLink, CaseGallery, ScrollRevealDirective, AmberScene],
   host: { class: 'block' },
   templateUrl: './home-page.html',
 })
@@ -17,6 +18,7 @@ export class HomePage implements OnInit {
   private readonly api = inject(PortfolioApiService);
   private readonly platformId = inject(PLATFORM_ID);
 
+  readonly areas = ['Web', 'Jogos', 'Interação'];
   readonly cases = signal<PortfolioCase[]>([]);
   readonly loading = signal(true);
   readonly errorMessage = signal('');

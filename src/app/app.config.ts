@@ -8,20 +8,47 @@ import { definePreset } from '@primeuix/themes';
 import { routes } from './app.routes';
 import { supabaseAuthInterceptor } from './core/auth.interceptor';
 
+// Âmbar AmberLink (mesma escala das variáveis do Figma)
 const portfolioTheme = definePreset(Aura, {
   semantic: {
     primary: {
-      50: '{violet.50}',
-      100: '{violet.100}',
-      200: '{violet.200}',
-      300: '{violet.300}',
-      400: '{violet.400}',
-      500: '{violet.500}',
-      600: '{violet.600}',
-      700: '{violet.700}',
-      800: '{violet.800}',
-      900: '{violet.900}',
-      950: '{violet.950}',
+      50: '#fff6ec',
+      100: '#ffe8cc',
+      200: '#ffd199',
+      300: '#ffb866',
+      400: '#ff9f33',
+      500: '#f58a07',
+      600: '#d96f00',
+      700: '#a85200',
+      800: '#7a3a00',
+      900: '#4a2300',
+      950: '#2e1600',
+    },
+    colorScheme: {
+      light: {
+        // Neutros quentes (papel/tinta) no lugar do slate padrão do Aura
+        surface: {
+          0: '#ffffff',
+          50: '#fbf7f2',
+          100: '#f5ede4',
+          200: '#eadfd3',
+          300: '#d9c9b8',
+          400: '#b5a493',
+          500: '#8f7f70',
+          600: '#6e6259',
+          700: '#524840',
+          800: '#3a322c',
+          900: '#2a231e',
+          950: '#1f1712',
+        },
+        // Texto em tinta escura: branco sobre âmbar 500 não passa contraste AA
+        primary: {
+          color: '{primary.500}',
+          contrastColor: '#1f1712',
+          hoverColor: '{primary.400}',
+          activeColor: '{primary.600}',
+        },
+      },
     },
   },
 });
@@ -35,7 +62,7 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: portfolioTheme,
         options: {
-          darkModeSelector: '.my-app-dark',
+          darkModeSelector: false,
           cssLayer: { name: 'primeng', order: 'theme, base, primeng, components, utilities' },
         },
       },
