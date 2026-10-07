@@ -10,6 +10,7 @@ export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'admin', loadComponent: () => import('./pages/admin-login/admin-login').then((m) => m.AdminLoginPage), title: 'Entrar · AmberLink' },
   { path: 'admin/cases', loadComponent: () => import('./pages/admin-cases/admin-cases').then((m) => m.AdminCasesPage), canActivate: [adminGuard], title: 'Cases · AmberLink' },
+  { path: 'admin/categories', loadComponent: () => import('./pages/admin-categories/admin-categories').then((m) => m.AdminCategoriesPage), canActivate: [adminGuard], title: 'Categorias · AmberLink' },
   {
     path: '',
     component: Layout,

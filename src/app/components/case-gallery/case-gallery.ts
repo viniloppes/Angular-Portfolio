@@ -11,7 +11,7 @@ import {
   inject,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { PortfolioApiService } from '../../core/portfolio-api.service';
+import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
@@ -32,7 +32,7 @@ export class CaseGallery {
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
   private readonly sanitizer = inject(DomSanitizer);
-  private readonly api = inject(PortfolioApiService);
+  private readonly portfolio = inject(PortfolioDataService);
 
   selectedCase: PortfolioCase | null = null;
   mediaMode: MediaMode = 'image';
@@ -71,7 +71,7 @@ export class CaseGallery {
   }
 
   imageUrl(path: string): string {
-    return this.api.imageUrl(path);
+    return this.portfolio.imageUrl(path);
   }
 
   setMediaMode(mode: MediaMode): void {

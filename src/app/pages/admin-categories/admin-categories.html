@@ -1,0 +1,116 @@
+<main class="admin-workspace">
+  <aside class="admin-sidebar">
+    <a class="admin-sidebar__brand" routerLink="/home" aria-label="Voltar ao portfólio">
+      <span class="admin-mark" aria-hidden="true">AL</span>
+      <span><strong>AMBERLINK</strong><small>POR VINÍCIUS LOPES</small></span>
+    </a>
+
+    <nav class="admin-sidebar__nav" aria-label="Administração">
+      <span class="admin-sidebar__label">CONTEÚDO</span>
+      <a routerLink="/admin/cases"><span aria-hidden="true">▤</span> Cases</a>
+      <a class="is-current" routerLink="/admin/categories" aria-current="page"><span aria-hidden="true">◇</span> Categorias <span class="sidebar-count">{{ activeCount }}</span></a>
+    </nav>
+
+    <div class="admin-sidebar__footer">
+      <a routerLink="/home"><span aria-hidden="true">↗</span> Ver portfólio</a>
+      <button type="button" (click)="signOut()"><span aria-hidden="true">↪</span> Sair</button>
+    </div>
+  </aside>
+
+  <section class="admin-main" aria-labelledby="admin-categories-title">
+    <header class="admin-main__header">
+      <div>
+        <p class="admin-kicker">PAINEL / CONTEÚDO</p>
+        <h1 id="admin-categories-title">Categorias</h1>
+        <p class="admin-main__intro">Organize os projetos por área e mantenha o catálogo claro.</p>
+      </div>
+      <button class="admin-primary" type="button" (click)="openCreate()"><span aria-hidden="true">+</span> Nova categoria</button>
+    </header>
+
+    @if (statusMessage()) {
+      <p class="admin-status" role="status" aria-live="polite">{{ statusMessage() }}</p>
+    }
+
+    @if (loadError()) {
+      <div class="admin-alert" role="alert">
+        <span>{{ loadError() }}</span>
+        <button type="button" (click)="loadCategories()">Tentar novamente</button>
+      </div>
+    }
+
+    @if (loading()) {
+      <div class="admin-list-loading" aria-label="Carregando categorias" aria-busy="true">
+        @for (item of [1, 2, 3]; track item) { <div class="admin-row-skeleton"></div> }
+      </div>
+    } @else if (!loadError() && categories().length === 0) {
+      <section class="admin-empty">
+        <span class="admin-empty__stamp" aria-hidden="true">00</span>
+        <p class="admin-kicker">ORGANIZE SUA VITRINE</p>
+        <h2>Crie a primeira categoria.</h2>
+        <p>As categorias ativas aparecem nos filtros e no formulário dos cases.</p>
+        <button class="admin-primary" type="button" (click)="openCreate()">Criar categoria <span aria-hidden="true">↗</span></button>
+      </section>
+    } @else if (categories().length > 0) {
+      <div class="admin-list-heading">
+        <span>{{ categories().length }} {{ categories().length === 1 ? 'CATEGORIA' : 'CATEGORIAS' }}</span>
+        <span>INATIVAS PODEM SER REATIVADAS</span>
+      </div>
+      <section class="category-list" aria-label="Categorias cadastradas">
+        @for (category of categories(); track category.id) {
+          <article class="category-row" [class.category-row--inactive]="!category.isActive">
+            <div class="category-row__details">
+              <span class="category-row__status" [class.category-row__status--inactive]="!category.isActive">{{ category.isActive ? 'ATIVA' : 'INATIVA' }}</span>
+              <h2>{{ category.name }}</h2>
+              <p>{{ category.description || 'Sem descrição.' }}</p>
+            </div>
+            <div class="admin-case-row__actions">
+              <button class="admin-icon-action" type="button" (click)="openEdit(category)" [attr.aria-label]="'Editar ' + category.name">Editar</button>
+              <button class="admin-icon-action" [class.admin-icon-action--danger]="category.isActive" type="button" (click)="setActive(category, !category.isActive)" [disabled]="busyCategoryId() === category.id" [attr.aria-label]="(category.isActive ? 'Desativar ' : 'Reativar ') + category.name">
+                {{ busyCategoryId() === category.id ? 'Salvando…' : category.isActive ? 'Desativar' : 'Reativar' }}
+              </button>
+            </div>
+          </article>
+        }
+      </section>
+    }
+
+    <footer class="admin-main__footer">
+      <span>Desativar uma categoria não apaga os registros.</span>
+      <span>AMBERLINK / ADMIN</span>
+    </footer>
+  </section>
+
+  <dialog #categoryDialog class="case-editor-dialog" (click)="handleDialogClick($event)" aria-labelledby="category-editor-title">
+    <form class="admin-form category-form" [formGroup]="form" (ngSubmit)="saveCategory()" novalidate>
+      <header class="case-editor__header">
+        <div>
+          <p class="admin-kicker">{{ editingCategory ? 'EDITAR CATEGORIA' : 'NOVA CATEGORIA' }}</p>
+          <h2 id="category-editor-title">{{ editingCategory ? 'Ajuste os detalhes.' : 'Dê um nome à área.' }}</h2>
+        </div>
+        <button type="button" class="editor-close" (click)="closeEditor()" aria-label="Fechar formulário">×</button>
+      </header>
+
+      <div class="category-form__fields">
+        <div class="form-field">
+          <label for="category-name">Nome <span aria-hidden="true">*</span></label>
+          <input id="category-name" type="text" formControlName="name" maxlength="80" autocomplete="off" placeholder="Ex.: Web" [attr.aria-invalid]="form.controls.name.invalid && form.controls.name.touched" aria-describedby="category-name-error">
+          @if (form.controls.name.invalid && form.controls.name.touched) { <span id="category-name-error" class="field-error">Informe um nome de até 80 caracteres.</span> }
+        </div>
+        <div class="form-field">
+          <label for="category-description">Descrição <span class="optional-label">OPCIONAL</span></label>
+          <textarea id="category-description" formControlName="description" rows="4" placeholder="Uma breve descrição para uso no painel."></textarea>
+        </div>
+      </div>
+
+      @if (formError()) { <p class="form-message form-message--error" role="alert">{{ formError() }}</p> }
+
+      <footer class="case-editor__footer">
+        <button class="admin-secondary" type="button" (click)="closeEditor()">Cancelar</button>
+        <button class="admin-primary" type="submit" [disabled]="saving()">
+          {{ saving() ? 'Salvando…' : editingCategory ? 'Salvar alterações' : 'Criar categoria' }}
+          @if (!saving()) { <span aria-hidden="true">↗</span> }
+        </button>
+      </footer>
+    </form>
+  </dialog>
+</main>

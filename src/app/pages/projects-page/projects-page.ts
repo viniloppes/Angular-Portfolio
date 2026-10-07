@@ -2,7 +2,9 @@ import { ButtonModule } from 'primeng/button';
 import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { CaseGallery } from '../../components/case-gallery/case-gallery';
-import { PortfolioApiService } from '../../core/portfolio-api.service';
+import { PortfolioDataService } from '../../core/portfolio-data.service';
+import { PortfolioCategoryService } from '../../core/portfolio-category.service';
+import { PortfolioCategory } from '../../core/portfolio-category';
 import { PortfolioCase } from '../../core/portfolio-case';
 
 @Component({
@@ -12,21 +14,19 @@ import { PortfolioCase } from '../../core/portfolio-case';
   templateUrl: './projects-page.html',
 })
 export class ProjectsPage implements OnInit {
-  private readonly api = inject(PortfolioApiService);
+  private readonly portfolio = inject(PortfolioDataService);
+  private readonly categoryService = inject(PortfolioCategoryService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly cases = signal<PortfolioCase[]>([]);
   readonly loading = signal(true);
   readonly errorMessage = signal('');
   readonly activeCategory = signal('Todos');
+  readonly activeCategories = signal<PortfolioCategory[]>([]);
 
   readonly categories = computed(() => [
     'Todos',
-    ...new Set(
-      this.cases()
-        .map((item) => item.category)
-        .filter(Boolean),
-    ),
+    ...this.activeCategories().map((category) => category.name),
   ]);
   readonly visibleCases = computed(() =>
     this.activeCategory() === 'Todos'
@@ -43,7 +43,12 @@ export class ProjectsPage implements OnInit {
     this.errorMessage.set('');
 
     try {
-      this.cases.set(await this.api.getPublicCases());
+      const [cases, categories] = await Promise.all([
+        this.portfolio.getPublicCases(),
+        this.categoryService.getPublicCategories(),
+      ]);
+      this.cases.set(cases);
+      this.activeCategories.set(categories);
       if (!this.categories().includes(this.activeCategory())) this.activeCategory.set('Todos');
     } catch {
       this.errorMessage.set('O catálogo não respondeu. Tente novamente em alguns instantes.');

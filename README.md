@@ -1,19 +1,24 @@
-# Crazy Lab frontend
+# AmberLink portfolio frontend
 
-Angular 21 application deployed separately from the ASP.NET Core API.
+Angular 21 application that reads and administers portfolio cases directly through Supabase. The frontend uses only the public Supabase key; database Row Level Security and Storage policies control access.
 
 ## Local development
 
-Run `npm ci --legacy-peer-deps` and `npm start`. The app reads public settings from `public/portfolio-config.js`; set `apiBaseUrl` to the local API URL and keep Supabase secrets out of this file. `npm run build` creates the production browser output in `dist/portfolio/browser/`.
+Run `npm ci --legacy-peer-deps` and `npm start`. Set `SUPABASE_URL` and `SUPABASE_ANON_KEY` in `public/portfolio-config.js`; `npm run build` creates browser output in `dist/portfolio/browser/`.
+
+Apply the SQL files in `supabase/migrations/` to the linked Supabase project. The initial migration preserves every existing case and its text category while adding category IDs and soft-delete state. The frontend queries only active cases and categories. Admin write access is restricted by RLS to the configured administrator UID.
+
+The public `portfolio-covers` bucket accepts JPG, PNG, WebP, and GIF files up to 10 MB. Public reads are limited to that bucket; insert and update policies require the administrator UID. Never put a Supabase secret or service-role key in this repository or browser configuration.
+
+The five existing covers still use their local `/assets/projects/...` paths and remain visible until they are uploaded from the admin case editor. The old text `category` column stays in the database until other ASP.NET API consumers are ruled out.
 
 ## Docker and Coolify
 
-Build from this repository root: `docker build -t crazy-lab-web .`. The image builds Angular and serves the browser files through Nginx on container port `80`, with fallback to `index.html` for Angular routes.
+Build from this repository root: `docker build -t amberlink-web .`. The image builds Angular and serves the browser files through Nginx on container port `80`, with fallback to `index.html` for Angular routes.
 
-Create a separate Coolify application using this repository and its root `Dockerfile`. Set the frontend domain to `https://your-domain.example` and provide these runtime variables:
+Create a Coolify application from this repository and its root `Dockerfile`. Set the frontend domain and provide these runtime variables:
 
-- `API_BASE_URL=https://api.your-domain.example` (the public API origin, without `/api`).
 - `SUPABASE_URL=https://your-project.supabase.co`.
 - `SUPABASE_ANON_KEY=sb_publishable_...` (public browser key).
 
-At startup, the container writes `/portfolio-config.js` from those values with `Cache-Control: no-store`. The API must allow the exact frontend origin through `Cors__AllowedOrigins__0`. Configure the frontend origin in Supabase Auth redirect URLs for administrator login. Never put `SUPABASE_SECRET_KEY` in this repository or its Coolify variables.
+At startup, the container writes `/portfolio-config.js` from those values with `Cache-Control: no-store`. Configure the frontend origin in Supabase Auth redirect URLs for administrator login. The separate ASP.NET Core API is outside this repository's deployment configuration.

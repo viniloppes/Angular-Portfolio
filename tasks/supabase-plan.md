@@ -24,14 +24,14 @@
 
 ### Fase 1: dados e acesso seguro
 
-- [ ] Tarefa 1: Criar migração aditiva de categorias e exclusão lógica.
-- [ ] Tarefa 2: Configurar RLS, privilégios e políticas do Storage.
+- [x] Tarefa 1: Criar migração aditiva de categorias e exclusão lógica.
+- [x] Tarefa 2: Configurar RLS, privilégios e políticas do Storage.
 - [ ] Tarefa 3: Compartilhar o cliente Supabase com a autenticação.
 
 ### Ponto de controle: fundação
 
-- [ ] A migração mantém todas as linhas atuais e associa cada projeto à categoria correta.
-- [ ] Leituras públicas e escritas administrativas estão cobertas por políticas verificáveis.
+- [x] A migração mantém todas as linhas atuais e associa cada projeto à categoria correta.
+- [x] Leituras públicas e escritas administrativas estão cobertas por políticas verificáveis.
 - [ ] Login e sessão continuam usando o mesmo cliente Supabase.
 
 ### Fase 2: catálogo e categorias
@@ -63,7 +63,7 @@
 
 | Risco | Impacto | Mitigação |
 |---|---|---|
-| O backend atual pode autorizar o administrador de um jeito que ainda não está codificado nas políticas RLS. | Alto | Identificar o UID ou claim administrativo existente e usar esse critério nas políticas; validar tentativa de escrita com anon, administrador e usuário autenticado não administrador. |
+| O backend atual pode autorizar o administrador de um jeito que ainda não está codificado nas políticas RLS. | Alto | Resolvido: as políticas usam o UID da única conta Auth existente; inserts de anon e usuário não administrador foram rejeitados em transação. |
 | Remover category antes do corte quebra a API antiga. | Alto | Manter a coluna textual na migração aditiva e removê-la somente após validar o frontend direto e confirmar os demais consumidores. |
 | Os caminhos atuais de capa apontam para assets locais e não para Storage. | Médio | Enviar as cinco imagens existentes ao bucket, atualizar thumbnail_path e conferir as URLs antes de remover a dependência do backend. |
 | A desativação de uma categoria pode deixar projetos ativos sem categoria visível. | Médio | Regra recomendada: bloquear a desativação enquanto houver projetos ativos associados; exigir reatribuição antes. Confirmar esta regra antes da implementação. |
@@ -72,10 +72,10 @@
 
 ## Questões abertas para a implementação
 
-- Qual UID do Supabase ou claim identifica a conta administradora para as políticas RLS? O código Angular confirma sessão, mas a restrição ao administrador precisa existir no banco.
-- As descrições das categorias atuais podem começar vazias para serem preenchidas depois?
-- Deve ser bloqueada a desativação de categoria que ainda tenha projetos ativos? A recomendação deste plano é sim.
-- Existe algum consumidor da API ASP.NET além deste projeto Angular?
+- A conta Auth existente foi identificada pelo UID `829615e0-72aa-4ba3-9d99-96d25391dfc4`; as políticas RLS usam esse UID.
+- As descrições começam vazias/null e podem ser preenchidas depois.
+- A desativação de categoria com cases ativos é bloqueada no banco.
+- Confirme se existe algum consumidor da API ASP.NET além deste Angular antes de remover a coluna `portfolio_cases.category`.
 
 ## Referências técnicas
 

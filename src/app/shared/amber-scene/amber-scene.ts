@@ -15,6 +15,7 @@ import type { AmberSceneHandle, AmberVariant } from './amber-renderer';
  * Âmbar em 3D com imagem estática como poster.
  * O poster aparece já no SSR (LCP); o Three.js só é baixado no navegador, com WebGL,
  * tela >= 768px e sem prefers-reduced-motion. A cena só anima enquanto está visível.
+ * Com [enable3d]="false" a imagem fica fixa e o Three.js nem é carregado.
  */
 @Component({
   selector: 'app-amber-scene',
@@ -49,6 +50,7 @@ export class AmberScene {
   readonly poster = input.required<string>();
   readonly fit = input<'cover' | 'contain'>('cover');
   readonly priority = input(false);
+  readonly enable3d = input(true);
 
   readonly ready = signal(false);
   private readonly canvas = viewChild.required<ElementRef<HTMLCanvasElement>>('canvas');
@@ -103,6 +105,7 @@ export class AmberScene {
   }
 
   private canRender3d(): boolean {
+    if (!this.enable3d()) return false;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return false;
     if (!window.matchMedia('(min-width: 768px)').matches) return false;
     const probe = document.createElement('canvas').getContext('webgl2');

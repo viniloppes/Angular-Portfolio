@@ -1,4 +1,3 @@
-﻿import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter, withInMemoryScrolling } from '@angular/router';
 import { providePrimeNG } from 'primeng/config';
@@ -6,7 +5,6 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
-import { supabaseAuthInterceptor } from './core/auth.interceptor';
 
 // Âmbar AmberLink (mesma escala das variáveis do Figma)
 const portfolioTheme = definePreset(Aura, {
@@ -57,7 +55,6 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withInMemoryScrolling({ anchorScrolling: 'enabled' })),
-    provideHttpClient(withFetch(), withInterceptors([supabaseAuthInterceptor])),
     providePrimeNG({
       theme: {
         preset: portfolioTheme,
