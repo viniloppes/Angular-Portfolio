@@ -1,5 +1,4 @@
 ﻿export interface PortfolioRuntimeConfig {
-  apiBaseUrl: string;
   supabaseUrl: string;
   supabaseAnonKey: string;
 }
@@ -11,7 +10,6 @@ declare global {
 }
 
 const emptyConfig: PortfolioRuntimeConfig = {
-  apiBaseUrl: 'https://localhost:44351/',
   supabaseUrl: '',
   supabaseAnonKey: '',
 };
