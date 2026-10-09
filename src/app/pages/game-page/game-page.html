@@ -47,7 +47,6 @@
           }
           @default {
             @if (revealed(); as current) {
-              <img [src]="imageUrl(current.item.thumbnailUrl)" alt="" width="96" height="72" />
               <span class="flex min-w-0 flex-col">
                 <span class="label-mono text-[var(--amber-300)]">Case {{ current.index + 1 }} de {{ cases().length }}</span>
                 <span class="truncate text-[var(--ivory)]">{{ current.item.name }}</span>
@@ -134,9 +133,6 @@
         @default {
           @if (revealed(); as current) {
             <figure class="arcade__figure m-0">
-              <div class="arcade__frame">
-                <img [src]="imageUrl(current.item.thumbnailUrl)" [alt]="'Capa de ' + current.item.name" width="960" height="720" />
-              </div>
               <figcaption class="flex flex-col gap-1.5">
                 <span class="label-mono text-[var(--amber-300)]"
                   >Case {{ current.index + 1 }} de {{ cases().length }} · {{ current.item.category }}</span
@@ -166,7 +162,7 @@
           <ol class="arcade__strip" aria-label="Coleção de cases">
             @for (item of cases(); track item.id) {
               <li [class.is-collected]="isCollected(item)" [class.is-current]="revealed()?.item?.id === item.id">
-                <img [src]="imageUrl(item.thumbnailUrl)" alt="" loading="lazy" width="96" height="72" />
+                <span aria-hidden="true">{{ $index + 1 }}</span>
                 <span class="sr-only">{{ item.name }}: {{ isCollected(item) ? 'coletado' : 'ainda não coletado' }}</span>
               </li>
             }

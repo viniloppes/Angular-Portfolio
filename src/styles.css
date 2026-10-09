@@ -277,7 +277,9 @@ a.p-button,
   --hero-paper: transparent;
   --p-skeleton-background: rgb(245 232 204 / 0.08);
   --p-skeleton-animation-background: rgb(245 232 204 / 0.06);
-  background: var(--paper);
+  background:
+    radial-gradient(ellipse 92rem 32rem at 50% 0, rgb(67 43 17 / 0.25), transparent 78%),
+    var(--forest-950);
   color: var(--ink);
   color-scheme: dark;
   isolation: isolate;
@@ -290,31 +292,6 @@ html:has(.forest-shell) body {
   background: #11110e;
   color-scheme: dark;
   scrollbar-color: #2b3424 #11110e;
-}
-
-/* Cena fixa: a floresta fica parada enquanto os painéis passam por cima (profundidade sem animação). */
-.forest-shell::before {
-  background:
-    linear-gradient(90deg, rgb(9 11 8 / 0.9) 0%, rgb(9 11 8 / 0.62) 42%, rgb(9 11 8 / 0.28) 100%),
-    linear-gradient(180deg, rgb(9 11 8 / 0.15) 0%, rgb(9 11 8 / 0.2) 55%, rgb(9 11 8 / 0.9) 100%),
-    image-set(url('/amberlink/forest-backdrop-hd.webp') type('image/webp'), url('/amberlink/forest-backdrop-hd.png') type('image/png'))
-      center / cover no-repeat,
-    var(--forest-900);
-  content: '';
-  inset: 0;
-  pointer-events: none;
-  position: fixed;
-  z-index: -1;
-}
-
-@media (max-width: 767px) {
-  .forest-shell::before {
-    background:
-      linear-gradient(180deg, rgb(9 11 8 / 0.55) 0%, rgb(9 11 8 / 0.78) 45%, rgb(9 11 8 / 0.92) 100%),
-      image-set(url('/amberlink/forest-backdrop-hd-900.webp') type('image/webp'), url('/amberlink/forest-backdrop-hd.png') type('image/png'))
-        62% center / cover no-repeat,
-      var(--forest-900);
-  }
 }
 
 .forest-shell ::selection {

@@ -1,28 +1,19 @@
-/* Bento: 1 coluna no celular, 2 no tablet, 4 no desktop; blocos de destaque ocupam 2x2. */
+/* Lista editorial sem miniaturas: texto e categoria definem cada projeto. */
 .case-grid {
   display: grid;
-  gap: 1.25rem;
-  grid-auto-flow: row dense;
-  grid-auto-rows: minmax(22rem, auto);
+  gap: 1rem;
   grid-template-columns: minmax(0, 1fr);
 }
 
-@media (min-width: 768px) {
+@media (min-width: 640px) {
   .case-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-  .bento-tile--feature,
-  .bento-tile--wide {
-    grid-column: span 2;
   }
 }
 
 @media (min-width: 1200px) {
   .case-grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-  .bento-tile--feature {
-    grid-row: span 2;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
@@ -54,42 +45,48 @@
 }
 
 .case-card__media {
-  aspect-ratio: 4 / 3;
+  align-items: center;
+  background:
+    linear-gradient(120deg, rgb(255 159 51 / 0.12), transparent 62%),
+    var(--forest-950);
   border-bottom: 1px solid var(--border);
-  flex: 1 1 auto;
-  min-height: 11rem;
+  display: flex;
+  flex: none;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  min-height: 4.5rem;
+  padding: 0.75rem 1rem;
 }
 
-.case-grid--strip .case-card__media {
-  aspect-ratio: 16 / 10;
-  flex: none;
+.case-card__index {
+  color: var(--amber-300);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
 }
 
 .case-card__badges {
+  align-items: center;
   display: flex;
   flex-wrap: wrap;
-  gap: 0.375rem;
-  left: 0.75rem;
-  position: absolute;
-  right: 3.75rem;
-  top: 0.75rem;
+  gap: 0.3rem;
 }
 
 .case-card__open {
   align-items: center;
   background: var(--amber-300);
   border-radius: 9999px;
-  bottom: 0.75rem;
   color: #090b08;
   display: flex;
   height: 2.25rem;
   justify-content: center;
-  position: absolute;
-  right: 0.75rem;
+  flex: none;
   width: 2.25rem;
 }
 
 .case-card__content {
+  flex: 1;
   padding: 1.25rem 1.5rem 1.5rem;
 }
 
@@ -103,7 +100,8 @@
 .case-card--loading {
   display: grid;
   gap: 0.9rem;
-  grid-template-rows: 1fr auto auto;
+  grid-template-rows: 8rem auto auto;
+  min-height: 14rem;
   padding: 1rem;
 }
 
@@ -230,20 +228,38 @@
 
 .case-media-frame {
   aspect-ratio: 16 / 9;
-  background: var(--amber-50);
+  background: var(--forest-950);
   border: 1px solid var(--border);
   border-radius: var(--radius-control);
   overflow: hidden;
   width: 100%;
 }
 
-.case-media-frame iframe,
-.case-media-frame img {
+.case-media-frame iframe {
   border: 0;
   display: block;
   height: 100%;
-  object-fit: contain;
   width: 100%;
+}
+
+.case-media-frame--details {
+  align-items: center;
+  aspect-ratio: auto;
+  background:
+    radial-gradient(ellipse at 90% 20%, rgb(255 159 51 / 0.14), transparent 42%),
+    var(--forest-950);
+  display: flex;
+  min-height: 14rem;
+  padding: clamp(1.25rem, 4vw, 3rem);
+}
+
+.case-media-detail h3 {
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  margin: 0.75rem 0 0;
 }
 
 .case-dialog__hint {

@@ -56,7 +56,6 @@ export class GamePage {
   private lastTime = 0;
   private elapsed = 0;
   private swipeOrigin: { x: number; y: number; id: number } | null = null;
-  private readonly fruitImages = new Map<string, HTMLImageElement>();
 
   readonly cases = signal<PortfolioCase[]>([]);
   readonly galleryState = signal<GalleryState>('loading');
@@ -100,17 +99,12 @@ export class GamePage {
       const list = await this.portfolio.getPublicCases();
       this.cases.set(list);
       this.galleryState.set(list.length ? 'ready' : 'empty');
-      if (list.length) this.preloadFruit(list[this.score() % list.length]);
     } catch {
       // Sem catálogo o jogo continua: as frutas viram resina âmbar e a galeria mostra o erro.
       this.cases.set([]);
       this.galleryState.set('error');
     }
     this.draw();
-  }
-
-  imageUrl(path: string): string {
-    return this.portfolio.imageUrl(path);
   }
 
   start(): void {
@@ -142,8 +136,6 @@ export class GamePage {
     this.engine.reset();
     this.score.set(0);
     this.syncStatus('Nova partida. Use as setas, WASD ou deslize para começar.');
-    const first = this.cases()[0];
-    if (first) this.preloadFruit(first);
     this.draw();
   }
 
@@ -246,7 +238,6 @@ export class GamePage {
     this.progress.collect(item.id);
     this.revealed.set({ item, index, isNew });
     this.announcement.set(`Case revelado: ${item.name}.`);
-    this.preloadFruit(list[eaten % list.length]);
   }
 
   private finish(): void {
@@ -261,15 +252,6 @@ export class GamePage {
   private syncStatus(message: string): void {
     this.status.set(this.engine.status);
     this.announcement.set(message);
-  }
-
-  private preloadFruit(item: PortfolioCase): void {
-    if (this.fruitImages.has(item.id)) return;
-    const image = new Image();
-    image.decoding = 'async';
-    image.onload = () => this.draw();
-    image.src = this.imageUrl(item.thumbnailUrl);
-    this.fruitImages.set(item.id, image);
   }
 
   private resize(canvas: HTMLCanvasElement): void {
@@ -335,36 +317,16 @@ export class GamePage {
     ctx.fillStyle = glow;
     ctx.fillRect(cx - radius * 2, cy - radius * 2, radius * 4, radius * 4);
 
-    const next = this.nextCase();
-    const image = next ? this.fruitImages.get(next.id) : undefined;
     ctx.save();
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.clip();
-    if (image?.complete && image.naturalWidth > 0) {
-      // Capa do próximo case "presa" na resina: imagem real com véu âmbar por cima.
-      const side = Math.min(image.naturalWidth, image.naturalHeight);
-      ctx.drawImage(
-        image,
-        (image.naturalWidth - side) / 2,
-        (image.naturalHeight - side) / 2,
-        side,
-        side,
-        cx - radius,
-        cy - radius,
-        radius * 2,
-        radius * 2,
-      );
-      ctx.fillStyle = 'rgb(245 138 7 / 0.35)';
-      ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
-    } else {
-      const resin = ctx.createRadialGradient(cx - radius * 0.35, cy - radius * 0.35, radius * 0.1, cx, cy, radius);
-      resin.addColorStop(0, '#ffe8cc');
-      resin.addColorStop(0.35, '#ff9f33');
-      resin.addColorStop(1, '#a85200');
-      ctx.fillStyle = resin;
-      ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
-    }
+    const resin = ctx.createRadialGradient(cx - radius * 0.35, cy - radius * 0.35, radius * 0.1, cx, cy, radius);
+    resin.addColorStop(0, '#ffe8cc');
+    resin.addColorStop(0.35, '#ff9f33');
+    resin.addColorStop(1, '#a85200');
+    ctx.fillStyle = resin;
+    ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
     ctx.restore();
 
     ctx.strokeStyle = '#ffd199';

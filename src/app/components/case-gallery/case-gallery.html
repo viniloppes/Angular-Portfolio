@@ -2,7 +2,7 @@
   @if (loading) {
     <div class="case-grid" [class.case-grid--strip]="variant === 'strip'" [attr.aria-label]="'Carregando ' + collectionLabel" aria-busy="true">
       @for (item of loadingSlots; track item) {
-        <div class="case-card case-card--loading" [class.bento-tile--feature]="variant === 'bento' && item === 0">
+        <div class="case-card case-card--loading">
           <p-skeleton width="100%" height="100%" styleClass="min-h-40" />
           <p-skeleton width="70%" height="1.25rem" />
           <p-skeleton width="90%" height="1rem" />
@@ -25,25 +25,16 @@
     <p class="py-8 text-muted">Nenhum {{ itemLabel }} disponível.</p>
   } @else {
     <div class="case-grid" [class.case-grid--strip]="variant === 'strip'">
-      @for (item of visibleCases; track item.id; let index = $index) {
+      @for (item of visibleCases; track item.id) {
         <button
           appScrollReveal
           class="case-card group min-w-0 cursor-pointer p-0 text-left text-copy"
-          [class.bento-tile--feature]="variant === 'bento' && index % 7 === 0"
-          [class.bento-tile--wide]="variant === 'bento' && index % 7 === 4"
           type="button"
           (click)="openCase(item)"
           [attr.aria-label]="'Abrir projeto: ' + item.name"
         >
-          <span class="case-card__media relative block w-full overflow-hidden bg-panel">
-            <img
-              class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03] motion-reduce:transform-none motion-reduce:transition-none"
-              [src]="imageUrl(item.thumbnailUrl)"
-              [alt]="'Capa de ' + item.name"
-              loading="lazy"
-              width="960"
-              height="720"
-            />
+          <span class="case-card__media">
+            <span class="case-card__index">CASE / {{ item.sortOrder.toString().padStart(2, '0') }}</span>
             <span class="case-card__badges" aria-hidden="true">
               @if (isCollected(item)) {
                 <span class="arcade-badge arcade-badge--moss">Coletado</span>
@@ -126,7 +117,7 @@
               </button>
             </div>
           }
-          <div class="case-media-frame">
+          <div class="case-media-frame" [class.case-media-frame--details]="mediaMode === 'details'">
             @if (mediaMode === 'video' && videoUrl) {
               <iframe
                 [src]="videoUrl"
@@ -154,12 +145,10 @@
                 allowfullscreen
               ></iframe>
             } @else {
-              <img
-                [src]="imageUrl(item.thumbnailUrl)"
-                [alt]="'Capa do case ' + item.name"
-                width="1200"
-                height="900"
-              />
+              <div class="case-media-detail">
+                <span class="case-dialog__eyebrow">{{ item.category }}</span>
+                <h3>{{ item.name }}</h3>
+              </div>
             }
           </div>
           @if (isPlayable(item) && mediaMode === 'game') {
