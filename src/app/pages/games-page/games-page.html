@@ -1,0 +1,45 @@
+<main class="page-gutter games-page py-8 sm:py-12">
+  <header class="games-heading">
+    <div>
+      <p class="forest-eyebrow">Interação / 01</p>
+      <h1>Jogar</h1>
+      <p>Um pequeno arcade autoral e experiências que você pode abrir direto do portfólio.</p>
+    </div>
+    @if (!loading() && !errorMessage()) {
+      <span class="arcade-badge arcade-badge--amber">{{ playableSummary() }}</span>
+    }
+  </header>
+
+  <section class="snake-feature" aria-labelledby="snake-title">
+    <div class="snake-feature__copy">
+      <p class="forest-eyebrow">AmberLink Arcade · Original</p>
+      <h2 id="snake-title">Snake de resina</h2>
+      <p>Colete resinas, revele os projetos publicados e monte sua coleção nesta versão do clássico.</p>
+      <a class="amber-outline-action" routerLink="/game">
+        Jogar Snake <i class="pi pi-arrow-right text-sm" aria-hidden="true"></i>
+      </a>
+    </div>
+    <img src="/amberlink/amber-mood-resin.webp" alt="" width="1920" height="1280" loading="lazy" decoding="async" />
+    <span class="snake-feature__index" aria-hidden="true">GAME / 001</span>
+  </section>
+
+  <section aria-labelledby="playable-title">
+    <div class="games-section-heading">
+      <div>
+        <p class="forest-eyebrow">Coleção aberta</p>
+        <h2 id="playable-title">Jogáveis no navegador</h2>
+      </div>
+      <a class="topbar-link" routerLink="/projects">Ver todos os projetos <span aria-hidden="true">↗</span></a>
+    </div>
+    <app-case-gallery
+      variant="bento"
+      [cases]="playableCases()"
+      [loading]="loading()"
+      [errorMessage]="errorMessage()"
+      [preferMedia]="'game'"
+      collectionLabel="jogos jogáveis"
+      itemLabel="jogo jogável"
+      (retry)="loadCases()"
+    />
+  </section>
+</main>

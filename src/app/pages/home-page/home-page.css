@@ -22,6 +22,45 @@
   max-width: 34rem;
 }
 
+.lobby__study {
+  border: 1px solid rgb(255 184 102 / 0.28);
+  border-radius: var(--radius-card);
+  margin: 0.25rem 0 0;
+  overflow: hidden;
+  position: relative;
+  width: min(100%, 28rem);
+}
+
+.lobby__study::after {
+  background: linear-gradient(0deg, rgb(9 11 8 / 0.82), transparent 65%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.lobby__study img {
+  aspect-ratio: 2.2 / 1;
+  display: block;
+  object-fit: cover;
+  object-position: center 46%;
+  width: 100%;
+}
+
+.lobby__study figcaption {
+  bottom: 0.75rem;
+  color: var(--amber-100);
+  display: flex;
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  justify-content: space-between;
+  left: 0.85rem;
+  letter-spacing: 0.1em;
+  position: absolute;
+  right: 0.85rem;
+  z-index: 1;
+}
+
 .lobby__name {
   color: var(--ivory);
   font-size: clamp(3.25rem, 9vw, 6.5rem);
@@ -82,6 +121,32 @@
 .route-card:focus-visible {
   border-color: var(--amber-400);
   box-shadow: 0 0 0 1px var(--amber-400), 0 0 36px -8px rgb(255 159 51 / 0.6);
+  transform: translateY(-3px);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .lobby__intro {
+    animation: lobby-arrive 650ms cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  .lobby__study img {
+    transition: transform 650ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+
+  .lobby__study:hover img {
+    transform: scale(1.035);
+  }
+
+  @keyframes lobby-arrive {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* Projetos é o destino principal: cartão âmbar aceso, como no comp. */

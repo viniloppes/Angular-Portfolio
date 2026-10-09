@@ -1,5 +1,6 @@
 import { PortfolioCase } from './portfolio-case';
 import { PortfolioCategory } from './portfolio-category';
+import { isPlayableCase } from './playable-case';
 
 export interface CategoryCount {
   name: string;
@@ -28,7 +29,7 @@ export function summarizeCatalog(cases: readonly PortfolioCase[], categories: re
   return {
     caseCount: cases.length,
     categoryCount: counts.size,
-    playableCount: cases.filter((item) => Boolean(item.gameUrl)).length,
+    playableCount: cases.filter(isPlayableCase).length,
     videoCount: cases.filter((item) => Boolean(item.youtubeUrl)).length,
     categories: [...counts].map(([name, count]) => ({ name, count })),
   };

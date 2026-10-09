@@ -13,13 +13,13 @@ As tarefas de tokens, interface e Three.js continuam descritas em `tasks/plan.md
 
 ### Extensão: conteúdo, movimento e jogos
 
-- [ ] T13: Preparar os quatro WebP fornecidos em `public/amberlink` e otimizar o maior.
-- [ ] T14: Ampliar a narrativa da Home com fatos do currículo, epígrafe atribuída e imagens/movimento em seções diferentes.
-- [ ] T15: Unificar a regra para cases jogáveis HTTPS em contador, selo e modal.
-- [ ] T16: Criar `/games` a partir dos cases jogáveis; manter `/projects` completo e destacar Snake em `/game`.
-- [ ] T17: Remover o botão de apagar progresso do Snake e manter a coleção existente.
+- [x] T13: Preparar os quatro WebP fornecidos em `public/amberlink` e otimizar o maior.
+- [x] T14: Ampliar a narrativa da Home com fatos do currículo, epígrafe atribuída e imagens/movimento em seções diferentes.
+- [x] T15: Unificar a regra para cases jogáveis HTTPS em contador, selo e modal.
+- [x] T16: Criar `/games` a partir dos cases jogáveis; manter `/projects` completo e destacar Snake em `/game`.
+- [x] T17: Remover o botão de apagar progresso do Snake e manter a coleção existente.
 
-Os critérios, dependências e verificações estão na extensão do plano em `tasks/plan.md`. Estes itens seguem abertos até a implementação e revisão.
+Implementação concluída. `npm run build` passou; `/games`, `/projects` e os quatro recursos WebP responderam HTTP 200 no servidor local. O maior WebP passou de 3.022.142 para 373.596 bytes.
 
 ## Migração para Supabase
 

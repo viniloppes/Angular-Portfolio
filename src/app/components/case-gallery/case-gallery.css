@@ -43,13 +43,14 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  transition: border-color 180ms ease, box-shadow 180ms ease;
+  transition: opacity 700ms ease-out, transform 700ms ease-out, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .case-card:hover,
 .case-card:focus-visible {
   border-color: var(--amber-400);
   box-shadow: 0 0 0 1px var(--amber-400), 0 18px 48px -24px rgb(255 159 51 / 0.55);
+  transform: translateY(-3px);
 }
 
 .case-card__media {

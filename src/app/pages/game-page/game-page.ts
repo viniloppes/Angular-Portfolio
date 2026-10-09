@@ -206,11 +206,6 @@ export class GamePage {
     return this.collectedIds().has(item.id);
   }
 
-  clearProgress(): void {
-    this.progress.clear();
-    this.announcement.set('Progresso da coleção apagado neste navegador.');
-  }
-
   /** step() muda o status por dentro; ler por getter evita o estreitamento de tipo do TypeScript. */
   private get isRunning(): boolean {
     return this.engine.status === 'running';

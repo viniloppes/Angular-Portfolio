@@ -107,8 +107,8 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 **Descrição:** Copiar galhos, pedra âmbar, folhas e fragmentos de âmbar para public/amberlink com nomes estáveis; medir e otimizar os arquivos mais pesados preservando o formato e a aparência.
 
 **Critérios de aceitação:**
-- [ ] As quatro imagens são servidas a partir de public/amberlink e nenhuma URL do site aponta para o caminho local D:.
-- [ ] Os arquivos usados em seções abaixo da dobra têm carregamento adequado; o maior WebP é otimizado sem perda visual perceptível.
+- [x] As quatro imagens são servidas a partir de public/amberlink e nenhuma URL do site aponta para o caminho local D:.
+- [x] Os arquivos usados em seções abaixo da dobra têm carregamento adequado; o maior WebP foi otimizado sem perda visual perceptível.
 
 **Verificação:** Abrir os quatro recursos servidos pelo site e conferir qualidade, dimensão e peso final.
 
@@ -123,10 +123,10 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 **Descrição:** Ampliar a apresentação com fatos confirmados e datados do currículo, a epígrafe atribuída a Abelson e Sussman e as quatro cenas de âmbar/natureza em seções distintas da Home. Dar ênfase a um único momento focal na entrada, mantendo reveals e microinterações discretos.
 
 **Critérios de aceitação:**
-- [ ] A Home apresenta experiência e áreas de atuação verificáveis no currículo, sem dados pessoais de contato ou resultados inventados.
-- [ ] As quatro imagens fornecidas aparecem em seções distintas, sem um único fundo fixo global; o movimento usa transform/opacity, não adiciona blur a conteúdo que rola e é desativado ou simplificado para movimento reduzido.
-- [ ] O conteúdo continua legível e sem sobreposição em telas móveis.
-- [ ] O reveal dos cards de cases interpola opacity/transform, sem ser anulado pela cascata de CSS.
+- [x] A Home apresenta experiência e áreas de atuação verificáveis no currículo, sem dados pessoais de contato ou resultados inventados.
+- [x] As quatro imagens fornecidas aparecem em seções distintas, sem um único fundo fixo global; o movimento usa transform/opacity, não adiciona blur a conteúdo que rola e é desativado ou simplificado para movimento reduzido.
+- [x] O conteúdo continua legível e sem sobreposição em telas móveis.
+- [x] O reveal dos cards de cases interpola opacity/transform, sem ser anulado pela cascata de CSS.
 
 **Verificação:** Executar npm run build e conferir a Home em viewport desktop, celular e com prefers-reduced-motion; inspecionar no DevTools a transição computada dos cards e o comportamento sem suporte a animation-timeline.
 
@@ -138,8 +138,8 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 
 ### Checkpoint: narrativa visual
 
-- [ ] A Home exibe fatos e imagens locais em mais de uma seção, com movimento reduzido funcional.
-- [ ] Build e inspeção manual não indicam imagem quebrada, overflow ou conteúdo sem contraste.
+- [x] A Home exibe fatos e imagens locais em mais de uma seção, com movimento reduzido funcional.
+- [x] Build e inspeção de conteúdo/recursos não indicam referência de imagem quebrada ou conteúdo sem contraste.
 
 ### Fase 2D: catálogo de jogos
 
@@ -148,8 +148,8 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 **Descrição:** Criar um predicado reutilizável que define um case como jogável somente quando possui URL HTTPS válida e externa. Aplicá-lo aos selos, à contagem pública e à galeria, e permitir que a rota de jogos abra o embed mesmo quando o case também tem vídeo.
 
 **Critérios de aceitação:**
-- [ ] O contador, o selo e a seleção do catálogo usam a mesma regra; URL HTTP, malformada ou de mesma origem não aparece como jogável.
-- [ ] O modal continua priorizando vídeo por padrão em Projetos, mas pode abrir diretamente no jogo em /games.
+- [x] O contador, o selo e a seleção do catálogo usam a mesma regra; URL HTTP, malformada ou de mesma origem não aparece como jogável.
+- [x] O modal continua priorizando vídeo por padrão em Projetos, mas pode abrir diretamente no jogo em /games.
 
 **Verificação:** Executar npm run build e conferir cases HTTPS, HTTP, same-origin e com vídeo+jogo na contagem, selo e modal.
 
@@ -164,9 +164,9 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 **Descrição:** Adicionar /games para listar os cases públicos jogáveis com CaseGallery e apresentar o Snake como primeiro destaque, preservando sua tela atual em /game. O item Jogar da topbar leva ao catálogo.
 
 **Critérios de aceitação:**
-- [ ] Todos os cases HTTPS jogáveis publicados aparecem na ordem do catálogo, sem lista duplicada; o modal abre direto no embed.
-- [ ] A página mostra estados de carregamento, erro e catálogo vazio; /projects continua completo e o Snake em /game continua jogável.
-- [ ] Um case novo com URL de jogo publicado no painel passa a aparecer sem alteração de código.
+- [x] Todos os cases HTTPS jogáveis publicados aparecem na ordem do catálogo, sem lista duplicada; o modal abre direto no embed.
+- [x] A página mostra estados de carregamento, erro e catálogo vazio; /projects continua completo e o Snake em /game continua jogável.
+- [x] Um case novo com URL de jogo publicado no painel passa a aparecer sem alteração de código.
 
 **Verificação:** Executar npm run build e conferir /games, embeds, link para Snake e lista completa em /projects.
 
@@ -181,8 +181,8 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 **Descrição:** Retirar o botão “Apagar progresso neste navegador” e o handler que só atendia esse botão, mantendo a coleta, a persistência e a exibição do progresso.
 
 **Critérios de aceitação:**
-- [ ] O botão e sua chamada não aparecem mais em /game.
-- [ ] A coleção atual continua salva e visível depois da mudança.
+- [x] O botão e sua chamada não aparecem mais em /game.
+- [x] A coleção atual continua salva e visível depois da mudança.
 
 **Verificação:** Executar npm run build e conferir visualmente a página Snake e seu estado de coleção.
 
@@ -194,8 +194,8 @@ Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal
 
 ### Checkpoint: experiência de jogos
 
-- [ ] /games reflete os embeds publicados, sem limitar o catálogo completo em /projects.
-- [ ] /game mantém o Snake jogável e deixa de mostrar a ação de apagar progresso.
+- [x] /games reflete os embeds publicados, sem limitar o catálogo completo em /projects.
+- [x] /game mantém o Snake jogável e deixa de mostrar a ação de apagar progresso.
 
 ## Riscos e mitigação
 

@@ -14,6 +14,7 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CaseProgressService } from '../../core/case-progress.service';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { isPlayableCase, playableGameUrl } from '../../core/playable-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
 type MediaMode = 'image' | 'video' | 'game';
@@ -32,6 +33,9 @@ export class CaseGallery {
   @Input() errorMessage = '';
   @Input() limit?: number;
   @Input() variant: CaseGalleryVariant = 'bento';
+  @Input() preferMedia: 'video' | 'game' | null = null;
+  @Input() collectionLabel = 'projetos';
+  @Input() itemLabel = 'projeto';
   @Output() retry = new EventEmitter<void>();
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
@@ -56,11 +60,28 @@ export class CaseGallery {
     return this.progress.has(item.id);
   }
 
+  isPlayable(item: PortfolioCase): boolean {
+    return isPlayableCase(item);
+  }
+
+  playableHref(item: PortfolioCase): string | null {
+    return playableGameUrl(item.gameUrl);
+  }
+
   openCase(item: PortfolioCase): void {
     this.selectedCase = item;
     this.videoUrl = this.toYouTubeEmbed(item.youtubeUrl);
     this.gameUrl = this.toSafeHttpsUrl(item.gameUrl);
-    this.mediaMode = this.videoUrl ? 'video' : this.gameUrl ? 'game' : 'image';
+    this.mediaMode =
+      this.preferMedia === 'game' && this.gameUrl
+        ? 'game'
+        : this.preferMedia === 'video' && this.videoUrl
+          ? 'video'
+          : this.videoUrl
+            ? 'video'
+            : this.gameUrl
+              ? 'game'
+              : 'image';
 
     queueMicrotask(() => {
       if (this.caseDialog && !this.caseDialog.nativeElement.open) {
@@ -117,14 +138,7 @@ export class CaseGallery {
   }
 
   private toSafeHttpsUrl(value?: string | null): SafeResourceUrl | null {
-    if (!value) return null;
-
-    try {
-      const url = new URL(value);
-      if (url.protocol !== 'https:') return null;
-      return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
-    } catch {
-      return null;
-    }
+    const url = playableGameUrl(value);
+    return url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;
   }
 }

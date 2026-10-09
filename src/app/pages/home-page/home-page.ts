@@ -2,11 +2,12 @@ import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CaseGallery } from '../../components/case-gallery/case-gallery';
-import { CaseProgressService } from '../../core/case-progress.service';
 import { pluralize } from '../../core/catalog-summary';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { isPlayableCase } from '../../core/playable-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
+import { HomeStory } from './home-story';
 
 type RouteId = 'projects' | 'about' | 'articles' | 'contact' | 'game';
 
@@ -19,14 +20,13 @@ interface LobbyRoute {
 
 @Component({
   selector: 'app-home-page',
-  imports: [RouterLink, CaseGallery, ScrollRevealDirective],
+  imports: [RouterLink, CaseGallery, ScrollRevealDirective, HomeStory],
   host: { class: 'block' },
   templateUrl: './home-page.html',
   styleUrl: './home-page.css',
 })
 export class HomePage implements OnInit {
   private readonly portfolio = inject(PortfolioDataService);
-  private readonly progress = inject(CaseProgressService);
   private readonly platformId = inject(PLATFORM_ID);
 
   readonly areas = ['Web', 'Jogos', 'Interação'];
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     { id: 'about', label: 'Sobre', link: '/home', fragment: 'sobre' },
     { id: 'articles', label: 'Artigos', link: '/articles' },
     { id: 'contact', label: 'Contato', link: '/contact' },
-    { id: 'game', label: 'Jogar Snake', link: '/game' },
+    { id: 'game', label: 'Jogos', link: '/games' },
   ];
   readonly cases = signal<PortfolioCase[]>([]);
   readonly loading = signal(true);
@@ -47,9 +47,9 @@ export class HomePage implements OnInit {
     this.catalogReady() ? pluralize(this.cases().length, 'case', 'cases') : null,
   );
   private readonly gameBadge = computed(() => {
-    const total = this.cases().length;
+    const total = this.cases().filter(isPlayableCase).length;
     if (!this.catalogReady() || total === 0) return null;
-    return `${this.progress.countIn(this.cases().map((item) => item.id))}/${total} coletados`;
+    return `${total} ${total === 1 ? 'jogável' : 'jogáveis'}`;
   });
 
   ngOnInit(): void {
