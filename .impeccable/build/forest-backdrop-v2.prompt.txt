@@ -1,0 +1,10 @@
+Use case: photorealistic-natural
+Asset type: full-bleed desktop website background plate, wide landscape, at least 1536 pixels wide
+Primary request: A photoreal, richly detailed forest at blue-hour dawn for the AmberLink creative portfolio. Match a cinematic forest lobby: deep natural shadows on the left for readable text, a mist-softened clearing and distant trees on the right, damp moss and textured bark in the foreground.
+Scene/backdrop: Quiet old-growth forest with layered pines and broadleaf trees, fine morning mist, low ferns, wet moss, a few real amber sap beads in bark and leaves.
+Style/medium: Premium natural landscape photography, ultra realistic, high micro-detail, physically believable light and materials, no CGI appearance.
+Composition/framing: Wide landscape background plate, no interface or borders. Place the main luminous clearing and horizon in the upper-right area; retain dark foliage and grounded forest detail across the left and lower areas. Leave natural low-contrast depth behind future interface.
+Lighting/mood: Soft warm sunrise filtering through cool blue-hour mist; amber highlights are subtle and natural, never neon.
+Color palette: Deep spruce, charcoal green, moss, cool mist gray, warm honey amber.
+Materials/textures: Detailed damp bark, fern fronds, moss, clear water beads, translucent golden tree sap.
+Constraints: Environment only. No people, animals, houses, paths, text, typography, logo, buttons, panels, UI, watermark, glowing fantasy crystals, or stylized 3D.

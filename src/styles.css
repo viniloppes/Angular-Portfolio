@@ -160,8 +160,45 @@ a.p-button,
   text-transform: uppercase;
 }
 
-.category-filter-button {
+.category-chip {
+  align-items: center;
+  background: rgb(9 11 8 / 0.5);
+  border: 1px solid rgb(245 232 204 / 0.2);
   border-radius: var(--radius-pill);
+  color: var(--ivory-muted, var(--muted-ink));
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.9375rem;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.625rem 0.5rem 1.125rem;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease;
+}
+
+.category-chip:hover {
+  border-color: var(--amber-400);
+  color: var(--ivory, var(--ink));
+}
+
+.category-chip.is-active {
+  background: rgb(255 159 51 / 0.18);
+  border-color: var(--amber-400);
+  color: var(--ivory, var(--ink));
+}
+
+.category-chip__count {
+  background: rgb(245 232 204 / 0.12);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  min-width: 1.75rem;
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+}
+
+.category-chip.is-active .category-chip__count {
+  background: var(--amber-300);
+  color: #090b08;
 }
 
 .admin-login { grid-template-columns: minmax(0, 1fr); }
@@ -213,4 +250,203 @@ a.p-button,
 .p-button.p-button-text:not(.p-button-contrast),
 .p-button.p-button-outlined:not(.p-button-contrast) {
   color: var(--amber-700);
+}
+
+/* ------------------------------------------------------------------
+   Amber Forest Arcade: tema das rotas públicas (comp lobby-bento).
+   Os tokens semânticos são redefinidos no escopo .forest-shell, então
+   componentes que já usam var(--card)/var(--ink) mudam juntos e o admin,
+   fora do Layout, continua no tema claro.
+   ------------------------------------------------------------------ */
+.forest-shell {
+  --forest-950: #090b08;
+  --forest-900: #11110e;
+  --forest-850: #161a14;
+  --forest-800: #1d2419;
+  --forest-700: #2b3424;
+  --moss-300: #b7c69c;
+  --ivory: #f5e8cc;
+  --ivory-muted: #c7bca6;
+  --paper: var(--forest-900);
+  --card: var(--forest-850);
+  --ink: var(--ivory);
+  --muted-ink: var(--ivory-muted);
+  --border: rgb(245 232 204 / 0.14);
+  --accent-ink: var(--amber-300);
+  --accent-soft: rgb(255 159 51 / 0.16);
+  --hero-paper: transparent;
+  --p-skeleton-background: rgb(245 232 204 / 0.08);
+  --p-skeleton-animation-background: rgb(245 232 204 / 0.06);
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: dark;
+  isolation: isolate;
+  min-height: 100dvh;
+  position: relative;
+}
+
+html:has(.forest-shell),
+html:has(.forest-shell) body {
+  background: #11110e;
+  color-scheme: dark;
+  scrollbar-color: #2b3424 #11110e;
+}
+
+/* Cena fixa: a floresta fica parada enquanto os painéis passam por cima (profundidade sem animação). */
+.forest-shell::before {
+  background:
+    linear-gradient(90deg, rgb(9 11 8 / 0.9) 0%, rgb(9 11 8 / 0.62) 42%, rgb(9 11 8 / 0.28) 100%),
+    linear-gradient(180deg, rgb(9 11 8 / 0.15) 0%, rgb(9 11 8 / 0.2) 55%, rgb(9 11 8 / 0.9) 100%),
+    image-set(url('/amberlink/forest-backdrop-hd.webp') type('image/webp'), url('/amberlink/forest-backdrop-hd.png') type('image/png'))
+      center / cover no-repeat,
+    var(--forest-900);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: fixed;
+  z-index: -1;
+}
+
+@media (max-width: 767px) {
+  .forest-shell::before {
+    background:
+      linear-gradient(180deg, rgb(9 11 8 / 0.55) 0%, rgb(9 11 8 / 0.78) 45%, rgb(9 11 8 / 0.92) 100%),
+      image-set(url('/amberlink/forest-backdrop-hd-900.webp') type('image/webp'), url('/amberlink/forest-backdrop-hd.png') type('image/png'))
+        62% center / cover no-repeat,
+      var(--forest-900);
+  }
+}
+
+.forest-shell ::selection {
+  background: var(--amber-400);
+  color: var(--forest-950);
+}
+
+.forest-shell :focus-visible {
+  outline-color: var(--amber-300);
+}
+
+.forest-shell .p-button.p-button-text:not(.p-button-contrast),
+.forest-shell .p-button.p-button-outlined:not(.p-button-contrast) {
+  color: var(--amber-300);
+}
+
+.forest-shell .p-button.p-button-text:not(:disabled):hover {
+  background: rgb(255 184 102 / 0.12);
+}
+
+/* Superfícies de vidro escuro: texto marfim sempre sobre fundo quase opaco (contraste AA mesmo sobre a foto). */
+.forest-panel {
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+  background: linear-gradient(160deg, rgb(29 36 25 / 0.86), rgb(14 17 12 / 0.9));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 1px 0 rgb(245 232 204 / 0.06), 0 24px 60px -30px rgb(0 0 0 / 0.8);
+}
+
+.forest-eyebrow {
+  color: var(--amber-300);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Selo do catálogo: só recebe números derivados dos dados carregados. */
+.arcade-badge {
+  align-items: center;
+  background: rgb(9 11 8 / 0.6);
+  border: 1px solid rgb(255 184 102 / 0.35);
+  border-radius: var(--radius-pill);
+  color: var(--ivory);
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  gap: 0.4rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.45rem 0.7rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.arcade-badge--amber {
+  background: var(--amber-300);
+  border-color: var(--amber-300);
+  color: var(--forest-950);
+}
+
+.arcade-badge--moss {
+  border-color: rgb(183 198 156 / 0.45);
+  color: var(--moss-300);
+}
+
+/* Botão-pílula com contorno âmbar (ação "Ver projetos" do lobby e links secundários). */
+.amber-outline-action {
+  align-items: center;
+  background: rgb(9 11 8 / 0.45);
+  border: 1.5px solid var(--amber-400);
+  border-radius: var(--radius-pill);
+  box-shadow: 0 0 0 0 rgb(255 159 51 / 0);
+  color: var(--ivory);
+  display: inline-flex;
+  font-weight: 500;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.5rem 0.75rem 1.75rem;
+  text-decoration: none;
+  transition: background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.amber-outline-action:hover {
+  background: rgb(255 159 51 / 0.14);
+  box-shadow: 0 0 28px -6px rgb(255 159 51 / 0.55);
+}
+
+.topbar-link {
+  align-items: center;
+  border-radius: var(--radius-pill);
+  color: var(--ivory-muted);
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+@media (max-width: 639px) {
+  .topbar-link {
+    padding-inline: 0.625rem;
+  }
+}
+
+.topbar-link:hover,
+.topbar-link.is-active {
+  color: var(--ivory);
+}
+
+.topbar-link.is-active {
+  text-decoration: underline 2px var(--amber-400);
+  text-underline-offset: 0.5rem;
+}
+
+.topbar-link__dot {
+  background: var(--amber-400);
+  border-radius: 2px;
+  box-shadow: 0 0 10px rgb(255 159 51 / 0.8);
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .forest-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--forest-850);
+  }
 }

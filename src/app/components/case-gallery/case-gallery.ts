@@ -11,11 +11,14 @@ import {
   inject,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { CaseProgressService } from '../../core/case-progress.service';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
 type MediaMode = 'image' | 'video' | 'game';
+/** bento: grade com blocos de tamanhos variados (Projetos); strip: fileira compacta (Trabalhos recentes). */
+export type CaseGalleryVariant = 'bento' | 'strip';
 
 @Component({
   selector: 'app-case-gallery',
@@ -28,11 +31,13 @@ export class CaseGallery {
   @Input() loading = false;
   @Input() errorMessage = '';
   @Input() limit?: number;
+  @Input() variant: CaseGalleryVariant = 'bento';
   @Output() retry = new EventEmitter<void>();
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
   private readonly sanitizer = inject(DomSanitizer);
   private readonly portfolio = inject(PortfolioDataService);
+  private readonly progress = inject(CaseProgressService);
 
   selectedCase: PortfolioCase | null = null;
   mediaMode: MediaMode = 'image';
@@ -41,6 +46,14 @@ export class CaseGallery {
 
   get visibleCases(): PortfolioCase[] {
     return this.limit ? this.cases.slice(0, this.limit) : this.cases;
+  }
+
+  get loadingSlots(): number[] {
+    return Array.from({ length: this.limit ?? 6 }, (_, index) => index);
+  }
+
+  isCollected(item: PortfolioCase): boolean {
+    return this.progress.has(item.id);
   }
 
   openCase(item: PortfolioCase): void {

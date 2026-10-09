@@ -1,0 +1,22 @@
+{
+  "asset": "public/amberlink/forest-backdrop-hd.png",
+  "sourceSha256": "dd7a94dec2407856dc0b0776689c76b5c3f189e4e7e39aea24009e9c3ca6a959",
+  "digitalSourceType": "trainedAlgorithmicMedia (AI-generated image)",
+  "generator": "Impeccable plate pipeline (image generation), approved comp .impeccable/mocks/decision/lobby-bento.png",
+  "promptLocation": "PNG tEXt chunk \"impeccable:prompt\" in the master; XMP dc:description + amberlink:generationPrompt in each WebP derivative",
+  "generationPrompt": "Use the provided crop as the approved visual reference and recreate it as a clean production asset at the target aspect ratio. This is a photographic forest background. Output the same forest subject, framing, lighting, perspective, and palette (#11110e, #2c2713, #3e444d); preserve detailed bark, damp moss, ferns, soft mist, and subtle natural amber resin droplets. Remove every piece of UI text, label, caption, button, interface panel, logo, and icon. Reconstruct the forest naturally where the UI obscures it. Remove letterboxing, borders, card corners, drop shadows, and layout backgrounds. Do not add people or buildings. Do not change the concept or restyle it. The forest fills the whole frame edge to edge, with no margins, no borders, and no text. The output is a clean photoreal forest environment plate only.",
+  "derivatives": [
+    {
+      "file": "public/amberlink/forest-backdrop-hd.webp",
+      "width": 1536,
+      "height": 1093,
+      "xmpEmbedded": true
+    },
+    {
+      "file": "public/amberlink/forest-backdrop-hd-900.webp",
+      "width": 900,
+      "height": 640,
+      "xmpEmbedded": true
+    }
+  ]
+}

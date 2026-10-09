@@ -1,0 +1,12 @@
+Use case: ui-mockup
+Asset type: high-fidelity desktop website composition comp, 1440x1024 landscape
+Primary request: Create a second materially different composition for the AmberLink portfolio, keeping the same committed world: an immersive game-like forest selection interface with real work and navigation visible.
+Scene/backdrop: Photoreal dense forest at dawn, tall trunks and layered leaves fading into soft mist, realistic moss and damp ground, subtle golden light caught in a few amber resin droplets. The forest frames the UI without hiding it.
+Subject: Vinícius Lopes's Portuguese creative-development portfolio with the routes Projetos, Sobre, Artigos, Contato, and Jogar Snake.
+Style/medium: High-end web product interface, cinematic photography under restrained amber-glass panels, crisp cream text, editorial serif display and clean sans-serif details. Photoreal natural materials.
+Composition/framing: Full browser-free desktop viewport. Structure is a game world-map: small identity and controls across the top; a narrow vertical route rail on the left with five numbered checkpoint selectors for Projetos, Sobre, Artigos, Contato, Jogar Snake; the center is a large scenic forest clearing framed as the active destination with a single clear “Explorar projetos” button; a compact stacked panel on the right contains the portfolio title “Vinícius Lopes”, the line “código, movimento e luz”, a short real description, and one quiet card labeled “Trabalhos recentes”; low on screen, a slim horizontal progress trail suggests scrolling deeper into the portfolio. The forest-world map topology is distinct from a card-board hero.
+Lighting/mood: Early morning golden light filtering through forest canopy, cinematic depth but strong interface readability.
+Color palette: Deep spruce, natural fern and moss, warm ivory, honey amber, soft black.
+Materials/textures: Photographic tree bark, ferns, wet moss, subtle volumetric mist, thin translucent resin-glass panels with fine amber edges.
+Text (verbatim): AmberLink; Vinícius Lopes; código, movimento e luz; Projetos; Sobre; Artigos; Contato; Jogar Snake; Trabalhos recentes; Explorar projetos.
+Constraints: Real web interface, not a poster or illustration. No invented portfolio claims, no metrics, no testimonials, no client names, no game characters, no logos other than AmberLink, no watermark, no extra text, no garbled typography. Keep route labels legible and avoid UI panels obscuring the forest focal area.

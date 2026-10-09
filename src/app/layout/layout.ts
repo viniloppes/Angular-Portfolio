@@ -5,7 +5,7 @@ import { TopbarMenu } from './topbar-menu/topbar-menu';
 @Component({
   selector: 'app-layout',
   imports: [RouterLink, RouterOutlet, TopbarMenu],
-  host: { class: 'block' },
+  host: { class: 'forest-shell flex flex-col' },
   templateUrl: './layout.html',
 })
 export class Layout {}

@@ -19,6 +19,7 @@ export const routes: Routes = [
       { path: 'projects', component: ProjectsPage, title: 'Projetos · AmberLink' },
       { path: 'articles', component: ArticlesPage, title: 'Artigos · AmberLink' },
       { path: 'contact', component: ContactPage, title: 'Contato · AmberLink' },
+      { path: 'game', loadComponent: () => import('./pages/game-page/game-page').then((m) => m.GamePage), title: 'Jogar Snake · AmberLink' },
     ],
   },
   { path: '**', redirectTo: 'home' },
