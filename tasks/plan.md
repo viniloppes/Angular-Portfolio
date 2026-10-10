@@ -75,3 +75,138 @@ Levar a Home v3 (full-bleed, botões maiores) para o Angular e adicionar dois mo
 
 ## Perguntas em aberto
 - Imersão só nesses 2 momentos (proposta) ou também transições entre páginas / cursor interativo em 3D?
+
+---
+
+# Extensão: narrativa pessoal, paisagens Amber e jogos jogáveis
+
+## Visão geral
+
+Expandir o portfólio AmberLink com movimento mais expressivo, conteúdo pessoal confirmado no currículo e imagens WebP distribuídas por diferentes seções. Criar uma página dinâmica para jogos incorporados, sem reduzir o catálogo de projetos nem remover o Snake existente. Retirar da interface do Snake o botão que apaga o progresso salvo.
+
+## Decisões
+
+- Seguir a direção Editorial Luxury e a composição assimétrica em bento da skill high-end-visual-design, mantendo os tokens, fontes e identidade AmberLink já escolhidos.
+- Usar as quatro imagens locais de D:\Users\lopes\Imagens\Amber em momentos e seções diferentes. Não prender uma única imagem ao fundo de toda a página; preferir camadas decorativas locais à seção e carregamento adequado ao tamanho.
+- Aplicar movimentos lentos com transform e opacity, aproveitar IntersectionObserver e respeitar prefers-reduced-motion. Evitar animar dimensões e propriedades que refluem o layout.
+- Manter um momento focal de entrada na Home, reveals já existentes e microinterações; o parallax de rolagem é melhoria progressiva com fallback estático. Não usar blur em reveals nem listeners contínuos de scroll.
+- Usar fatos datados e verificáveis do currículo: MW Soluções (mar/2020–mar/2025), aplicações web/mobile/Windows, Angular, C#/.NET, WPF, APIs, MySQL, jogos com Unity, integração de hardware/Kinect e processamento de imagem. A formação em Jogos Digitais na FEBASP é prevista para dez/2026, não concluída. Não publicar telefone, e-mail ou WhatsApp, nem inventar métricas ou resultados.
+- Usar como epígrafe uma tradução livre de “Programs must be written for people to read”, atribuída a Harold Abelson e Gerald Jay Sussman no prefácio de SICP. A frase liga programação ao cuidado com quem usa e mantém software. Fonte: [cópia do livro no MIT](https://web.mit.edu/6.001/6.037/sicp.pdf).
+- Contar como jogável apenas um gameUrl HTTPS externo válido. Unificar essa regra no contador, no selo e na rota; links HTTP/inválidos não devem ser rotulados como jogáveis se o modal não puder incorporá-los.
+- Criar /games usando os cases públicos ativos jogáveis e reutilizar CaseGallery, que já fornece o selo Jogável e o modal de iframe. A página começa com um destaque do Snake que aponta para /game.
+- Rejeitar embeds da mesma origem do portfólio: o iframe atual combina allow-scripts e allow-same-origin, combinação que a [documentação do MDN desaconselha para conteúdo same-origin](https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/iframe).
+- Manter /projects como catálogo completo, /game como Snake e a gravação do progresso. Remover somente a ação visual de apagá-lo.
+- Não adicionar dependências nem alterar o esquema do Supabase; o campo gameUrl e o fluxo de incorporação já existem.
+
+## Tarefas
+
+### Fase 2C: conteúdo e presença visual
+
+#### T13: Preparar as quatro imagens WebP fornecidas
+
+**Descrição:** Copiar galhos, pedra âmbar, folhas e fragmentos de âmbar para public/amberlink com nomes estáveis; medir e otimizar os arquivos mais pesados preservando o formato e a aparência.
+
+**Critérios de aceitação:**
+- [x] As quatro imagens são servidas a partir de public/amberlink e nenhuma URL do site aponta para o caminho local D:.
+- [x] Os arquivos usados em seções abaixo da dobra têm carregamento adequado; o maior WebP foi otimizado sem perda visual perceptível.
+
+**Verificação:** Abrir os quatro recursos servidos pelo site e conferir qualidade, dimensão e peso final.
+
+**Dependências:** Nenhuma.
+
+**Arquivos prováveis:** Quatro novos WebP em public/amberlink.
+
+**Escopo estimado:** Pequeno.
+
+#### T14: Completar a narrativa da Home e distribuir o movimento
+
+**Descrição:** Ampliar a apresentação com fatos confirmados e datados do currículo, a epígrafe atribuída a Abelson e Sussman e as quatro cenas de âmbar/natureza em seções distintas da Home. Dar ênfase a um único momento focal na entrada, mantendo reveals e microinterações discretos.
+
+**Critérios de aceitação:**
+- [x] A Home apresenta experiência e áreas de atuação verificáveis no currículo, sem dados pessoais de contato ou resultados inventados.
+- [x] As quatro imagens fornecidas aparecem em seções distintas, sem um único fundo fixo global; o movimento usa transform/opacity, não adiciona blur a conteúdo que rola e é desativado ou simplificado para movimento reduzido.
+- [x] O conteúdo continua legível e sem sobreposição em telas móveis.
+- [x] O reveal dos cards de cases interpola opacity/transform, sem ser anulado pela cascata de CSS.
+
+**Verificação:** Executar npm run build e conferir a Home em viewport desktop, celular e com prefers-reduced-motion; inspecionar no DevTools a transição computada dos cards e o comportamento sem suporte a animation-timeline.
+
+**Dependências:** T8 da Fase 2A e T13.
+
+**Arquivos prováveis:** src/app/pages/home-page/home-page.ts, home-page.html, home-page.css, src/styles.css e src/app/components/case-gallery/case-gallery.css.
+
+**Escopo estimado:** Médio.
+
+### Checkpoint: narrativa visual
+
+- [x] A Home exibe fatos e imagens locais em mais de uma seção, com movimento reduzido funcional.
+- [x] Build e inspeção de conteúdo/recursos não indicam referência de imagem quebrada ou conteúdo sem contraste.
+
+### Fase 2D: catálogo de jogos
+
+#### T15: Unificar o critério de jogo incorporável
+
+**Descrição:** Criar um predicado reutilizável que define um case como jogável somente quando possui URL HTTPS válida e externa. Aplicá-lo aos selos, à contagem pública e à galeria, e permitir que a rota de jogos abra o embed mesmo quando o case também tem vídeo.
+
+**Critérios de aceitação:**
+- [x] O contador, o selo e a seleção do catálogo usam a mesma regra; URL HTTP, malformada ou de mesma origem não aparece como jogável.
+- [x] O modal continua priorizando vídeo por padrão em Projetos, mas pode abrir diretamente no jogo em /games.
+
+**Verificação:** Executar npm run build e conferir cases HTTPS, HTTP, same-origin e com vídeo+jogo na contagem, selo e modal.
+
+**Dependências:** Contrato existente PortfolioCase.gameUrl e CaseGallery.
+
+**Arquivos prováveis:** Novo predicado em src/app/core/playable-case.ts, src/app/core/catalog-summary.ts e src/app/components/case-gallery/case-gallery.ts/.html.
+
+**Escopo estimado:** Médio.
+
+#### T16: Criar o catálogo dinâmico de jogos incorporados
+
+**Descrição:** Adicionar /games para listar os cases públicos jogáveis com CaseGallery e apresentar o Snake como primeiro destaque, preservando sua tela atual em /game. O item Jogar da topbar leva ao catálogo.
+
+**Critérios de aceitação:**
+- [x] Todos os cases HTTPS jogáveis publicados aparecem na ordem do catálogo, sem lista duplicada; o modal abre direto no embed.
+- [x] A página mostra estados de carregamento, erro e catálogo vazio; /projects continua completo e o Snake em /game continua jogável.
+- [x] Um case novo com URL de jogo publicado no painel passa a aparecer sem alteração de código.
+
+**Verificação:** Executar npm run build e conferir /games, embeds, link para Snake e lista completa em /projects.
+
+**Dependências:** T15.
+
+**Arquivos prováveis:** Novo games-page.ts e games-page.html, src/app/app.routes.ts e src/app/layout/topbar-menu/topbar-menu.html.
+
+**Escopo estimado:** Médio.
+
+#### T17: Remover o controle de apagar progresso do Snake
+
+**Descrição:** Retirar o botão “Apagar progresso neste navegador” e o handler que só atendia esse botão, mantendo a coleta, a persistência e a exibição do progresso.
+
+**Critérios de aceitação:**
+- [x] O botão e sua chamada não aparecem mais em /game.
+- [x] A coleção atual continua salva e visível depois da mudança.
+
+**Verificação:** Executar npm run build e conferir visualmente a página Snake e seu estado de coleção.
+
+**Dependências:** Nenhuma.
+
+**Arquivos prováveis:** src/app/pages/game-page/game-page.html e game-page.ts.
+
+**Escopo estimado:** Pequeno.
+
+### Checkpoint: experiência de jogos
+
+- [x] /games reflete os embeds publicados, sem limitar o catálogo completo em /projects.
+- [x] /game mantém o Snake jogável e deixa de mostrar a ação de apagar progresso.
+
+## Riscos e mitigação
+
+| Risco | Impacto | Mitigação |
+|---|---|---|
+| Os WebP somam cerca de 4,4 MB e um arquivo passa de 3 MB. | Alto | Otimizar cópias locais, carregar imagens abaixo da dobra sob demanda e evitar baixar todas no carregamento inicial. |
+| Alguns sites bloqueiam iframe. | Médio | Reaproveitar o aviso e o link de abertura externa de CaseGallery. |
+| O catálogo público pode ter game_url HTTP que hoje recebe selo Jogável sem funcionar no modal. | Médio | Unificar a validação HTTPS e confirmar no Supabase quantos registros existentes precisam de correção de URL. |
+| A quantidade de embeds publicados ainda não foi consultada no Supabase. | Baixo | A página deriva do catálogo em tempo de execução e mantém o estado vazio sem inventar contagens. |
+| A data do currículo pode ficar desatualizada. | Baixo | Usar fatos de experiência e áreas já confirmados; evitar apresentar a previsão de formação como conclusão. |
+
+## Questões em aberto
+
+- Nenhum bloqueio de implementação. A frase de SICP é uma tradução livre com autoria e fonte identificadas.

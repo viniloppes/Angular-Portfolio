@@ -8,6 +8,8 @@
   youtubeUrl?: string | null;
   gameUrl?: string | null;
   projectUrl?: string | null;
+  /** Rota interna de um jogo local (ver local-games.ts); o card navega em vez de abrir o diálogo. */
+  routeUrl?: string | null;
   sortOrder: number;
   createdAt?: string;
   updatedAt?: string;

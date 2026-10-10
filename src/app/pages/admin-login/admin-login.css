@@ -46,6 +46,7 @@
   align-items: center;
   background: var(--accent-fill);
   border: 1px solid var(--accent-fill);
+  box-shadow: var(--glow-amber);
   color: var(--on-accent);
   display: inline-flex;
   font-family: var(--font-display);
@@ -58,26 +59,11 @@
   border-radius: 0.7rem;
 }
 
-.admin-login__eyebrow {
-  color: var(--accent-ink);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.13em;
-  margin: 2.2rem 0 0.75rem;
-}
-
 .admin-login__panel h1 {
   font-size: clamp(2.3rem, 7vw, 3.5rem);
   letter-spacing: -0.075em;
   line-height: 0.98;
-  margin: 0;
-}
-
-.admin-login__intro {
-  color: var(--muted-ink);
-  font-size: 0.94rem;
-  line-height: 1.65;
-  margin: 1rem 0 1.4rem;
+  margin: 2.2rem 0 1.4rem;
 }
 
 .admin-notice {
@@ -121,7 +107,7 @@
 .admin-form textarea:focus,
 .admin-form select:focus {
   border-color: var(--accent-ink);
-  box-shadow: 0 0 0 3px rgb(174 120 255 / 0.2);
+  box-shadow: 0 0 0 3px rgb(255 106 0 / 0.22), var(--glow-amber);
   outline: 2px solid var(--accent-ink);
   outline-offset: 1px;
 }
@@ -153,6 +139,7 @@
   align-items: center;
   background: var(--accent-fill);
   border: 1px solid var(--accent-fill);
+  box-shadow: var(--glow-amber);
   color: var(--on-accent);
   cursor: pointer;
   display: flex;
@@ -164,11 +151,10 @@
   border-radius: var(--radius-control);
 }
 
-.admin-login__submit:hover:not(:disabled) { background: var(--accent-ink); }
+.admin-login__submit:hover:not(:disabled) { background: var(--accent-ink); box-shadow: var(--glow-amber-strong); }
 .admin-login__submit:disabled { cursor: not-allowed; opacity: 0.55; }
 .submit-spinner { animation: spin 0.8s linear infinite; border: 2px solid rgb(28 21 32 / 0.25); border-radius: 50%; border-top-color: var(--on-accent); height: 1rem; width: 1rem; }
 
-.admin-login__security { color: var(--muted-ink); font-size: 0.72rem; line-height: 1.5; margin: 1.2rem 0 0; }
 .admin-login__version { color: #cabac9; font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; justify-self: end; }
 
 @keyframes spin { to { transform: rotate(360deg); } }

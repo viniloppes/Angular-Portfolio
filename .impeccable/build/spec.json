@@ -1,0 +1,908 @@
+{
+    "tool":  "comp-spec",
+    "version":  1,
+    "createdAt":  "2026-10-09T18:50:40.622Z",
+    "comp":  ".impeccable/mocks/decision/lobby-bento.png",
+    "warnings":  [
+
+                 ],
+    "uncoveredInkCells":  [
+
+                          ],
+    "compSize":  {
+                     "width":  1487,
+                     "height":  1058
+                 },
+    "aspect":  1.4055,
+    "orientation":  "landscape",
+    "palette":  [
+                    {
+                        "hex":  "#11110e",
+                        "coverage":  0.6525
+                    },
+                    {
+                        "hex":  "#2c2713",
+                        "coverage":  0.1431
+                    },
+                    {
+                        "hex":  "#3e444d",
+                        "coverage":  0.1042
+                    },
+                    {
+                        "hex":  "#767a8a",
+                        "coverage":  0.057
+                    },
+                    {
+                        "hex":  "#4b2811",
+                        "coverage":  0.0432
+                    }
+                ],
+    "bands":  [
+                  {
+                      "y":  0.3956,
+                      "strength":  0.2663
+                  }
+              ],
+    "regions":  [
+                    {
+                        "id":  "forest-backdrop",
+                        "kind":  "image",
+                        "note":  "Photoreal forest background with mist, bark, moss, and restrained natural amber sap detail. Final plate contains only the environment, with no interface text or panels.",
+                        "grid":  "A0:J9",
+                        "box":  {
+                                    "x":  0,
+                                    "y":  0,
+                                    "w":  1,
+                                    "h":  1
+                                },
+                        "px":  {
+                                   "x":  0,
+                                   "y":  0,
+                                   "w":  1487,
+                                   "h":  1058
+                               },
+                        "aspect":  1.4055,
+                        "palette":  [
+                                        {
+                                            "hex":  "#11110e",
+                                            "coverage":  0.6525
+                                        },
+                                        {
+                                            "hex":  "#2c2713",
+                                            "coverage":  0.1431
+                                        },
+                                        {
+                                            "hex":  "#3e444d",
+                                            "coverage":  0.1042
+                                        },
+                                        {
+                                            "hex":  "#767a8a",
+                                            "coverage":  0.057
+                                        },
+                                        {
+                                            "hex":  "#4b2811",
+                                            "coverage":  0.0432
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  34.5187
+                                   },
+                        "medium":  "raster",
+                        "plate":  "public/amberlink/forest-backdrop-hd.webp",
+                        "text":  null
+                    },
+                    {
+                        "id":  "brand-mark",
+                        "kind":  "text",
+                        "note":  "AmberLink wordmark and small resin mark.",
+                        "grid":  "A0:C0",
+                        "coverBox":  {
+                                         "x":  0,
+                                         "y":  0,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0,
+                                    "y":  0,
+                                    "w":  0.2179,
+                                    "h":  0.1002
+                                },
+                        "px":  {
+                                   "x":  0,
+                                   "y":  0,
+                                   "w":  324,
+                                   "h":  106
+                               },
+                        "aspect":  3.0566,
+                        "palette":  [
+                                        {
+                                            "hex":  "#11100d",
+                                            "coverage":  0.8184
+                                        },
+                                        {
+                                            "hex":  "#40260f",
+                                            "coverage":  0.0914
+                                        },
+                                        {
+                                            "hex":  "#38352d",
+                                            "coverage":  0.0403
+                                        },
+                                        {
+                                            "hex":  "#745129",
+                                            "coverage":  0.0281
+                                        },
+                                        {
+                                            "hex":  "#1a1626",
+                                            "coverage":  0.0219
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  31.1959
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  "AmberLink",
+                        "type":  {
+                                     "comp":  {
+                                                  "lines":  1,
+                                                  "glyphs":  10,
+                                                  "capHeightPx":  32.8,
+                                                  "inkIsDark":  false,
+                                                  "allCaps":  false,
+                                                  "advance":  0.5177,
+                                                  "advTall":  null,
+                                                  "advX":  0.472,
+                                                  "gap":  0.0305,
+                                                  "xRatio":  0.4996,
+                                                  "stemW":  0.1038,
+                                                  "contrast":  1.5443,
+                                                  "serif":  1.0438,
+                                                  "densTall":  null,
+                                                  "densX":  0.4558,
+                                                  "weight":  0.4558
+                                              },
+                                     "widthClass":  "condensed",
+                                     "weightClass":  "regular"
+                                 }
+                    },
+                    {
+                        "id":  "utility-controls",
+                        "kind":  "control",
+                        "note":  "Compact accessible utility controls.",
+                        "grid":  "I0:J0",
+                        "box":  {
+                                    "x":  0.8,
+                                    "y":  0,
+                                    "w":  0.2,
+                                    "h":  0.1
+                                },
+                        "px":  {
+                                   "x":  1190,
+                                   "y":  0,
+                                   "w":  297,
+                                   "h":  106
+                               },
+                        "aspect":  2.8019,
+                        "palette":  [
+                                        {
+                                            "hex":  "#414757",
+                                            "coverage":  0.4985
+                                        },
+                                        {
+                                            "hex":  "#898a99",
+                                            "coverage":  0.3326
+                                        },
+                                        {
+                                            "hex":  "#705e5f",
+                                            "coverage":  0.0953
+                                        },
+                                        {
+                                            "hex":  "#ca9e88",
+                                            "coverage":  0.038
+                                        },
+                                        {
+                                            "hex":  "#292b31",
+                                            "coverage":  0.0356
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  9.0824
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "profile-name",
+                        "kind":  "text",
+                        "note":  "VinÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â­cius Lopes display heading.",
+                        "grid":  "B2:D2",
+                        "coverBox":  {
+                                         "x":  0.1,
+                                         "y":  0.2,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0.1123,
+                                    "y":  0.2457,
+                                    "w":  0.2784,
+                                    "h":  0.0548
+                                },
+                        "px":  {
+                                   "x":  167,
+                                   "y":  260,
+                                   "w":  414,
+                                   "h":  58
+                               },
+                        "aspect":  7.1379,
+                        "palette":  [
+                                        {
+                                            "hex":  "#0a0a09",
+                                            "coverage":  0.7348
+                                        },
+                                        {
+                                            "hex":  "#f5e8cc",
+                                            "coverage":  0.1758
+                                        },
+                                        {
+                                            "hex":  "#988d79",
+                                            "coverage":  0.0344
+                                        },
+                                        {
+                                            "hex":  "#323128",
+                                            "coverage":  0.0314
+                                        },
+                                        {
+                                            "hex":  "#c3b8a2",
+                                            "coverage":  0.0236
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  69.8149
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  "VinÃ­cius Lopes",
+                        "type":  {
+                                     "comp":  {
+                                                  "lines":  1,
+                                                  "glyphs":  13,
+                                                  "capHeightPx":  45.3,
+                                                  "inkIsDark":  false,
+                                                  "allCaps":  false,
+                                                  "advance":  0.5964,
+                                                  "advTall":  0.3534,
+                                                  "advX":  0.6295,
+                                                  "gap":  0.0663,
+                                                  "xRatio":  0.6673,
+                                                  "stemW":  0.154,
+                                                  "contrast":  1.7423,
+                                                  "serif":  1.7439,
+                                                  "densTall":  0.403,
+                                                  "densX":  0.4965,
+                                                  "weight":  0.403
+                                              },
+                                     "widthClass":  "normal",
+                                     "weightClass":  "regular",
+                                     "chosen":  {
+                                                    "family":  "Zen Old Mincho",
+                                                    "weight":  700,
+                                                    "fontSizePx":  65,
+                                                    "source":  "catalog",
+                                                    "estimatedSize":  true,
+                                                    "stamp":  "70eeb5b76abb"
+                                                }
+                                 }
+                    },
+                    {
+                        "id":  "tagline",
+                        "kind":  "text",
+                        "note":  "cÃƒÆ’Ã†â€™Ãƒâ€ Ã¢â‚¬â„¢ÃƒÆ’Ã¢â‚¬Â ÃƒÂ¢Ã¢â€šÂ¬Ã¢â€žÂ¢ÃƒÆ’Ã†â€™ÃƒÂ¢Ã¢â€šÂ¬Ã…Â¡ÃƒÆ’Ã¢â‚¬Å¡Ãƒâ€šÃ‚Â³digo, movimento e luz.",
+                        "grid":  "B3:D3",
+                        "coverBox":  {
+                                         "x":  0.1,
+                                         "y":  0.3,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0.1163,
+                                    "y":  0.2996,
+                                    "w":  0.2098,
+                                    "h":  0.0624
+                                },
+                        "px":  {
+                                   "x":  173,
+                                   "y":  317,
+                                   "w":  312,
+                                   "h":  66
+                               },
+                        "aspect":  4.7273,
+                        "palette":  [
+                                        {
+                                            "hex":  "#080808",
+                                            "coverage":  0.9258
+                                        },
+                                        {
+                                            "hex":  "#a39985",
+                                            "coverage":  0.0273
+                                        },
+                                        {
+                                            "hex":  "#e3dac0",
+                                            "coverage":  0.0179
+                                        },
+                                        {
+                                            "hex":  "#302922",
+                                            "coverage":  0.0157
+                                        },
+                                        {
+                                            "hex":  "#4d4a3c",
+                                            "coverage":  0.0134
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  26.6433
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  "cÃ³digo, movimento e luz",
+                        "type":  {
+                                     "comp":  {
+                                                  "lines":  1,
+                                                  "glyphs":  1,
+                                                  "capHeightPx":  2.5,
+                                                  "inkIsDark":  false,
+                                                  "allCaps":  true,
+                                                  "advance":  16.8,
+                                                  "advTall":  16.8,
+                                                  "advX":  null,
+                                                  "gap":  0,
+                                                  "xRatio":  null,
+                                                  "stemW":  null,
+                                                  "contrast":  null,
+                                                  "serif":  null,
+                                                  "densTall":  0.8765,
+                                                  "densX":  null,
+                                                  "weight":  0.8765
+                                              },
+                                     "widthClass":  "wide",
+                                     "weightClass":  "black"
+                                 }
+                    },
+                    {
+                        "id":  "intro-copy",
+                        "kind":  "text",
+                        "note":  "Existing truthful Portuguese portfolio description.",
+                        "grid":  "B4:D4",
+                        "coverBox":  {
+                                         "x":  0.1,
+                                         "y":  0.4,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0.1204,
+                                    "y":  0.3998,
+                                    "w":  0.1977,
+                                    "h":  0.0397
+                                },
+                        "px":  {
+                                   "x":  179,
+                                   "y":  423,
+                                   "w":  294,
+                                   "h":  42
+                               },
+                        "aspect":  7,
+                        "palette":  [
+                                        {
+                                            "hex":  "#090909",
+                                            "coverage":  0.866
+                                        },
+                                        {
+                                            "hex":  "#c7bca6",
+                                            "coverage":  0.0461
+                                        },
+                                        {
+                                            "hex":  "#615a4b",
+                                            "coverage":  0.0351
+                                        },
+                                        {
+                                            "hex":  "#938978",
+                                            "coverage":  0.03
+                                        },
+                                        {
+                                            "hex":  "#312b23",
+                                            "coverage":  0.0227
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  43.6848
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  "Desenvolvimento criativo entre web, jogos e interaÃ§Ã£o.",
+                        "type":  {
+                                     "comp":  {
+                                                  "lines":  1,
+                                                  "glyphs":  18,
+                                                  "capHeightPx":  12.7,
+                                                  "inkIsDark":  false,
+                                                  "allCaps":  false,
+                                                  "advance":  0.605,
+                                                  "advTall":  0.605,
+                                                  "advX":  0.9733,
+                                                  "gap":  0.1973,
+                                                  "xRatio":  0.6783,
+                                                  "stemW":  0.1687,
+                                                  "contrast":  1.1965,
+                                                  "serif":  1.0557,
+                                                  "densTall":  0.5345,
+                                                  "densX":  0.5299,
+                                                  "weight":  0.5345
+                                              },
+                                     "widthClass":  "wide",
+                                     "weightClass":  "medium"
+                                 }
+                    },
+                    {
+                        "id":  "continue-action",
+                        "kind":  "control",
+                        "note":  "Primary route into the real project catalogue.",
+                        "grid":  "B5:D5",
+                        "coverBox":  {
+                                         "x":  0.1,
+                                         "y":  0.5,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0.1002,
+                                    "y":  0.5,
+                                    "w":  0.1493,
+                                    "h":  0.1002
+                                },
+                        "px":  {
+                                   "x":  149,
+                                   "y":  529,
+                                   "w":  222,
+                                   "h":  106
+                               },
+                        "aspect":  2.0943,
+                        "palette":  [
+                                        {
+                                            "hex":  "#131209",
+                                            "coverage":  0.5241
+                                        },
+                                        {
+                                            "hex":  "#262c10",
+                                            "coverage":  0.2358
+                                        },
+                                        {
+                                            "hex":  "#43320a",
+                                            "coverage":  0.1588
+                                        },
+                                        {
+                                            "hex":  "#3c2415",
+                                            "coverage":  0.0416
+                                        },
+                                        {
+                                            "hex":  "#534a0c",
+                                            "coverage":  0.0398
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  21.8669
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "route-board",
+                        "kind":  "chrome",
+                        "note":  "Amber glass bento navigation board.",
+                        "grid":  "F2:J5",
+                        "box":  {
+                                    "x":  0.5,
+                                    "y":  0.2,
+                                    "w":  0.5,
+                                    "h":  0.4
+                                },
+                        "px":  {
+                                   "x":  744,
+                                   "y":  212,
+                                   "w":  744,
+                                   "h":  423
+                               },
+                        "aspect":  1.7589,
+                        "palette":  [
+                                        {
+                                            "hex":  "#1a1915",
+                                            "coverage":  0.595
+                                        },
+                                        {
+                                            "hex":  "#535765",
+                                            "coverage":  0.1542
+                                        },
+                                        {
+                                            "hex":  "#30373f",
+                                            "coverage":  0.1145
+                                        },
+                                        {
+                                            "hex":  "#3d2f1f",
+                                            "coverage":  0.0971
+                                        },
+                                        {
+                                            "hex":  "#7c7882",
+                                            "coverage":  0.0392
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  26.8584
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "projects-route",
+                        "kind":  "control",
+                        "note":  "Projects destination card, real project count only when derived from data.",
+                        "grid":  "F2:G3",
+                        "box":  {
+                                    "x":  0.5,
+                                    "y":  0.2,
+                                    "w":  0.2,
+                                    "h":  0.2
+                                },
+                        "px":  {
+                                   "x":  744,
+                                   "y":  212,
+                                   "w":  297,
+                                   "h":  212
+                               },
+                        "aspect":  1.4009,
+                        "palette":  [
+                                        {
+                                            "hex":  "#241c16",
+                                            "coverage":  0.6071
+                                        },
+                                        {
+                                            "hex":  "#472913",
+                                            "coverage":  0.1522
+                                        },
+                                        {
+                                            "hex":  "#464c59",
+                                            "coverage":  0.1385
+                                        },
+                                        {
+                                            "hex":  "#6c3b12",
+                                            "coverage":  0.0769
+                                        },
+                                        {
+                                            "hex":  "#9c5314",
+                                            "coverage":  0.0254
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  19.2629
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "about-route",
+                        "kind":  "control",
+                        "note":  "About destination card.",
+                        "grid":  "H2:I3",
+                        "box":  {
+                                    "x":  0.7,
+                                    "y":  0.2,
+                                    "w":  0.2,
+                                    "h":  0.2
+                                },
+                        "px":  {
+                                   "x":  1041,
+                                   "y":  212,
+                                   "w":  297,
+                                   "h":  212
+                               },
+                        "aspect":  1.4009,
+                        "palette":  [
+                                        {
+                                            "hex":  "#232522",
+                                            "coverage":  0.4816
+                                        },
+                                        {
+                                            "hex":  "#53545e",
+                                            "coverage":  0.3555
+                                        },
+                                        {
+                                            "hex":  "#7f767d",
+                                            "coverage":  0.0835
+                                        },
+                                        {
+                                            "hex":  "#5f5140",
+                                            "coverage":  0.0522
+                                        },
+                                        {
+                                            "hex":  "#413120",
+                                            "coverage":  0.0271
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  13.6173
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "articles-route",
+                        "kind":  "control",
+                        "note":  "Articles destination card.",
+                        "grid":  "F4:G5",
+                        "coverBox":  {
+                                         "x":  0.5,
+                                         "y":  0.4,
+                                         "w":  0.2,
+                                         "h":  0.2
+                                     },
+                        "box":  {
+                                    "x":  0.6335,
+                                    "y":  0.4509,
+                                    "w":  0.0444,
+                                    "h":  0.051
+                                },
+                        "px":  {
+                                   "x":  942,
+                                   "y":  477,
+                                   "w":  66,
+                                   "h":  54
+                               },
+                        "aspect":  1.2222,
+                        "palette":  [
+                                        {
+                                            "hex":  "#1c1813",
+                                            "coverage":  0.7913
+                                        },
+                                        {
+                                            "hex":  "#f4cd91",
+                                            "coverage":  0.1221
+                                        },
+                                        {
+                                            "hex":  "#483624",
+                                            "coverage":  0.0433
+                                        },
+                                        {
+                                            "hex":  "#927252",
+                                            "coverage":  0.0254
+                                        },
+                                        {
+                                            "hex":  "#e8ad78",
+                                            "coverage":  0.0178
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  13.7699
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "contact-route",
+                        "kind":  "control",
+                        "note":  "Contact destination card, preserves existing LinkedIn and GitHub links.",
+                        "grid":  "G4:H5",
+                        "coverBox":  {
+                                         "x":  0.6,
+                                         "y":  0.4,
+                                         "w":  0.2,
+                                         "h":  0.2
+                                     },
+                        "box":  {
+                                    "x":  0.6321,
+                                    "y":  0.4509,
+                                    "w":  0.0444,
+                                    "h":  0.051
+                                },
+                        "px":  {
+                                   "x":  940,
+                                   "y":  477,
+                                   "w":  66,
+                                   "h":  54
+                               },
+                        "aspect":  1.2222,
+                        "palette":  [
+                                        {
+                                            "hex":  "#1d1913",
+                                            "coverage":  0.8182
+                                        },
+                                        {
+                                            "hex":  "#f2c88e",
+                                            "coverage":  0.1313
+                                        },
+                                        {
+                                            "hex":  "#d2a16e",
+                                            "coverage":  0.0328
+                                        },
+                                        {
+                                            "hex":  "#907048",
+                                            "coverage":  0.0101
+                                        },
+                                        {
+                                            "hex":  "#433828",
+                                            "coverage":  0.0076
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  13.7502
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "snake-route",
+                        "kind":  "control",
+                        "note":  "2D Snake arcade destination card.",
+                        "grid":  "I4:J5",
+                        "coverBox":  {
+                                         "x":  0.8,
+                                         "y":  0.4,
+                                         "w":  0.2,
+                                         "h":  0.2
+                                     },
+                        "box":  {
+                                    "x":  0.8003,
+                                    "y":  0.3998,
+                                    "w":  0.1997,
+                                    "h":  0.1248
+                                },
+                        "px":  {
+                                   "x":  1190,
+                                   "y":  423,
+                                   "w":  297,
+                                   "h":  132
+                               },
+                        "aspect":  2.25,
+                        "palette":  [
+                                        {
+                                            "hex":  "#1c2020",
+                                            "coverage":  0.5485
+                                        },
+                                        {
+                                            "hex":  "#575e6b",
+                                            "coverage":  0.2662
+                                        },
+                                        {
+                                            "hex":  "#454338",
+                                            "coverage":  0.0812
+                                        },
+                                        {
+                                            "hex":  "#363c4d",
+                                            "coverage":  0.0541
+                                        },
+                                        {
+                                            "hex":  "#8c8184",
+                                            "coverage":  0.0499
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  16.7987
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "featured-panel",
+                        "kind":  "chrome",
+                        "note":  "Real published cases and existing cover URLs load from the public API gallery; never substitute generated project art.",
+                        "grid":  "D6:I8",
+                        "box":  {
+                                    "x":  0.3,
+                                    "y":  0.6,
+                                    "w":  0.6,
+                                    "h":  0.3
+                                },
+                        "px":  {
+                                   "x":  446,
+                                   "y":  635,
+                                   "w":  892,
+                                   "h":  317
+                               },
+                        "aspect":  2.8139,
+                        "palette":  [
+                                        {
+                                            "hex":  "#0e0e0b",
+                                            "coverage":  0.7376
+                                        },
+                                        {
+                                            "hex":  "#2b2816",
+                                            "coverage":  0.1553
+                                        },
+                                        {
+                                            "hex":  "#57361c",
+                                            "coverage":  0.0407
+                                        },
+                                        {
+                                            "hex":  "#514d41",
+                                            "coverage":  0.0346
+                                        },
+                                        {
+                                            "hex":  "#81512e",
+                                            "coverage":  0.0318
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  35.5996
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  null
+                    },
+                    {
+                        "id":  "featured-heading",
+                        "kind":  "text",
+                        "note":  "Trabalhos recentes.",
+                        "grid":  "E6:G6",
+                        "coverBox":  {
+                                         "x":  0.4,
+                                         "y":  0.6,
+                                         "w":  0.3,
+                                         "h":  0.1
+                                     },
+                        "box":  {
+                                    "x":  0.5333,
+                                    "y":  0.6002,
+                                    "w":  0.1668,
+                                    "h":  0.0567
+                                },
+                        "px":  {
+                                   "x":  793,
+                                   "y":  635,
+                                   "w":  248,
+                                   "h":  60
+                               },
+                        "aspect":  4.1333,
+                        "palette":  [
+                                        {
+                                            "hex":  "#10110e",
+                                            "coverage":  0.7221
+                                        },
+                                        {
+                                            "hex":  "#272c14",
+                                            "coverage":  0.1151
+                                        },
+                                        {
+                                            "hex":  "#3f3837",
+                                            "coverage":  0.062
+                                        },
+                                        {
+                                            "hex":  "#645445",
+                                            "coverage":  0.0606
+                                        },
+                                        {
+                                            "hex":  "#8e7257",
+                                            "coverage":  0.0402
+                                        }
+                                    ],
+                        "detail":  {
+                                       "energy":  31.8638
+                                   },
+                        "medium":  "semantic",
+                        "plate":  null,
+                        "text":  "Trabalhos recentes",
+                        "type":  {
+                                     "comp":  null,
+                                     "measuredAt":  "2026-10-09T18:54:13.631Z",
+                                     "note":  "no separable lettering in the crop; size by the region box"
+                                 }
+                    }
+                ]
+}

@@ -1,31 +1,51 @@
-<header
-  class="page-gutter flex min-h-[4.5rem] flex-wrap items-center justify-between gap-x-8 gap-y-3 bg-[var(--hero-paper)] py-3"
->
+<header class="page-gutter flex min-h-[4.5rem] flex-wrap items-center justify-between gap-x-8 gap-y-2 py-3">
   <a class="inline-flex min-h-11 items-center gap-2.5 text-copy no-underline" routerLink="/home" aria-label="AmberLink, início">
-    <img class="size-7 rounded-full object-cover" src="/amberlink/amber-stone.webp" alt="" width="28" height="28" />
+    <img
+      class="size-8 rounded-full object-cover shadow-[0_0_18px_-2px_rgb(255_159_51/0.7)]"
+      src="/amberlink/amber-stone.webp"
+      alt=""
+      width="32"
+      height="32"
+    />
     <span class="font-display text-[1.875rem] leading-none">AmberLink</span>
   </a>
-  <nav class="flex items-center gap-1 text-[0.9375rem]" aria-label="Navegação principal">
-    <a
-      class="inline-flex min-h-11 items-center rounded-full px-4 text-muted no-underline transition-colors hover:text-copy"
-      routerLink="/projects"
-      routerLinkActive="!text-copy"
-      ariaCurrentWhenActive="page"
-      >Projetos</a
-    >
-    <a
-      class="inline-flex min-h-11 items-center rounded-full px-4 text-muted no-underline transition-colors hover:text-copy"
-      routerLink="/articles"
-      routerLinkActive="!text-copy"
-      ariaCurrentWhenActive="page"
-      >Artigos</a
-    >
-    <a
-      class="ml-2 inline-flex min-h-11 items-center rounded-full border-[1.5px] border-[var(--ink)] px-5 text-copy no-underline transition-colors hover:bg-amber-soft"
-      routerLink="/contact"
-      routerLinkActive="bg-amber-soft"
-      ariaCurrentWhenActive="page"
-      >Contato</a
-    >
+  <nav class="topbar-nav -mx-2 hidden max-w-full items-center gap-1 overflow-x-auto px-2 text-[0.9375rem] sm:flex" aria-label="Navegação principal">
+    @for (link of links; track link.path) {
+      <a class="topbar-link" [routerLink]="link.path" routerLinkActive="is-active" ariaCurrentWhenActive="page">
+        @if (link.highlight) {
+          <span class="topbar-link__dot" aria-hidden="true"></span>
+        }
+        {{ link.label }}
+      </a>
+    }
   </nav>
+  <button
+    type="button"
+    class="topbar-toggle topbar-toggle--mobile"
+    aria-label="Abrir menu"
+    aria-haspopup="dialog"
+    [attr.aria-expanded]="menuOpen()"
+    (click)="menuOpen.set(true)"
+  >
+    <ng-icon name="lucideMenu" aria-hidden="true" />
+  </button>
 </header>
+
+<z-sheet [(zVisible)]="menuOpen" [zClosable]="false" class="topbar-drawer">
+  <z-sheet-header class="flex-row items-center justify-between">
+    <z-sheet-title>Menu</z-sheet-title>
+    <button type="button" class="topbar-toggle" aria-label="Fechar menu" z-sheet-close>
+      <ng-icon name="lucideX" aria-hidden="true" />
+    </button>
+  </z-sheet-header>
+  <nav class="flex flex-col px-2" aria-label="Navegação principal">
+    @for (link of links; track link.path) {
+      <a class="topbar-drawer__link" [routerLink]="link.path" routerLinkActive="is-active" ariaCurrentWhenActive="page" z-sheet-close>
+        @if (link.highlight) {
+          <span class="topbar-link__dot" aria-hidden="true"></span>
+        }
+        {{ link.label }}
+      </a>
+    }
+  </nav>
+</z-sheet>

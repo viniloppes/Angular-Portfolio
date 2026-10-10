@@ -1,0 +1,82 @@
+.about-layout {
+  display: block;
+}
+
+.about-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  justify-content: center;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.about-copy h2 {
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 0.98;
+  margin: 0;
+}
+
+.about-copy__lead {
+  color: var(--ivory-muted);
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  margin: 0;
+  max-width: 42rem;
+}
+
+.about-facts {
+  border-top: 1px solid rgb(255 184 102 / 0.24);
+  display: grid;
+  gap: 0;
+  margin: 0;
+}
+
+.about-facts > div {
+  border-bottom: 1px solid rgb(255 184 102 / 0.18);
+  display: grid;
+  gap: 0.4rem;
+  padding: 0.85rem 0;
+}
+
+.about-facts dt {
+  color: var(--amber-300);
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.about-facts dd {
+  color: var(--ivory);
+  font-size: 0.9rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.amber-epigraph {
+  align-items: center;
+  border: 1px solid rgb(255 106 0 / 0.55);
+  border-radius: var(--radius-card);
+  box-shadow: var(--glow-amber);
+  display: flex;
+  min-height: 14rem;
+  overflow: hidden;
+}
+
+.amber-epigraph blockquote {
+  align-self: center;
+  margin: 0;
+  padding: clamp(1.5rem, 4vw, 3rem);
+}
+
+.amber-epigraph blockquote p {
+  color: var(--amber-50);
+  font-family: var(--font-display);
+  font-size: clamp(1.45rem, 3vw, 2.35rem);
+  letter-spacing: -0.025em;
+  line-height: 1.18;
+  margin: 0;
+}

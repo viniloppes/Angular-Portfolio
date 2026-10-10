@@ -1,0 +1,55 @@
+/* GERADO por tools/anim-icons/generate.mjs. Não edite: rode `npm run icons`. */
+.anim-icon {
+  --anim-icon-frames: 20;
+  --anim-icon-duration: 700ms;
+  aspect-ratio: 1;
+  background-color: currentColor;
+  display: inline-block;
+  flex: none;
+  -webkit-mask: var(--anim-icon-src) 0 0 / calc(var(--anim-icon-frames) * 100%) 100% no-repeat;
+  mask: var(--anim-icon-src) 0 0 / calc(var(--anim-icon-frames) * 100%) 100% no-repeat;
+  vertical-align: middle;
+  width: var(--anim-icon-size, 1.5em);
+}
+
+.anim-icon:hover,
+.anim-icon.is-playing,
+.anim-icon-trigger:hover .anim-icon,
+.anim-icon-trigger:focus-visible .anim-icon {
+  animation: anim-icon-play var(--anim-icon-duration) steps(var(--anim-icon-frames), jump-none) forwards;
+}
+
+.anim-icon--loop {
+  animation-iteration-count: infinite !important;
+}
+
+@keyframes anim-icon-play {
+  to {
+    -webkit-mask-position: 100% 0;
+    mask-position: 100% 0;
+  }
+}
+
+.anim-icon--arrow-right {
+  --anim-icon-src: url('./arrow-right.webp');
+  --anim-icon-frames: 20;
+  --anim-icon-duration: 520ms;
+}
+
+.anim-icon--arrow-up-right {
+  --anim-icon-src: url('./arrow-up-right.webp');
+  --anim-icon-frames: 20;
+  --anim-icon-duration: 520ms;
+}
+
+.anim-icon--chevron-right {
+  --anim-icon-src: url('./chevron-right.webp');
+  --anim-icon-frames: 20;
+  --anim-icon-duration: 480ms;
+}
+
+.anim-icon--cube {
+  --anim-icon-src: url('./cube.webp');
+  --anim-icon-frames: 20;
+  --anim-icon-duration: 700ms;
+}

@@ -1,0 +1,94 @@
+{
+    "regions":  [
+                    {
+                        "note":  "Photoreal forest background with mist, bark, moss, and restrained natural amber sap detail. Final plate contains only the environment, with no interface text or panels.",
+                        "grid":  "A0:J9",
+                        "id":  "forest-backdrop",
+                        "kind":  "image"
+                    },
+                    {
+                        "note":  "AmberLink wordmark and small resin mark.",
+                        "grid":  "A0:C0",
+                        "id":  "brand-mark",
+                        "kind":  "text"
+                    },
+                    {
+                        "note":  "Compact accessible utility controls.",
+                        "grid":  "I0:J0",
+                        "id":  "utility-controls",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "VinÃ­cius Lopes display heading.",
+                        "grid":  "B2:D2",
+                        "id":  "profile-name",
+                        "kind":  "text"
+                    },
+                    {
+                        "note":  "cÃ³digo, movimento e luz.",
+                        "grid":  "B3:D3",
+                        "id":  "tagline",
+                        "kind":  "text"
+                    },
+                    {
+                        "note":  "Existing truthful Portuguese portfolio description.",
+                        "grid":  "B4:D4",
+                        "id":  "intro-copy",
+                        "kind":  "text"
+                    },
+                    {
+                        "note":  "Primary route into the real project catalogue.",
+                        "grid":  "B5:D5",
+                        "id":  "continue-action",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "Amber glass bento navigation board.",
+                        "grid":  "F2:J5",
+                        "id":  "route-board",
+                        "kind":  "chrome"
+                    },
+                    {
+                        "note":  "Projects destination card, real project count only when derived from data.",
+                        "grid":  "F2:G3",
+                        "id":  "projects-route",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "About destination card.",
+                        "grid":  "H2:I3",
+                        "id":  "about-route",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "Articles destination card.",
+                        "grid":  "F4:G5",
+                        "id":  "articles-route",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "Contact destination card, preserves existing LinkedIn and GitHub links.",
+                        "grid":  "G4:H5",
+                        "id":  "contact-route",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "2D Snake arcade destination card.",
+                        "grid":  "I4:J5",
+                        "id":  "snake-route",
+                        "kind":  "control"
+                    },
+                    {
+                        "note":  "Real published cases and existing cover URLs are loaded from the public API case gallery; these are content data, not generated interface plates.",
+                        "grid":  "D6:I8",
+                        "id":  "featured-panel",
+                        "kind":  "chrome"
+                    },
+                    {
+                        "note":  "Trabalhos recentes.",
+                        "grid":  "E6:G6",
+                        "id":  "featured-heading",
+                        "kind":  "text"
+                    }
+                ]
+}
