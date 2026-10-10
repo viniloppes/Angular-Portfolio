@@ -107,6 +107,10 @@ export class GamePage {
     this.draw();
   }
 
+  imageUrl(path: string): string {
+    return this.portfolio.imageUrl(path);
+  }
+
   start(): void {
     if (this.engine.status === 'over') this.restart();
     if (this.engine.status === 'running') return;
