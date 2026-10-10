@@ -31,7 +31,8 @@
 }
 
 .lobby__rule {
-  background: var(--amber-400);
+  background: var(--amber-neon);
+  box-shadow: 0 0 14px 1px rgb(255 106 0 / 0.85);
   display: block;
   height: 2px;
   margin: 1rem 0 0.75rem;
@@ -58,9 +59,7 @@
 }
 
 .route-card {
-  -webkit-backdrop-filter: blur(14px) saturate(120%);
-  backdrop-filter: blur(14px) saturate(120%);
-  background: linear-gradient(160deg, rgb(29 36 25 / 0.78), rgb(9 11 8 / 0.86));
+  background: var(--forest-850);
   border: 1px solid rgb(245 232 204 / 0.2);
   border-radius: 1.25rem;
   color: var(--ivory);
@@ -80,8 +79,8 @@
 
 .route-card:hover,
 .route-card:focus-visible {
-  border-color: var(--amber-400);
-  box-shadow: 0 0 0 1px var(--amber-400), 0 0 36px -8px rgb(255 159 51 / 0.6);
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber-strong);
   transform: translateY(-3px);
 }
 
@@ -102,11 +101,11 @@
   }
 }
 
-/* Projetos é o destino principal: cartão âmbar aceso, como no comp. */
+/* Projetos é o destino principal: superfície âmbar chapada com contorno aceso. */
 .route-card--projects {
-  background: linear-gradient(150deg, rgb(168 82 0 / 0.72), rgb(74 35 0 / 0.86));
-  border-color: var(--amber-400);
-  box-shadow: inset 0 1px 0 rgb(255 232 204 / 0.25), 0 0 40px -12px rgb(255 159 51 / 0.7);
+  background: var(--amber-800);
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber);
 }
 
 @media (max-width: 639px) {
@@ -129,6 +128,15 @@
 .route-card__icon svg {
   height: 100%;
   width: 100%;
+}
+
+.route-card__arrow .anim-icon {
+  --anim-icon-size: 0.9rem;
+}
+
+.route-card__icon .anim-icon {
+  --anim-icon-size: 100%;
+  display: block;
 }
 
 .route-card__label {
@@ -161,14 +169,3 @@
   width: 2rem;
 }
 
-/* Sem transparência: superfícies opacas, mas Projetos continua aceso em âmbar. */
-@media (prefers-reduced-transparency: reduce) {
-  .route-card {
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    background: linear-gradient(160deg, var(--forest-800), var(--forest-950));
-  }
-  .route-card--projects {
-    background: linear-gradient(150deg, #8a4300, var(--amber-900));
-  }
-}

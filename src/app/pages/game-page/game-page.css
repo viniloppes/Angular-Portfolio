@@ -16,14 +16,6 @@
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  padding: 1rem;
-}
-
-@media (min-width: 640px) {
-  .arcade__board,
-  .arcade__rail {
-    padding: 1.5rem;
-  }
 }
 
 .arcade__hud {
@@ -46,19 +38,22 @@
   min-height: 2.75rem;
   padding: 0.5rem 1rem;
   text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
 .arcade__button:hover {
-  background: rgb(255 159 51 / 0.16);
-  border-color: var(--amber-400);
+  background: rgb(255 106 0 / 0.18);
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber-strong);
 }
 
 /* Lado limitado pela altura da tela para tabuleiro + galeria compacta caberem juntos no celular. */
 .arcade__stage {
   align-self: center;
   aspect-ratio: 1;
-  border: 1px solid rgb(255 184 102 / 0.35);
+  border: 1px solid rgb(255 106 0 / 0.6);
   border-radius: 1rem;
+  box-shadow: var(--glow-amber);
   overflow: hidden;
   position: relative;
   touch-action: none;
@@ -166,8 +161,8 @@
 }
 
 .arcade__strip li.is-current {
-  border-color: var(--amber-300);
-  box-shadow: 0 0 0 2px var(--amber-300);
+  border-color: var(--amber-neon);
+  box-shadow: 0 0 0 2px var(--amber-neon), 0 0 16px -2px rgb(255 106 0 / 0.8);
 }
 
 .arcade__figure {

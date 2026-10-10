@@ -7,8 +7,6 @@
   flex-direction: column;
   gap: 1.2rem;
   justify-content: center;
-  margin-inline: auto;
-  max-width: 76rem;
   padding: clamp(1.5rem, 4vw, 3rem);
 }
 
@@ -60,10 +58,10 @@
 
 .amber-epigraph {
   align-items: center;
-  border: 1px solid rgb(255 184 102 / 0.3);
+  border: 1px solid rgb(255 106 0 / 0.55);
   border-radius: var(--radius-card);
+  box-shadow: var(--glow-amber);
   display: flex;
-  justify-content: center;
   min-height: 14rem;
   overflow: hidden;
 }
@@ -80,20 +78,5 @@
   font-size: clamp(1.45rem, 3vw, 2.35rem);
   letter-spacing: -0.025em;
   line-height: 1.18;
-  margin: 0 0 1.4rem;
-}
-
-.amber-epigraph footer {
-  color: var(--ivory-muted);
-  font-size: 0.78rem;
-  line-height: 1.6;
-}
-
-.amber-epigraph cite {
-  font-style: normal;
-}
-
-.amber-epigraph a {
-  color: var(--amber-300);
-  text-underline-offset: 0.2em;
+  margin: 0;
 }

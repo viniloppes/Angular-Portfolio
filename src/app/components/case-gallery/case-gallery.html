@@ -11,7 +11,7 @@
     </div>
   } @else if (errorMessage) {
     <div class="case-gallery__notice" role="alert">
-      <p class="text-sm text-muted">Não foi possível carregar {{ collectionLabel }}.</p>
+      <p class="text-sm text-muted-foreground">Não foi possível carregar {{ collectionLabel }}.</p>
       <p-button
         label="Tentar novamente"
         icon="pi pi-refresh"
@@ -22,50 +22,50 @@
       />
     </div>
   } @else if (visibleCases.length === 0) {
-    <p class="py-8 text-muted">Nenhum {{ itemLabel }} disponível.</p>
+    <p class="py-8 text-muted-foreground">Nenhum {{ itemLabel }} disponível.</p>
   } @else {
     <div class="case-grid" [class.case-grid--strip]="variant === 'strip'">
       @for (item of visibleCases; track item.id) {
         <button
           appScrollReveal
-          class="case-card group min-w-0 cursor-pointer p-0 text-left text-copy"
+          class="case-card anim-icon-trigger group min-w-0 cursor-pointer p-0 text-left text-copy"
           type="button"
           (click)="openCase(item)"
-          [attr.aria-label]="'Abrir projeto: ' + item.name"
+          [attr.aria-label]="(item.routeUrl ? 'Jogar: ' : 'Abrir projeto: ') + item.name"
         >
           <span class="case-card__media">
             <img
               class="case-card__thumbnail"
               [src]="imageUrl(item.thumbnailUrl)"
               alt=""
-              width="96"
-              height="72"
+              width="640"
+              height="360"
               loading="lazy"
               decoding="async"
             />
             <span class="case-card__meta">
-              <span class="case-card__index">CASE / {{ item.sortOrder.toString().padStart(2, '0') }}</span>
+              <span class="case-card__index">{{ item.routeUrl ? 'ORIGINAL' : 'CASE' }} / {{ item.sortOrder.toString().padStart(2, '0') }}</span>
               <span class="case-card__badges" aria-hidden="true">
                 @if (isCollected(item)) {
                   <span class="arcade-badge arcade-badge--moss">Coletado</span>
                 }
-                @if (isPlayable(item)) {
+                @if (showPlayableBadge && isPlayable(item)) {
                   <span class="arcade-badge">Jogável</span>
                 }
                 @if (item.youtubeUrl) {
                   <span class="arcade-badge">Vídeo</span>
                 }
               </span>
-              <span class="case-card__open" aria-hidden="true"><i class="pi pi-arrow-up-right"></i></span>
+              <span class="case-card__open" aria-hidden="true"><span class="anim-icon anim-icon--arrow-up-right"></span></span>
             </span>
           </span>
           <span class="case-card__content relative flex w-full flex-col items-start gap-2.5">
             <span class="case-card__category label-mono">{{ item.category }}</span>
             <span class="text-lg leading-snug font-semibold">{{ item.name }}</span>
-            <span class="line-clamp-2 text-sm leading-relaxed text-muted">{{ item.description }}</span>
-            @if (isCollected(item) || isPlayable(item) || item.youtubeUrl) {
+            <span class="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{{ item.description }}</span>
+            @if (isCollected(item) || (showPlayableBadge && isPlayable(item)) || item.youtubeUrl) {
               <span class="sr-only"
-                >{{ isCollected(item) ? 'Coletado no Snake. ' : '' }}{{ isPlayable(item) ? 'Jogável no navegador. ' : ''
+                >{{ isCollected(item) ? 'Coletado no Snake. ' : '' }}{{ showPlayableBadge && isPlayable(item) ? 'Jogável. ' : ''
                 }}{{ item.youtubeUrl ? 'Com vídeo.' : '' }}</span
               >
             }

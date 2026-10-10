@@ -5,6 +5,7 @@ import { CaseGallery } from '../../components/case-gallery/case-gallery';
 import { pluralize } from '../../core/catalog-summary';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { LOCAL_GAMES } from '../../core/local-games';
 import { isPlayableCase } from '../../core/playable-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 import { HomeStory } from './home-story';
@@ -47,9 +48,9 @@ export class HomePage implements OnInit {
     this.catalogReady() ? pluralize(this.cases().length, 'case', 'cases') : null,
   );
   private readonly gameBadge = computed(() => {
-    const total = this.cases().filter(isPlayableCase).length;
+    const total = LOCAL_GAMES.length + this.cases().filter(isPlayableCase).length;
     if (!this.catalogReady() || total === 0) return null;
-    return `${total} ${total === 1 ? 'jogável' : 'jogáveis'}`;
+    return pluralize(total, 'jogo', 'jogos');
   });
 
   ngOnInit(): void {

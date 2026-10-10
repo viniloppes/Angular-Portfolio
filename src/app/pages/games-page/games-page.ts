@@ -1,15 +1,14 @@
 import { isPlatformBrowser } from '@angular/common';
 import { Component, computed, inject, OnInit, PLATFORM_ID, signal } from '@angular/core';
-import { RouterLink } from '@angular/router';
 import { CaseGallery } from '../../components/case-gallery/case-gallery';
+import { localGameCases } from '../../core/local-games';
 import { isPlayableCase } from '../../core/playable-case';
 import { PortfolioCase } from '../../core/portfolio-case';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
-import { pluralize } from '../../core/catalog-summary';
 
 @Component({
   selector: 'app-games-page',
-  imports: [RouterLink, CaseGallery],
+  imports: [CaseGallery],
   host: { class: 'block' },
   templateUrl: './games-page.html',
   styleUrl: './games-page.css',
@@ -21,9 +20,8 @@ export class GamesPage implements OnInit {
   readonly cases = signal<PortfolioCase[]>([]);
   readonly loading = signal(true);
   readonly errorMessage = signal('');
-  readonly playableCases = computed(() => this.cases().filter(isPlayableCase));
-  readonly playableCount = computed(() => this.playableCases().length);
-  readonly playableSummary = computed(() => pluralize(this.playableCount(), 'jogo jogável', 'jogos jogáveis'));
+  /** Jogos locais primeiro; os cases jogáveis do catálogo vêm em seguida, nos mesmos cards. */
+  readonly playableCases = computed(() => [...localGameCases(), ...this.cases().filter(isPlayableCase)]);
 
   ngOnInit(): void {
     if (isPlatformBrowser(this.platformId)) void this.loadCases();

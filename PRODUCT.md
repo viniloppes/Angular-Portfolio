@@ -8,7 +8,7 @@ web
 
 ## Users
 
-The primary audience is potential clients evaluating Vinícius Lopes's work. No specific client industry or organization size is established.
+The primary audience is potential clients evaluating Vinicius Lopes's work. No specific client industry or organization size is established.
 
 ## Product Purpose
 
@@ -33,7 +33,7 @@ Position the portfolio around cross-discipline creative development, with work a
 
 ## Brand Commitments
 
-The brand is “AmberLink” (replaces “Crazy Lab” as of 2026-10-05; identity in Figma file i8tMqSiTvDdwRxfHRS5L6N). Preserve the identity “Vinícius Lopes” and Portuguese as the default content language. Some older project descriptions are in English.
+The brand is “AmberLink” (replaces “Crazy Lab” as of 2026-10-05; identity in Figma file i8tMqSiTvDdwRxfHRS5L6N). Preserve the identity “Vinicius Lopes” and Portuguese as the default content language. Some older project descriptions are in English.
 
 ## Evidence on Hand
 

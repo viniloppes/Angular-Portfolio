@@ -1,10 +1,9 @@
 <main class="page-gutter py-8 sm:py-10">
   <header class="mb-4 flex flex-wrap items-end justify-between gap-3 sm:mb-6 sm:gap-4">
     <div>
-      <p class="forest-eyebrow">Arcade AmberLink</p>
-      <h1 class="mt-2 text-4xl leading-none sm:text-6xl">Jogar Snake</h1>
-      <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted sm:mt-3 sm:text-base">
-        Cada resina coletada revela o próximo case publicado, na ordem do catálogo.
+      <h1 class="text-4xl leading-none sm:text-6xl">Snake de resina</h1>
+      <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-3 sm:text-base">
+        Cada resina revela um case do catálogo.
       </p>
     </div>
     @if (galleryState() === 'ready') {
@@ -15,7 +14,7 @@
   </header>
 
   <div class="arcade">
-    <section class="arcade__board forest-panel" aria-labelledby="board-title">
+    <section class="arcade__board" aria-labelledby="board-title">
       <h2 id="board-title" class="sr-only">Tabuleiro</h2>
       <div class="arcade__hud">
         <span class="arcade-badge">Resinas <strong class="text-[var(--amber-300)]">{{ score() }}</strong></span>
@@ -37,13 +36,13 @@
       <div class="arcade__now" aria-hidden="true">
         @switch (galleryState()) {
           @case ('loading') {
-            <span class="text-sm text-muted">Carregando cases…</span>
+            <span class="text-sm text-muted-foreground">Carregando cases…</span>
           }
           @case ('error') {
             <span class="text-sm text-[var(--ivory)]">Galeria indisponível · resinas âmbar</span>
           }
           @case ('empty') {
-            <span class="text-sm text-muted">Nenhum case publicado · resinas âmbar</span>
+            <span class="text-sm text-muted-foreground">Nenhum case publicado · resinas âmbar</span>
           }
           @default {
             @if (revealed(); as current) {
@@ -52,7 +51,7 @@
                 <span class="truncate text-[var(--ivory)]">{{ current.item.name }}</span>
               </span>
             } @else {
-              <span class="text-sm text-muted">Colete uma resina para revelar um case.</span>
+              <span class="text-sm text-muted-foreground">Colete uma resina para revelar um case.</span>
             }
           }
         }
@@ -87,7 +86,7 @@
               }
             </p>
             <p class="text-sm text-[var(--ivory-muted)]">
-              {{ status() === 'over' ? 'Toque, deslize ou use uma seta para jogar de novo.' : 'Toque, deslize ou use uma seta para começar.' }}
+              {{ status() === 'over' ? 'Toque ou use uma seta para recomeçar.' : 'Toque ou use uma seta para começar.' }}
             </p>
           </div>
         }
@@ -95,12 +94,12 @@
 
       <p id="arcade-help" class="arcade__help">
         <span class="arcade__help-desktop">Setas ou WASD movem · Espaço ou P pausa · R reinicia</span>
-        <span class="arcade__help-touch">Deslize sobre o tabuleiro para virar · toque para começar</span>
+        <span class="arcade__help-touch">Deslize para virar</span>
       </p>
       <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
     </section>
 
-    <aside class="arcade__rail forest-panel" aria-labelledby="rail-title">
+    <aside class="arcade__rail" aria-labelledby="rail-title">
       <div class="flex items-center justify-between gap-3">
         <h2 id="rail-title" class="forest-eyebrow">Galeria de cases</h2>
         @if (galleryState() === 'ready' && revealed(); as current) {
@@ -113,13 +112,13 @@
       @switch (galleryState()) {
         @case ('loading') {
           <div class="arcade__frame arcade__frame--empty" aria-busy="true">
-            <p class="text-sm text-muted">Carregando cases…</p>
+            <p class="text-sm text-muted-foreground">Carregando cases…</p>
           </div>
         }
         @case ('error') {
           <div class="arcade__frame arcade__frame--empty" role="alert">
             <p class="font-semibold text-[var(--ivory)]">Não foi possível carregar a galeria de cases.</p>
-            <p class="text-sm text-muted">O jogo continua com resinas âmbar.</p>
+            <p class="text-sm text-muted-foreground">O jogo continua com resinas âmbar.</p>
             <button type="button" class="arcade__button" (click)="loadCases()">
               <i class="pi pi-refresh" aria-hidden="true"></i> Tentar novamente
             </button>
@@ -127,7 +126,7 @@
         }
         @case ('empty') {
           <div class="arcade__frame arcade__frame--empty">
-            <p class="text-sm text-muted">Nenhum case publicado no momento. O jogo continua com resinas âmbar.</p>
+            <p class="text-sm text-muted-foreground">Nenhum case publicado. O jogo continua com resinas âmbar.</p>
           </div>
         }
         @default {
@@ -138,7 +137,7 @@
                   >Case {{ current.index + 1 }} de {{ cases().length }} · {{ current.item.category }}</span
                 >
                 <span class="font-display text-[1.75rem] leading-tight text-[var(--ivory)]">{{ current.item.name }}</span>
-                <span class="line-clamp-2 text-sm leading-relaxed text-muted">{{ current.item.description }}</span>
+                <span class="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{{ current.item.description }}</span>
               </figcaption>
             </figure>
             <div class="flex flex-wrap gap-2">
@@ -151,11 +150,11 @@
             </div>
           } @else {
             <div class="arcade__frame arcade__frame--empty">
-              <p class="text-sm text-muted">Colete a primeira resina para revelar um case.</p>
+              <p class="text-sm text-muted-foreground">Colete a primeira resina para revelar um case.</p>
             </div>
           }
           @if (nextCase(); as upcoming) {
-            <p class="text-sm text-muted">
+            <p class="text-sm text-muted-foreground">
               Próxima resina: <span class="text-[var(--ivory)]">{{ upcoming.name }}</span>
             </p>
           }

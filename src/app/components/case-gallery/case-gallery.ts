@@ -11,6 +11,7 @@ import {
   inject,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
 import { CaseProgressService } from '../../core/case-progress.service';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
@@ -35,12 +36,15 @@ export class CaseGallery {
   @Input() variant: CaseGalleryVariant = 'bento';
   @Input() collectionLabel = 'projetos';
   @Input() itemLabel = 'projeto';
+  /** Desligue onde todos os itens são jogos e o selo só repetiria o título da página. */
+  @Input() showPlayableBadge = true;
   @Output() retry = new EventEmitter<void>();
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
   private readonly sanitizer = inject(DomSanitizer);
   private readonly portfolio = inject(PortfolioDataService);
   private readonly progress = inject(CaseProgressService);
+  private readonly router = inject(Router);
 
   selectedCase: PortfolioCase | null = null;
   mediaMode: MediaMode = 'details';
@@ -60,7 +64,7 @@ export class CaseGallery {
   }
 
   isPlayable(item: PortfolioCase): boolean {
-    return isPlayableCase(item);
+    return Boolean(item.routeUrl) || isPlayableCase(item);
   }
 
   playableHref(item: PortfolioCase): string | null {
@@ -68,6 +72,11 @@ export class CaseGallery {
   }
 
   openCase(item: PortfolioCase): void {
+    if (item.routeUrl) {
+      void this.router.navigateByUrl(item.routeUrl);
+      return;
+    }
+
     this.selectedCase = item;
     this.videoUrl = this.toYouTubeEmbed(item.youtubeUrl);
     this.gameUrl = this.toSafeHttpsUrl(item.gameUrl);

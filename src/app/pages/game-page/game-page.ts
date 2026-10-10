@@ -312,8 +312,8 @@ export class GamePage {
     const radius = cell * (0.42 + pulse);
 
     const glow = ctx.createRadialGradient(cx, cy, radius * 0.2, cx, cy, radius * 1.9);
-    glow.addColorStop(0, 'rgb(255 159 51 / 0.45)');
-    glow.addColorStop(1, 'rgb(255 159 51 / 0)');
+    glow.addColorStop(0, 'rgb(255 106 0 / 0.5)');
+    glow.addColorStop(1, 'rgb(255 106 0 / 0)');
     ctx.fillStyle = glow;
     ctx.fillRect(cx - radius * 2, cy - radius * 2, radius * 4, radius * 4);
 

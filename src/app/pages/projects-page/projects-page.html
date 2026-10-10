@@ -2,13 +2,11 @@
   <header class="forest-panel mb-8 flex flex-col gap-6 p-6 sm:p-8">
     <div class="flex flex-wrap items-end justify-between gap-4">
       <div>
-        <p class="forest-eyebrow">Catálogo</p>
-        <h1 class="mt-2 text-5xl leading-none sm:text-6xl">Projetos</h1>
+        <h1 class="text-5xl leading-none sm:text-6xl">Projetos</h1>
       </div>
       @if (summary(); as stats) {
         <ul class="flex flex-wrap gap-2" aria-label="Resumo do catálogo">
-          <li class="arcade-badge arcade-badge--amber">{{ pluralize(stats.caseCount, 'case ativo', 'cases ativos') }}</li>
-          <li class="arcade-badge">{{ pluralize(stats.categoryCount, 'categoria', 'categorias') }}</li>
+          <li class="arcade-badge arcade-badge--amber">{{ pluralize(stats.caseCount, 'case', 'cases') }}</li>
           @if (stats.playableCount > 0) {
             <li class="arcade-badge">{{ pluralize(stats.playableCount, 'jogável', 'jogáveis') }}</li>
           }
