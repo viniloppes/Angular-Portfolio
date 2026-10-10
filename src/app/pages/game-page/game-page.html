@@ -1,0 +1,173 @@
+<main class="page-gutter py-8 sm:py-10">
+  <header class="mb-4 flex flex-wrap items-end justify-between gap-3 sm:mb-6 sm:gap-4">
+    <div>
+      <h1 class="text-4xl leading-none sm:text-6xl">Snake de resina</h1>
+      <p class="mt-2 max-w-xl text-sm leading-relaxed text-muted-foreground sm:mt-3 sm:text-base">
+        Cada resina revela um case do catálogo.
+      </p>
+    </div>
+    @if (galleryState() === 'ready') {
+      <ul class="flex flex-wrap gap-2" aria-label="Sua coleção">
+        <li class="arcade-badge arcade-badge--amber">{{ collectedCount() }}/{{ cases().length }} cases coletados</li>
+      </ul>
+    }
+  </header>
+
+  <div class="arcade">
+    <section class="arcade__board" aria-labelledby="board-title">
+      <h2 id="board-title" class="sr-only">Tabuleiro</h2>
+      <div class="arcade__hud">
+        <span class="arcade-badge">Resinas <strong class="text-[var(--amber-300)]">{{ score() }}</strong></span>
+        <span class="arcade-badge">Recorde <strong class="text-[var(--amber-300)]">{{ best() }}</strong></span>
+        <div class="ml-auto flex gap-2">
+          <button type="button" class="arcade__button" (click)="togglePause()">
+            <i class="pi" [class.pi-pause]="status() === 'running'" [class.pi-play]="status() !== 'running'" aria-hidden="true"></i>
+            <span class="arcade__button-label">{{
+              status() === 'running' ? 'Pausar' : status() === 'paused' ? 'Continuar' : 'Jogar'
+            }}</span>
+          </button>
+          <button type="button" class="arcade__button" (click)="restart()">
+            <i class="pi pi-refresh" aria-hidden="true"></i> <span class="arcade__button-label">Reiniciar</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Celular: resumo da galeria colado ao tabuleiro; a galeria completa fica logo abaixo (aria na galeria). -->
+      <div class="arcade__now" aria-hidden="true">
+        @switch (galleryState()) {
+          @case ('loading') {
+            <span class="text-sm text-muted-foreground">Carregando cases…</span>
+          }
+          @case ('error') {
+            <span class="text-sm text-[var(--ivory)]">Galeria indisponível · resinas âmbar</span>
+          }
+          @case ('empty') {
+            <span class="text-sm text-muted-foreground">Nenhum case publicado · resinas âmbar</span>
+          }
+          @default {
+            @if (revealed(); as current) {
+              <span class="flex min-w-0 flex-col">
+                <span class="label-mono text-[var(--amber-300)]">Case {{ current.index + 1 }} de {{ cases().length }}</span>
+                <span class="truncate text-[var(--ivory)]">{{ current.item.name }}</span>
+              </span>
+            } @else {
+              <span class="text-sm text-muted-foreground">Colete uma resina para revelar um case.</span>
+            }
+          }
+        }
+      </div>
+
+      <div
+        class="arcade__stage"
+        tabindex="0"
+        role="application"
+        aria-roledescription="jogo"
+        aria-label="Tabuleiro do Snake"
+        aria-describedby="arcade-help"
+        (pointerdown)="onPointerDown($event)"
+        (pointermove)="onPointerMove($event)"
+        (pointerup)="onPointerUp($event)"
+        (pointercancel)="onPointerUp($event)"
+      >
+        <canvas #board class="arcade__canvas" aria-hidden="true"></canvas>
+        @if (status() !== 'running') {
+          <div class="arcade__state">
+            <p class="font-display text-3xl leading-none text-[var(--ivory)]">
+              @switch (status()) {
+                @case ('paused') {
+                  Pausado
+                }
+                @case ('over') {
+                  Fim de jogo
+                }
+                @default {
+                  Pronto?
+                }
+              }
+            </p>
+            <p class="text-sm text-[var(--ivory-muted)]">
+              {{ status() === 'over' ? 'Toque ou use uma seta para recomeçar.' : 'Toque ou use uma seta para começar.' }}
+            </p>
+          </div>
+        }
+      </div>
+
+      <p id="arcade-help" class="arcade__help">
+        <span class="arcade__help-desktop">Setas ou WASD movem · Espaço ou P pausa · R reinicia</span>
+        <span class="arcade__help-touch">Deslize para virar</span>
+      </p>
+      <p class="sr-only" aria-live="polite">{{ announcement() }}</p>
+    </section>
+
+    <aside class="arcade__rail" aria-labelledby="rail-title">
+      <div class="flex items-center justify-between gap-3">
+        <h2 id="rail-title" class="forest-eyebrow">Galeria de cases</h2>
+        @if (galleryState() === 'ready' && revealed(); as current) {
+          <span class="arcade-badge" [class.arcade-badge--moss]="current.isNew">
+            {{ current.isNew ? 'Novo na coleção' : 'Já coletado' }}
+          </span>
+        }
+      </div>
+
+      @switch (galleryState()) {
+        @case ('loading') {
+          <div class="arcade__frame arcade__frame--empty" aria-busy="true">
+            <p class="text-sm text-muted-foreground">Carregando cases…</p>
+          </div>
+        }
+        @case ('error') {
+          <div class="arcade__frame arcade__frame--empty" role="alert">
+            <p class="font-semibold text-[var(--ivory)]">Não foi possível carregar a galeria de cases.</p>
+            <p class="text-sm text-muted-foreground">O jogo continua com resinas âmbar.</p>
+            <button type="button" class="arcade__button" (click)="loadCases()">
+              <i class="pi pi-refresh" aria-hidden="true"></i> Tentar novamente
+            </button>
+          </div>
+        }
+        @case ('empty') {
+          <div class="arcade__frame arcade__frame--empty">
+            <p class="text-sm text-muted-foreground">Nenhum case publicado. O jogo continua com resinas âmbar.</p>
+          </div>
+        }
+        @default {
+          @if (revealed(); as current) {
+            <figure class="arcade__figure m-0">
+              <figcaption class="flex flex-col gap-1.5">
+                <span class="label-mono text-[var(--amber-300)]"
+                  >Case {{ current.index + 1 }} de {{ cases().length }} · {{ current.item.category }}</span
+                >
+                <span class="font-display text-[1.75rem] leading-tight text-[var(--ivory)]">{{ current.item.name }}</span>
+                <span class="line-clamp-2 text-sm leading-relaxed text-muted-foreground">{{ current.item.description }}</span>
+              </figcaption>
+            </figure>
+            <div class="flex flex-wrap gap-2">
+              @if (current.item.projectUrl) {
+                <a class="arcade__button" [href]="current.item.projectUrl" target="_blank" rel="noopener noreferrer"
+                  >Visitar projeto <span aria-hidden="true">↗</span></a
+                >
+              }
+              <a class="arcade__button" routerLink="/projects">Ver no catálogo</a>
+            </div>
+          } @else {
+            <div class="arcade__frame arcade__frame--empty">
+              <p class="text-sm text-muted-foreground">Colete a primeira resina para revelar um case.</p>
+            </div>
+          }
+          @if (nextCase(); as upcoming) {
+            <p class="text-sm text-muted-foreground">
+              Próxima resina: <span class="text-[var(--ivory)]">{{ upcoming.name }}</span>
+            </p>
+          }
+          <ol class="arcade__strip" aria-label="Coleção de cases">
+            @for (item of cases(); track item.id) {
+              <li [class.is-collected]="isCollected(item)" [class.is-current]="revealed()?.item?.id === item.id">
+                <span aria-hidden="true">{{ $index + 1 }}</span>
+                <span class="sr-only">{{ item.name }}: {{ isCollected(item) ? 'coletado' : 'ainda não coletado' }}</span>
+              </li>
+            }
+          </ol>
+        }
+      }
+    </aside>
+  </div>
+</main>

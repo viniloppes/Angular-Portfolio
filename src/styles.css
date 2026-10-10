@@ -1,19 +1,78 @@
-@layer theme, base, primeng, components, utilities;
+@layer ng-icon, theme, base, primeng, components, utilities;
 @import 'tailwindcss';
 @import 'tailwindcss-primeui';
 @import 'primeicons/primeicons.css';
+@import './assets/anim-icons/anim-icons.css';
+@import './app/shared/core/css/zard';
+@plugin "tailwindcss-animate";
 
+/* As variantes dark: dos componentes zard/ui valem no tema escuro das rotas públicas. */
+@custom-variant dark (&:is(.forest-shell *, .dark *));
 
 @theme inline {
   --color-page: var(--paper);
   --color-panel: var(--card);
   --color-copy: var(--ink);
-  --color-muted: var(--muted-ink);
-  --color-accent: var(--accent-ink);
+  --color-accent-ink: var(--accent-ink);
   --color-accent-subtle: var(--accent-soft);
   --color-line: var(--border);
   --color-amber-soft: var(--amber-100);
   --color-amber-ink: var(--amber-900);
+
+  /* zard/ui (nomes do shadcn): os valores vêm do bloco de tokens logo abaixo do :root. */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type='number'] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+  }
 }
 
 :root {
@@ -29,6 +88,10 @@
   --amber-700: #a85200;
   --amber-800: #7a3a00;
   --amber-900: #4a2300;
+  /* Laranja neon: só para brilho e bordas acesas, nunca para texto. */
+  --amber-neon: #ff6a00;
+  --glow-amber: 0 0 26px -8px rgb(255 106 0 / 0.6);
+  --glow-amber-strong: 0 0 0 1px var(--amber-neon), 0 0 22px -2px rgb(255 106 0 / 0.8), 0 0 70px -12px rgb(255 106 0 / 0.65);
   --hero-paper: #fdf6ee;
   --accent-fill: var(--amber-500);
   --accent-soft: var(--amber-100);
@@ -43,10 +106,51 @@
   --radius-card: 1.75rem;
   --radius-dialog: 1.75rem;
   --radius-pill: 9999px;
-  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-display: 'Bricolage Grotesque', 'Geist', Arial, sans-serif;
   --font-body: 'Geist', Arial, sans-serif;
   --font-mono: 'Geist Mono', ui-monospace, monospace;
   --gutter: clamp(1rem, 5vw, 4.5rem);
+  --surface-muted: #f5ede4;
+  --destructive: oklch(0.577 0.245 27.325);
+  --destructive-foreground: #fff;
+}
+
+/*
+ * Tokens do zard/ui apontando para a paleta AmberLink. Ficam também no .forest-shell porque
+ * var() resolve no elemento onde é declarado: assim cada tema usa o seu papel, tinta e âmbar.
+ * --card e --border já existem no projeto com o mesmo nome e sentido.
+ */
+:root,
+.forest-shell {
+  --radius: 0.625rem;
+  --background: var(--paper);
+  --foreground: var(--ink);
+  --card-foreground: var(--ink);
+  --popover: var(--card);
+  --popover-foreground: var(--ink);
+  --primary: var(--accent-fill);
+  --primary-foreground: var(--on-accent);
+  --secondary: var(--surface-muted);
+  --secondary-foreground: var(--ink);
+  --muted: var(--surface-muted);
+  --muted-foreground: var(--muted-ink);
+  --accent: var(--accent-soft);
+  --accent-foreground: var(--ink);
+  --input: var(--border);
+  --ring: var(--accent-ink);
+  --chart-1: var(--amber-300);
+  --chart-2: var(--amber-400);
+  --chart-3: var(--amber-500);
+  --chart-4: var(--amber-600);
+  --chart-5: var(--amber-700);
+  --sidebar: var(--card);
+  --sidebar-foreground: var(--ink);
+  --sidebar-primary: var(--accent-fill);
+  --sidebar-primary-foreground: var(--on-accent);
+  --sidebar-accent: var(--accent-soft);
+  --sidebar-accent-foreground: var(--ink);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent-ink);
 }
 
 * {
@@ -74,7 +178,7 @@ h1,
 h2,
 h3 {
   font-family: var(--font-display);
-  font-weight: 400;
+  font-weight: 600;
   letter-spacing: -0.02em;
 }
 
@@ -125,7 +229,7 @@ a.p-button,
   backdrop-filter: blur(28px) saturate(140%);
   background: linear-gradient(135deg, rgb(255 246 236 / 0.72), rgb(255 184 102 / 0.42));
   border: 1px solid rgb(255 255 255 / 0.9);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 16px 40px -12px rgb(217 111 0 / 0.28);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 0 44px -10px rgb(255 106 0 / 0.6);
   color: var(--amber-900);
 }
 
@@ -140,7 +244,7 @@ a.p-button,
   backdrop-filter: blur(28px) saturate(140%);
   background: linear-gradient(135deg, rgb(255 246 236 / 0.72), rgb(255 184 102 / 0.42));
   border: 1px solid rgb(255 255 255 / 0.9);
-  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 16px 40px -12px rgb(217 111 0 / 0.28);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.55), 0 0 44px -10px rgb(255 106 0 / 0.6);
 }
 
 @media (prefers-reduced-transparency: reduce) {
@@ -160,8 +264,47 @@ a.p-button,
   text-transform: uppercase;
 }
 
-.category-filter-button {
+.category-chip {
+  align-items: center;
+  background: rgb(9 11 8 / 0.5);
+  border: 1px solid rgb(245 232 204 / 0.2);
   border-radius: var(--radius-pill);
+  color: var(--ivory-muted, var(--muted-ink));
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.9375rem;
+  gap: 0.625rem;
+  min-height: 2.75rem;
+  padding: 0.5rem 0.625rem 0.5rem 1.125rem;
+  transition: border-color 160ms ease, color 160ms ease, background-color 160ms ease, box-shadow 160ms ease;
+}
+
+.category-chip:hover {
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber);
+  color: var(--ivory, var(--ink));
+}
+
+.category-chip.is-active {
+  background: rgb(255 106 0 / 0.2);
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber-strong);
+  color: var(--ivory, var(--ink));
+}
+
+.category-chip__count {
+  background: rgb(245 232 204 / 0.12);
+  border-radius: var(--radius-pill);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  min-width: 1.75rem;
+  padding: 0.2rem 0.5rem;
+  text-align: center;
+}
+
+.category-chip.is-active .category-chip__count {
+  background: var(--amber-300);
+  color: #090b08;
 }
 
 .admin-login { grid-template-columns: minmax(0, 1fr); }
@@ -199,6 +342,13 @@ a.p-button,
     scroll-behavior: auto !important;
     transition-duration: 0.01ms !important;
   }
+  /* Exceção: microanimações curtas, pequenas e disparadas pelo próprio hover continuam tocando. */
+  .topbar-nav .topbar-link::after {
+    transition-duration: 260ms !important;
+  }
+  .anim-icon {
+    animation-duration: var(--anim-icon-duration) !important;
+  }
 }
 
 .font-display {
@@ -213,4 +363,278 @@ a.p-button,
 .p-button.p-button-text:not(.p-button-contrast),
 .p-button.p-button-outlined:not(.p-button-contrast) {
   color: var(--amber-700);
+}
+
+/* ------------------------------------------------------------------
+   Amber Forest Arcade: tema das rotas públicas (comp lobby-bento).
+   Os tokens semânticos são redefinidos no escopo .forest-shell, então
+   componentes que já usam var(--card)/var(--ink) mudam juntos e o admin,
+   fora do Layout, continua no tema claro.
+   ------------------------------------------------------------------ */
+.forest-shell {
+  --forest-950: #090b08;
+  --forest-900: #11110e;
+  --forest-850: #161a14;
+  --forest-800: #1d2419;
+  --forest-700: #2b3424;
+  --moss-300: #b7c69c;
+  --ivory: #f5e8cc;
+  --ivory-muted: #c7bca6;
+  --paper: var(--forest-900);
+  --card: var(--forest-850);
+  --ink: var(--ivory);
+  --muted-ink: var(--ivory-muted);
+  --surface-muted: var(--forest-800);
+  --destructive: oklch(0.704 0.191 22.216);
+  --destructive-foreground: var(--forest-950);
+  --border: rgb(245 232 204 / 0.14);
+  --accent-ink: var(--amber-300);
+  --accent-soft: rgb(255 159 51 / 0.16);
+  --hero-paper: transparent;
+  --p-skeleton-background: rgb(245 232 204 / 0.08);
+  --p-skeleton-animation-background: rgb(245 232 204 / 0.06);
+  background:
+    radial-gradient(ellipse 92rem 32rem at 50% 0, rgb(67 43 17 / 0.25), transparent 78%),
+    var(--forest-950);
+  color: var(--ink);
+  color-scheme: dark;
+  isolation: isolate;
+  min-height: 100dvh;
+  position: relative;
+}
+
+html:has(.forest-shell),
+html:has(.forest-shell) body {
+  background: #11110e;
+  color-scheme: dark;
+  scrollbar-color: #2b3424 #11110e;
+}
+
+.forest-shell ::selection {
+  background: var(--amber-400);
+  color: var(--forest-950);
+}
+
+.forest-shell :focus-visible {
+  outline-color: var(--amber-300);
+}
+
+.forest-shell .p-button.p-button-text:not(.p-button-contrast),
+.forest-shell .p-button.p-button-outlined:not(.p-button-contrast) {
+  color: var(--amber-300);
+}
+
+.forest-shell .p-button.p-button-text:not(:disabled):hover {
+  background: rgb(255 184 102 / 0.12);
+}
+
+/* Superfícies de vidro escuro: texto marfim sempre sobre fundo quase opaco (contraste AA mesmo sobre a foto). */
+.forest-panel {
+  -webkit-backdrop-filter: blur(18px) saturate(120%);
+  backdrop-filter: blur(18px) saturate(120%);
+  background: linear-gradient(160deg, rgb(29 36 25 / 0.86), rgb(14 17 12 / 0.9));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  box-shadow: inset 0 1px 0 rgb(245 232 204 / 0.06), 0 24px 60px -30px rgb(0 0 0 / 0.8), var(--glow-amber);
+}
+
+.forest-eyebrow {
+  color: var(--amber-300);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* Selo do catálogo: só recebe números derivados dos dados carregados. */
+.arcade-badge {
+  align-items: center;
+  background: rgb(9 11 8 / 0.6);
+  border: 1px solid rgb(255 184 102 / 0.35);
+  border-radius: var(--radius-pill);
+  color: var(--ivory);
+  display: inline-flex;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  gap: 0.4rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  padding: 0.45rem 0.7rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.arcade-badge--amber {
+  background: var(--amber-300);
+  border-color: var(--amber-300);
+  box-shadow: var(--glow-amber);
+  color: var(--forest-950);
+}
+
+.arcade-badge--moss {
+  border-color: rgb(183 198 156 / 0.45);
+  color: var(--moss-300);
+}
+
+/* Botão-pílula com contorno âmbar (ação "Ver projetos" do lobby e links secundários). */
+.amber-outline-action {
+  align-items: center;
+  background: rgb(9 11 8 / 0.45);
+  border: 1.5px solid var(--amber-400);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--glow-amber);
+  color: var(--ivory);
+  display: inline-flex;
+  font-weight: 500;
+  gap: 0.75rem;
+  min-height: 3.25rem;
+  padding: 0.75rem 1.5rem 0.75rem 1.75rem;
+  text-decoration: none;
+  transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.amber-outline-action:hover {
+  background: rgb(255 106 0 / 0.16);
+  border-color: var(--amber-neon);
+  box-shadow: var(--glow-amber-strong);
+}
+
+.amber-outline-action .anim-icon {
+  --anim-icon-size: 1.1em;
+}
+
+.topbar-link {
+  align-items: center;
+  border-radius: var(--radius-pill);
+  color: var(--ivory-muted);
+  display: inline-flex;
+  flex-shrink: 0;
+  gap: 0.5rem;
+  min-height: 2.75rem;
+  padding-inline: 1rem;
+  position: relative;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+/* Barra da navegação: abre do centro para as pontas no hover e fica cheia na página atual. */
+.topbar-nav .topbar-link::after {
+  background: var(--amber-neon);
+  bottom: 0.375rem;
+  content: '';
+  height: 2px;
+  inset-inline: 1rem;
+  position: absolute;
+  transform: scaleX(0);
+  transition: transform 260ms ease-out;
+}
+
+.topbar-nav .topbar-link:hover::after,
+.topbar-nav .topbar-link:focus-visible::after,
+.topbar-nav .topbar-link.is-active::after {
+  transform: scaleX(1);
+}
+
+@media (max-width: 639px) {
+  .topbar-link {
+    padding-inline: 0.625rem;
+  }
+  .topbar-nav .topbar-link::after {
+    inset-inline: 0.625rem;
+  }
+}
+
+.topbar-link:hover,
+.topbar-link.is-active {
+  color: var(--ivory);
+}
+
+.topbar-link__dot {
+  background: var(--amber-neon);
+  border-radius: 2px;
+  box-shadow: 0 0 12px 1px rgb(255 106 0 / 0.9);
+  height: 0.5rem;
+  width: 0.5rem;
+}
+
+/* Menu mobile: botão do topbar e gaveta (z-sheet) com a pele AmberLink. */
+.topbar-toggle {
+  align-items: center;
+  border-radius: var(--radius-pill);
+  color: var(--ivory);
+  display: inline-flex;
+  font-size: 1.5rem;
+  height: 2.75rem;
+  justify-content: center;
+  transition: color 160ms ease;
+  width: 2.75rem;
+}
+
+.topbar-toggle:hover {
+  color: var(--amber-neon);
+}
+
+/* Fora de @layer, o display acima vence o sm:hidden do Tailwind; o corte fica aqui. */
+@media (min-width: 640px) {
+  .topbar-toggle--mobile {
+    display: none;
+  }
+}
+
+/* O overlay do CDK é anexado ao body, fora de .forest-shell, então os tokens
+   do tema escuro não chegam aqui e precisam ser redeclarados no painel. */
+z-sheet-panel.topbar-drawer {
+  --forest-850: #161a14;
+  --ivory: #f5e8cc;
+  --ivory-muted: #c7bca6;
+  background: var(--forest-850);
+  color-scheme: dark;
+  border-color: rgb(245 232 204 / 0.14);
+  color: var(--ivory-muted);
+  gap: 0.5rem;
+}
+
+.topbar-drawer [data-slot='sheet-title'] {
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.cdk-overlay-container:has(.topbar-drawer) .cdk-overlay-backdrop {
+  background: rgb(9 11 8 / 0.6);
+}
+
+.topbar-drawer__link {
+  align-items: center;
+  border-inline-start: 2px solid transparent;
+  color: var(--ivory-muted);
+  display: flex;
+  font-size: 1.0625rem;
+  gap: 0.625rem;
+  min-height: 3rem;
+  padding-inline: 0.875rem;
+  text-decoration: none;
+  transition:
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.topbar-drawer__link:hover,
+.topbar-drawer__link.is-active {
+  color: var(--ivory);
+}
+
+.topbar-drawer__link.is-active {
+  border-inline-start-color: var(--amber-neon);
+}
+
+@media (prefers-reduced-transparency: reduce) {
+  .forest-panel {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    background: var(--forest-850);
+  }
 }

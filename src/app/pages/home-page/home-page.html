@@ -1,107 +1,118 @@
 <main>
-  <section
-    class="relative isolate overflow-hidden bg-[var(--hero-paper)]"
-    aria-labelledby="home-title"
-  >
-    <div
-      class="page-gutter relative z-10 grid min-h-[min(46rem,calc(100dvh-4.5rem))] items-center gap-10 py-14 lg:grid-cols-2 lg:py-20"
-    >
-      <div class="flex max-w-xl flex-col items-start gap-7">
-        <ul class="flex flex-wrap gap-2" aria-label="Áreas">
-          @for (area of areas; track area) {
-            <li class="label-mono rounded-full bg-amber-soft px-3.5 py-2 text-amber-ink">{{ area }}</li>
+  <section class="page-gutter lobby" aria-labelledby="home-title">
+    <div class="lobby__intro">
+      <ul class="flex flex-wrap gap-2" aria-label="Áreas">
+        @for (area of areas; track area) {
+          <li class="arcade-badge">{{ area }}</li>
+        }
+      </ul>
+      <div>
+        <h1 id="home-title" class="lobby__name">Vinicius Lopes</h1>
+        <span class="lobby__rule" aria-hidden="true"></span>
+        <p class="font-display text-3xl leading-[1.15] text-[var(--amber-300)] sm:text-4xl">Full Stack · Angular, C# e .NET</p>
+      </div>
+      <p class="max-w-md text-lg leading-relaxed text-muted-foreground">
+        Criando aplicações web, desktop, mobile e jogos.
+      </p>
+      <div class="flex flex-wrap gap-3">
+        <a class="amber-outline-action anim-icon-trigger" routerLink="/projects"
+          >Ver projetos <span class="anim-icon anim-icon--arrow-right" aria-hidden="true"></span
+        ></a>
+        <a class="topbar-link min-h-[3.25rem] underline-offset-4 hover:underline" routerLink="/home" fragment="sobre">Sobre mim</a>
+      </div>
+    </div>
+
+    <nav class="route-board" aria-label="Escolha um destino">
+      @for (route of routes; track route.id) {
+        <a
+          [class]="'route-card anim-icon-trigger route-card--' + route.id"
+          [routerLink]="route.link"
+          [fragment]="route.fragment"
+        >
+          <span class="route-card__icon" aria-hidden="true">
+            @switch (route.id) {
+              @case ('projects') {
+                <span class="anim-icon anim-icon--cube"></span>
+              }
+              @case ('about') {
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                  <path d="M6 26C6 13 14 5 27 5c0 13-8 21-21 21Z" />
+                  <path d="M6 26 19 13" />
+                </svg>
+              }
+              @case ('articles') {
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                  <path d="M16 8c-3-2.5-7-3-12-3v20c5 0 9 .5 12 3 3-2.5 7-3 12-3V5c-5 0-9 .5-12 3Z" />
+                  <path d="M16 8v20" />
+                </svg>
+              }
+              @case ('contact') {
+                <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round">
+                  <rect x="4" y="7" width="24" height="18" rx="2" />
+                  <path d="m4.5 8 11.5 9 11.5-9" />
+                </svg>
+              }
+              @case ('game') {
+                <svg viewBox="0 0 32 32" fill="currentColor">
+                  <rect x="5" y="6" width="5" height="5" />
+                  <rect x="5" y="12" width="5" height="5" />
+                  <rect x="11" y="12" width="5" height="5" />
+                  <rect x="11" y="18" width="5" height="5" />
+                  <rect x="17" y="18" width="5" height="5" />
+                  <rect x="23" y="18" width="5" height="5" opacity=".55" />
+                </svg>
+              }
+            }
+          </span>
+          <span class="route-card__label">{{ route.label }}</span>
+          @if (badgeFor(route.id); as badge) {
+            <span class="arcade-badge route-card__badge">{{ badge }}</span>
           }
-        </ul>
-        <div>
-          <h1 id="home-title" class="text-6xl leading-none sm:text-7xl lg:text-[7rem]">Vinícius Lopes</h1>
-          <p class="font-display pb-1 text-4xl leading-[1.15] text-[var(--amber-600)] italic sm:text-5xl lg:text-6xl">
-            código, movimento e luz
-          </p>
+          <span class="route-card__arrow" aria-hidden="true"><span class="anim-icon anim-icon--chevron-right"></span></span>
+        </a>
+      }
+    </nav>
+  </section>
+
+  <section class="page-gutter pb-16 md:pb-20" aria-labelledby="cases-title">
+    <div>
+      <div class="mb-6 flex flex-wrap items-end justify-between gap-4">
+        <div class="flex min-w-0 flex-1 items-center gap-3">
+          <div class="min-w-0">
+            <h2 id="cases-title" class="text-4xl leading-none md:text-5xl">Trabalhos recentes</h2>
+            <p class="mt-3 max-w-xl leading-relaxed text-muted-foreground">
+              Sites para clientes, protótipos de jogos e estudos de interface.
+            </p>
+          </div>
         </div>
-        <p class="max-w-md text-lg leading-relaxed text-muted">
-          Desenvolvimento criativo entre web, jogos e interação. Projetos para clientes, estudos e protótipos.
-        </p>
-        <div class="flex flex-wrap gap-3">
-          <a pButton routerLink="/projects"
-            ><span pButtonLabel>Ver projetos</span><i class="pi pi-arrow-right" aria-hidden="true"></i
-          ></a>
-          <a pButton [outlined]="true" severity="contrast" routerLink="/home" fragment="sobre"
-            ><span pButtonLabel>Sobre mim</span></a
-          >
-        </div>
+        <a class="amber-outline-action anim-icon-trigger w-full justify-center sm:w-auto" routerLink="/projects"
+          >Todos os projetos <span class="anim-icon anim-icon--arrow-right" aria-hidden="true"></span
+        ></a>
       </div>
-    </div>
-    <app-amber-scene
-      class="mx-auto -mt-6 aspect-square w-[min(88vw,30rem)] lg:absolute lg:top-1/2 lg:right-[-4%] lg:mt-0 lg:w-[min(58vw,58rem)] lg:-translate-y-1/2"
-      variant="stone"
-      poster="/amberlink/amber-stone.webp"
-      fit="contain"
-      [priority]="true"
-      [enable3d]="false"
-    />
-  </section>
-
-  <section id="sobre" class="grid md:grid-cols-[4fr_5fr]" aria-labelledby="about-title">
-    <div class="page-gutter flex flex-col justify-center gap-4 bg-panel py-16 md:py-20">
-      <h2 class="text-4xl leading-tight sm:text-5xl">Web, jogos e interação</h2>
-      <p class="max-w-md leading-relaxed text-muted">
-        Sites para clientes, protótipos de jogos e estudos de interface, lado a lado.
-      </p>
-    </div>
-    <div class="page-gutter flex flex-col justify-center gap-4 bg-[var(--ink)] py-16 md:py-20">
-      <h2 id="about-title" class="sr-only">Sobre</h2>
-      <p class="max-w-xl text-2xl leading-snug font-semibold tracking-tight text-[var(--amber-50)] sm:text-[1.75rem]">
-        Sou Vinícius, desenvolvedor. Construo sites, jogos e experimentos interativos, do primeiro protótipo até a
-        publicação.
-      </p>
+      <app-case-gallery
+        variant="strip"
+        [cases]="cases()"
+        [loading]="loading()"
+        [errorMessage]="errorMessage()"
+        [limit]="3"
+        (retry)="loadCases()"
+      />
     </div>
   </section>
 
-  <section class="relative isolate" aria-labelledby="cases-title">
-    <app-amber-scene
-      class="h-[24rem] w-full md:h-[35rem]"
-      variant="ribbons"
-      poster="/amberlink/amber-flow.webp"
-      [enable3d]="false"
-    />
-    <div class="page-gutter absolute inset-x-0 bottom-10 z-10 md:bottom-16">
-      <div class="amber-glass-panel max-w-lg rounded-[1.25rem] px-8 py-7 md:px-10 md:py-9">
-        <h2 id="cases-title" class="text-5xl leading-none text-amber-ink md:text-6xl">Trabalhos recentes</h2>
-        <p class="mt-3 text-lg leading-relaxed text-[var(--amber-800)]">
-          Sites para clientes, protótipos de jogos e estudos de interface.
-        </p>
+  <app-home-story />
+
+  <section appScrollReveal class="page-gutter pb-20 md:pb-28" aria-labelledby="contact-title">
+    <div class="forest-panel flex flex-wrap items-center justify-between gap-8 p-8 md:p-12">
+      <h2 id="contact-title" class="text-5xl leading-none md:text-6xl">Onde me encontrar</h2>
+      <div class="flex flex-wrap gap-3">
+        <a class="amber-outline-action anim-icon-trigger" href="https://www.linkedin.com/in/viniloppes/" target="_blank" rel="noopener noreferrer"
+          >LinkedIn <span class="anim-icon anim-icon--arrow-up-right" aria-hidden="true"></span
+        ></a>
+        <a class="amber-outline-action anim-icon-trigger" href="https://github.com/viniloppes" target="_blank" rel="noopener noreferrer"
+          >GitHub <span class="anim-icon anim-icon--arrow-up-right" aria-hidden="true"></span
+        ></a>
       </div>
-    </div>
-  </section>
-
-  <section id="cases" class="page-gutter py-16 md:py-20" aria-label="Projetos em destaque">
-    <app-case-gallery
-      [cases]="cases()"
-      [loading]="loading()"
-      [errorMessage]="errorMessage()"
-      [limit]="3"
-      (retry)="loadCases()"
-    />
-    <div class="mt-12 flex justify-center">
-      <a pButton severity="contrast" routerLink="/projects"
-        ><span pButtonLabel>Todos os projetos</span><i class="pi pi-arrow-right" aria-hidden="true"></i
-      ></a>
-    </div>
-  </section>
-
-  <section
-    appScrollReveal
-    class="page-gutter flex flex-wrap items-center justify-between gap-8 bg-[linear-gradient(90deg,var(--amber-100),var(--amber-300))] py-20 md:py-28"
-    aria-labelledby="contact-title"
-  >
-    <h2 id="contact-title" class="text-5xl leading-none text-amber-ink md:text-6xl">Onde me encontrar</h2>
-    <div class="flex flex-wrap gap-3">
-      <a pButton class="amber-glass" href="https://www.linkedin.com/in/viniloppes/" target="_blank" rel="noopener noreferrer"
-        ><span pButtonLabel>LinkedIn</span><i class="pi pi-arrow-up-right" aria-hidden="true"></i
-      ></a>
-      <a pButton class="amber-glass" href="https://github.com/viniloppes" target="_blank" rel="noopener noreferrer"
-        ><span pButtonLabel>GitHub</span><i class="pi pi-arrow-up-right" aria-hidden="true"></i
-      ></a>
     </div>
   </section>
 </main>

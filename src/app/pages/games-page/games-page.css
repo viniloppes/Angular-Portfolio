@@ -1,0 +1,41 @@
+.games-page {
+  display: grid;
+  gap: clamp(2.75rem, 7vw, 5.5rem);
+}
+
+.games-heading {
+  padding-block: 0.5rem;
+}
+
+.games-heading h1 {
+  color: var(--ivory);
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  letter-spacing: -0.045em;
+  line-height: 0.96;
+  margin: 0;
+}
+
+.games-heading p {
+  color: var(--ivory-muted);
+  line-height: 1.65;
+  margin: 1rem 0 0;
+}
+
+.games-notice {
+  color: var(--ivory-muted);
+  font-size: 0.875rem;
+  margin: 1.25rem 0 0;
+}
+
+.games-notice button {
+  background: none;
+  border: 0;
+  color: var(--amber-300);
+  cursor: pointer;
+  min-height: 2.75rem;
+  padding: 0 0.25rem;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+

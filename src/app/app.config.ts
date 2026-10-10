@@ -5,6 +5,7 @@ import Aura from '@primeuix/themes/aura';
 import { definePreset } from '@primeuix/themes';
 
 import { routes } from './app.routes';
+import { provideZard } from '@/shared/core/provider/providezard';
 
 // Âmbar AmberLink (mesma escala das variáveis do Figma)
 const portfolioTheme = definePreset(Aura, {
@@ -64,5 +65,6 @@ export const appConfig: ApplicationConfig = {
         },
       },
     }),
+    provideZard(),
   ],
 };

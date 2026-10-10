@@ -11,11 +11,16 @@ import {
   inject,
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Router } from '@angular/router';
+import { CaseProgressService } from '../../core/case-progress.service';
 import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
+import { isPlayableCase, playableGameUrl } from '../../core/playable-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
 
-type MediaMode = 'image' | 'video' | 'game';
+type MediaMode = 'details' | 'video' | 'game';
+/** bento: grade com blocos de tamanhos variados (Projetos); strip: fileira compacta (Trabalhos recentes). */
+export type CaseGalleryVariant = 'bento' | 'strip';
 
 @Component({
   selector: 'app-case-gallery',
@@ -28,14 +33,21 @@ export class CaseGallery {
   @Input() loading = false;
   @Input() errorMessage = '';
   @Input() limit?: number;
+  @Input() variant: CaseGalleryVariant = 'bento';
+  @Input() collectionLabel = 'projetos';
+  @Input() itemLabel = 'projeto';
+  /** Desligue onde todos os itens são jogos e o selo só repetiria o título da página. */
+  @Input() showPlayableBadge = true;
   @Output() retry = new EventEmitter<void>();
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
   private readonly sanitizer = inject(DomSanitizer);
   private readonly portfolio = inject(PortfolioDataService);
+  private readonly progress = inject(CaseProgressService);
+  private readonly router = inject(Router);
 
   selectedCase: PortfolioCase | null = null;
-  mediaMode: MediaMode = 'image';
+  mediaMode: MediaMode = 'details';
   videoUrl: SafeResourceUrl | null = null;
   gameUrl: SafeResourceUrl | null = null;
 
@@ -43,11 +55,33 @@ export class CaseGallery {
     return this.limit ? this.cases.slice(0, this.limit) : this.cases;
   }
 
+  get loadingSlots(): number[] {
+    return Array.from({ length: this.limit ?? 6 }, (_, index) => index);
+  }
+
+  isCollected(item: PortfolioCase): boolean {
+    return this.progress.has(item.id);
+  }
+
+  isPlayable(item: PortfolioCase): boolean {
+    return Boolean(item.routeUrl) || isPlayableCase(item);
+  }
+
+  playableHref(item: PortfolioCase): string | null {
+    return playableGameUrl(item.gameUrl);
+  }
+
   openCase(item: PortfolioCase): void {
+    if (item.routeUrl) {
+      void this.router.navigateByUrl(item.routeUrl);
+      return;
+    }
+
     this.selectedCase = item;
     this.videoUrl = this.toYouTubeEmbed(item.youtubeUrl);
     this.gameUrl = this.toSafeHttpsUrl(item.gameUrl);
-    this.mediaMode = this.videoUrl ? 'video' : this.gameUrl ? 'game' : 'image';
+    // A capa abre primeiro; vídeo e jogo só carregam pelos controles do diálogo.
+    this.mediaMode = 'details';
 
     queueMicrotask(() => {
       if (this.caseDialog && !this.caseDialog.nativeElement.open) {
@@ -104,14 +138,7 @@ export class CaseGallery {
   }
 
   private toSafeHttpsUrl(value?: string | null): SafeResourceUrl | null {
-    if (!value) return null;
-
-    try {
-      const url = new URL(value);
-      if (url.protocol !== 'https:') return null;
-      return this.sanitizer.bypassSecurityTrustResourceUrl(url.toString());
-    } catch {
-      return null;
-    }
+    const url = playableGameUrl(value);
+    return url ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : null;
   }
 }

@@ -1,22 +1,40 @@
-<main class="page-gutter min-h-[65vh] py-12 sm:py-16">
-  <h1 class="text-4xl font-semibold tracking-tight sm:text-5xl">Projetos</h1>
-  <nav class="my-8 flex flex-wrap gap-2" aria-label="Filtrar projetos por categoria">
-    @for (category of categories(); track category) {
-      <button
-        pButton
-        type="button"
-        size="small"
-        class="category-filter-button min-h-11"
-        [class.p-button-outlined]="activeCategory() === category"
-        [class.p-button-text]="activeCategory() !== category"
-        [attr.aria-pressed]="activeCategory() === category"
-        (click)="setCategory(category)"
-      >
-        <span pButtonLabel>{{ category }}</span>
-      </button>
-    }
-  </nav>
+<main class="page-gutter min-h-[65vh] py-10 sm:py-14">
+  <header class="forest-panel mb-8 flex flex-col gap-6 p-6 sm:p-8">
+    <div class="flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <h1 class="text-5xl leading-none sm:text-6xl">Projetos</h1>
+      </div>
+      @if (summary(); as stats) {
+        <ul class="flex flex-wrap gap-2" aria-label="Resumo do catálogo">
+          <li class="arcade-badge arcade-badge--amber">{{ pluralize(stats.caseCount, 'case', 'cases') }}</li>
+          @if (stats.playableCount > 0) {
+            <li class="arcade-badge">{{ pluralize(stats.playableCount, 'jogável', 'jogáveis') }}</li>
+          }
+          @if (collectedCount() > 0) {
+            <li class="arcade-badge arcade-badge--moss">{{ collectedCount() }}/{{ stats.caseCount }} coletados no Snake</li>
+          }
+        </ul>
+      }
+    </div>
+    <nav class="flex flex-wrap gap-2" aria-label="Filtrar projetos por categoria">
+      @for (category of categories(); track category.name) {
+        <button
+          type="button"
+          class="category-chip"
+          [class.is-active]="activeCategory() === category.name"
+          [attr.aria-pressed]="activeCategory() === category.name"
+          (click)="setCategory(category.name)"
+        >
+          <span>{{ category.name }}</span>
+          @if (category.count !== null) {
+            <span class="category-chip__count" [attr.aria-label]="pluralize(category.count, 'case', 'cases')">{{ category.count }}</span>
+          }
+        </button>
+      }
+    </nav>
+  </header>
   <app-case-gallery
+    variant="bento"
     [cases]="visibleCases()"
     [loading]="loading()"
     [errorMessage]="errorMessage()"
