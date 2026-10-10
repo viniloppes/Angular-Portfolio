@@ -33,7 +33,6 @@ export class CaseGallery {
   @Input() errorMessage = '';
   @Input() limit?: number;
   @Input() variant: CaseGalleryVariant = 'bento';
-  @Input() preferMedia: 'video' | 'game' | null = null;
   @Input() collectionLabel = 'projetos';
   @Input() itemLabel = 'projeto';
   @Output() retry = new EventEmitter<void>();
@@ -72,12 +71,8 @@ export class CaseGallery {
     this.selectedCase = item;
     this.videoUrl = this.toYouTubeEmbed(item.youtubeUrl);
     this.gameUrl = this.toSafeHttpsUrl(item.gameUrl);
-    this.mediaMode =
-      this.preferMedia === 'game' && this.gameUrl
-        ? 'game'
-        : this.preferMedia === 'video' && this.videoUrl
-          ? 'video'
-          : 'details';
+    // A capa abre primeiro; vídeo e jogo só carregam pelos controles do diálogo.
+    this.mediaMode = 'details';
 
     queueMicrotask(() => {
       if (this.caseDialog && !this.caseDialog.nativeElement.open) {
