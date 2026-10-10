@@ -34,19 +34,30 @@
           [attr.aria-label]="'Abrir projeto: ' + item.name"
         >
           <span class="case-card__media">
-            <span class="case-card__index">CASE / {{ item.sortOrder.toString().padStart(2, '0') }}</span>
-            <span class="case-card__badges" aria-hidden="true">
-              @if (isCollected(item)) {
-                <span class="arcade-badge arcade-badge--moss">Coletado</span>
-              }
-              @if (isPlayable(item)) {
-                <span class="arcade-badge">Jogável</span>
-              }
-              @if (item.youtubeUrl) {
-                <span class="arcade-badge">Vídeo</span>
-              }
+            <img
+              class="case-card__thumbnail"
+              [src]="imageUrl(item.thumbnailUrl)"
+              alt=""
+              width="96"
+              height="72"
+              loading="lazy"
+              decoding="async"
+            />
+            <span class="case-card__meta">
+              <span class="case-card__index">CASE / {{ item.sortOrder.toString().padStart(2, '0') }}</span>
+              <span class="case-card__badges" aria-hidden="true">
+                @if (isCollected(item)) {
+                  <span class="arcade-badge arcade-badge--moss">Coletado</span>
+                }
+                @if (isPlayable(item)) {
+                  <span class="arcade-badge">Jogável</span>
+                }
+                @if (item.youtubeUrl) {
+                  <span class="arcade-badge">Vídeo</span>
+                }
+              </span>
+              <span class="case-card__open" aria-hidden="true"><i class="pi pi-arrow-up-right"></i></span>
             </span>
-            <span class="case-card__open" aria-hidden="true"><i class="pi pi-arrow-up-right"></i></span>
           </span>
           <span class="case-card__content relative flex w-full flex-col items-start gap-2.5">
             <span class="case-card__category label-mono">{{ item.category }}</span>
@@ -93,28 +104,40 @@
 
       <div class="case-dialog__body">
         <div class="case-dialog__media">
-          @if (videoUrl && gameUrl) {
+          @if (videoUrl || gameUrl) {
             <div
               class="case-media-switch"
               role="group"
-              aria-label="Escolha como explorar o projeto"
+              aria-label="Escolha o conteúdo do projeto"
             >
               <button
                 type="button"
-                [class.is-active]="mediaMode === 'video'"
-                [attr.aria-pressed]="mediaMode === 'video'"
-                (click)="setMediaMode('video')"
+                [class.is-active]="mediaMode === 'details'"
+                [attr.aria-pressed]="mediaMode === 'details'"
+                (click)="setMediaMode('details')"
               >
-                Ver filme
+                Ver capa
               </button>
-              <button
-                type="button"
-                [class.is-active]="mediaMode === 'game'"
-                [attr.aria-pressed]="mediaMode === 'game'"
-                (click)="setMediaMode('game')"
-              >
-                Jogar no navegador
-              </button>
+              @if (videoUrl) {
+                <button
+                  type="button"
+                  [class.is-active]="mediaMode === 'video'"
+                  [attr.aria-pressed]="mediaMode === 'video'"
+                  (click)="setMediaMode('video')"
+                >
+                  Assistir
+                </button>
+              }
+              @if (gameUrl) {
+                <button
+                  type="button"
+                  [class.is-active]="mediaMode === 'game'"
+                  [attr.aria-pressed]="mediaMode === 'game'"
+                  (click)="setMediaMode('game')"
+                >
+                  Jogar
+                </button>
+              }
             </div>
           }
           <div class="case-media-frame" [class.case-media-frame--details]="mediaMode === 'details'">
@@ -145,10 +168,12 @@
                 allowfullscreen
               ></iframe>
             } @else {
-              <div class="case-media-detail">
-                <span class="case-dialog__eyebrow">{{ item.category }}</span>
-                <h3>{{ item.name }}</h3>
-              </div>
+              <img
+                [src]="imageUrl(item.thumbnailUrl)"
+                [alt]="'Capa do projeto ' + item.name"
+                width="1200"
+                height="900"
+              />
             }
           </div>
           @if (isPlayable(item) && mediaMode === 'game') {

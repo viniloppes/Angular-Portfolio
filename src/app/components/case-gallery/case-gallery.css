@@ -1,4 +1,4 @@
-/* Lista editorial sem miniaturas: texto e categoria definem cada projeto. */
+/* Capas pequenas acompanham o conteúdo textual dos cards. */
 .case-grid {
   display: grid;
   gap: 1rem;
@@ -54,9 +54,27 @@
   flex: none;
   flex-wrap: wrap;
   gap: 0.5rem;
-  justify-content: space-between;
   min-height: 4.5rem;
   padding: 0.75rem 1rem;
+}
+
+.case-card__thumbnail {
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  flex: none;
+  object-fit: cover;
+  width: 4.5rem;
+}
+
+.case-card__meta {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: space-between;
+  min-width: 0;
 }
 
 .case-card__index {
@@ -243,23 +261,15 @@
 }
 
 .case-media-frame--details {
-  align-items: center;
-  aspect-ratio: auto;
-  background:
-    radial-gradient(ellipse at 90% 20%, rgb(255 159 51 / 0.14), transparent 42%),
-    var(--forest-950);
-  display: flex;
+  background: var(--forest-950);
   min-height: 14rem;
-  padding: clamp(1.25rem, 4vw, 3rem);
 }
 
-.case-media-detail h3 {
-  color: var(--ivory);
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: -0.04em;
-  line-height: 1;
-  margin: 0.75rem 0 0;
+.case-media-frame--details img {
+  display: block;
+  height: 100%;
+  object-fit: contain;
+  width: 100%;
 }
 
 .case-dialog__hint {

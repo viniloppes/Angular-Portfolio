@@ -12,6 +12,7 @@ import {
 } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CaseProgressService } from '../../core/case-progress.service';
+import { PortfolioDataService } from '../../core/portfolio-data.service';
 import { PortfolioCase } from '../../core/portfolio-case';
 import { isPlayableCase, playableGameUrl } from '../../core/playable-case';
 import { ScrollRevealDirective } from '../../shared/scroll-reveal.directive';
@@ -39,6 +40,7 @@ export class CaseGallery {
   @ViewChild('caseDialog') private caseDialog?: ElementRef<HTMLDialogElement>;
 
   private readonly sanitizer = inject(DomSanitizer);
+  private readonly portfolio = inject(PortfolioDataService);
   private readonly progress = inject(CaseProgressService);
 
   selectedCase: PortfolioCase | null = null;
@@ -75,11 +77,7 @@ export class CaseGallery {
         ? 'game'
         : this.preferMedia === 'video' && this.videoUrl
           ? 'video'
-          : this.videoUrl
-            ? 'video'
-            : this.gameUrl
-              ? 'game'
-              : 'details';
+          : 'details';
 
     queueMicrotask(() => {
       if (this.caseDialog && !this.caseDialog.nativeElement.open) {
@@ -100,6 +98,10 @@ export class CaseGallery {
     this.selectedCase = null;
     this.videoUrl = null;
     this.gameUrl = null;
+  }
+
+  imageUrl(path: string): string {
+    return this.portfolio.imageUrl(path);
   }
 
   setMediaMode(mode: MediaMode): void {
